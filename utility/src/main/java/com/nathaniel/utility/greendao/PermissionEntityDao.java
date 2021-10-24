@@ -19,6 +19,15 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
 
     public static final String TABLENAME = "PERMISSION_ENTITY";
 
+    public PermissionEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public PermissionEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
     /**
      * Creates the underlying database table.
      */
@@ -31,15 +40,6 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
             "\"PERMISSION_DESC\" TEXT," + // 3: permission_desc
             "\"PERMISSION_LEVEL\" INTEGER NOT NULL ," + // 4: permission_level
             "\"PERMISSION_HARM\" TEXT);"); // 5: permission_harm
-    }
-
-
-    public PermissionEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public PermissionEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
     }
 
     /**
@@ -117,7 +117,7 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
         entity.setPermission_desc(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setPermission_level(cursor.getInt(offset + 4));
         entity.setPermission_harm(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-    }
+     }
 
     @Override
     public PermissionEntity readEntity(Cursor cursor, int offset) {
@@ -131,7 +131,13 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
         );
         return entity;
     }
-     
+
+    @Override
+    protected final Long updateKeyAfterInsert(PermissionEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
     @Override
     public Long getKey(PermissionEntity entity) {
         if (entity != null) {
@@ -139,12 +145,6 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(PermissionEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**

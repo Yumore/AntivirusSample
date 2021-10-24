@@ -23,6 +23,19 @@ public class DaoMaster extends AbstractDaoMaster {
         this(new StandardDatabase(db));
     }
 
+    /**
+     * Drops underlying database table using DAOs.
+     */
+    public static void dropAllTables(Database db, boolean ifExists) {
+        AntivirusEntityDao.dropTable(db, ifExists);
+        FileEntityDao.dropTable(db, ifExists);
+        PackageEntityDao.dropTable(db, ifExists);
+        PermissionEntityDao.dropTable(db, ifExists);
+        SpecimenEntityDao.dropTable(db, ifExists);
+        SummaryEntityDao.dropTable(db, ifExists);
+        TaskEntityDao.dropTable(db, ifExists);
+    }
+
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(AntivirusEntityDao.class);
@@ -32,16 +45,6 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(SpecimenEntityDao.class);
         registerDaoClass(SummaryEntityDao.class);
         registerDaoClass(TaskEntityDao.class);
-    }
-
-    /**
-     * WARNING: Drops all table on Upgrade! Use only during development.
-     * Convenience method using a {@link DevOpenHelper}.
-     */
-    public static DaoSession newDevSession(Context context, String name) {
-        Database db = new DevOpenHelper(context, name).getWritableDb();
-        DaoMaster daoMaster = new DaoMaster(db);
-        return daoMaster.newSession();
     }
 
     /**
@@ -57,15 +60,14 @@ public class DaoMaster extends AbstractDaoMaster {
         TaskEntityDao.createTable(db, ifNotExists);
     }
 
-    /** Drops underlying database table using DAOs. */
-    public static void dropAllTables(Database db, boolean ifExists) {
-        AntivirusEntityDao.dropTable(db, ifExists);
-        FileEntityDao.dropTable(db, ifExists);
-        PackageEntityDao.dropTable(db, ifExists);
-        PermissionEntityDao.dropTable(db, ifExists);
-        SpecimenEntityDao.dropTable(db, ifExists);
-        SummaryEntityDao.dropTable(db, ifExists);
-        TaskEntityDao.dropTable(db, ifExists);
+    /**
+     * WARNING: Drops all table on Upgrade! Use only during development.
+     * Convenience method using a {@link DevOpenHelper}.
+     */
+    public static DaoSession newDevSession(Context context, String name) {
+        Database db = new DevOpenHelper(context, name).getWritableDb();
+        DaoMaster daoMaster = new DaoMaster(db);
+        return daoMaster.newSession();
     }
 
     public DaoSession newSession() {

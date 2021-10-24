@@ -19,6 +19,15 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
 
     public static final String TABLENAME = "ANTIVIRUS_ENTITY";
 
+    public AntivirusEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public AntivirusEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
     /**
      * Creates the underlying database table.
      */
@@ -32,15 +41,6 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
             "\"VERSION_NAME\" TEXT," + // 4: versionName
             "\"VERSION_CODE\" TEXT," + // 5: versionCode
             "\"APP_NAME\" TEXT);"); // 6: appName
-    }
-
-
-    public AntivirusEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public AntivirusEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
     }
 
     /**
@@ -137,7 +137,7 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
         entity.setVersionName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setVersionCode(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setAppName(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-    }
+     }
 
     @Override
     public AntivirusEntity readEntity(Cursor cursor, int offset) {
@@ -152,7 +152,13 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
         );
         return entity;
     }
-     
+
+    @Override
+    protected final Long updateKeyAfterInsert(AntivirusEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
     @Override
     public Long getKey(AntivirusEntity entity) {
         if (entity != null) {
@@ -160,12 +166,6 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(AntivirusEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**

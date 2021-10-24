@@ -19,6 +19,15 @@ public class TaskEntityDao extends AbstractDao<TaskEntity, Long> {
 
     public static final String TABLENAME = "TASK_ENTITY";
 
+    public TaskEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public TaskEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
     /**
      * Creates the underlying database table.
      */
@@ -30,15 +39,6 @@ public class TaskEntityDao extends AbstractDao<TaskEntity, Long> {
             "\"START\" INTEGER NOT NULL ," + // 2: start
             "\"END\" INTEGER NOT NULL ," + // 3: end
             "\"PROGRESS\" INTEGER NOT NULL );"); // 4: progress
-    }
-
-
-    public TaskEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public TaskEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
     }
 
     /**
@@ -89,7 +89,7 @@ public class TaskEntityDao extends AbstractDao<TaskEntity, Long> {
         entity.setStart(cursor.getLong(offset + 2));
         entity.setEnd(cursor.getLong(offset + 3));
         entity.setProgress(cursor.getLong(offset + 4));
-    }
+     }
 
     @Override
     public TaskEntity readEntity(Cursor cursor, int offset) {
@@ -102,7 +102,13 @@ public class TaskEntityDao extends AbstractDao<TaskEntity, Long> {
         );
         return entity;
     }
-     
+
+    @Override
+    protected final Long updateKeyAfterInsert(TaskEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
     @Override
     public Long getKey(TaskEntity entity) {
         if (entity != null) {
@@ -110,12 +116,6 @@ public class TaskEntityDao extends AbstractDao<TaskEntity, Long> {
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(TaskEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**

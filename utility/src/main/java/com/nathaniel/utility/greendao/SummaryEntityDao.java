@@ -19,11 +19,20 @@ public class SummaryEntityDao extends AbstractDao<SummaryEntity, Long> {
 
     public static final String TABLENAME = "SUMMARY_ENTITY";
 
+    public SummaryEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public SummaryEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
+        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"SUMMARY_ENTITY\" (" + //
             "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
             "\"IDX\" INTEGER NOT NULL ," + // 1: idx
@@ -47,15 +56,6 @@ public class SummaryEntityDao extends AbstractDao<SummaryEntity, Long> {
             "\"TX_UDP_PACKETS\" INTEGER NOT NULL ," + // 19: tx_udp_packets
             "\"TX_OTHER_BYTES\" INTEGER NOT NULL ," + // 20: tx_other_bytes
             "\"TX_OTHER_PACKETS\" INTEGER NOT NULL );"); // 21: tx_other_packets
-    }
-
-
-    public SummaryEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public SummaryEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
     }
 
     /**
@@ -165,7 +165,7 @@ public class SummaryEntityDao extends AbstractDao<SummaryEntity, Long> {
         entity.setTx_udp_packets(cursor.getInt(offset + 19));
         entity.setTx_other_bytes(cursor.getLong(offset + 20));
         entity.setTx_other_packets(cursor.getInt(offset + 21));
-    }
+     }
 
     @Override
     public SummaryEntity readEntity(Cursor cursor, int offset) {
@@ -195,7 +195,13 @@ public class SummaryEntityDao extends AbstractDao<SummaryEntity, Long> {
         );
         return entity;
     }
-     
+
+    @Override
+    protected final Long updateKeyAfterInsert(SummaryEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
     @Override
     public Long getKey(SummaryEntity entity) {
         if (entity != null) {
@@ -203,12 +209,6 @@ public class SummaryEntityDao extends AbstractDao<SummaryEntity, Long> {
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(SummaryEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**
