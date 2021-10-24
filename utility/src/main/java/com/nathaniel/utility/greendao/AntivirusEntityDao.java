@@ -19,9 +19,16 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
 
     public static final String TABLENAME = "ANTIVIRUS_ENTITY";
 
-    /**
-     * Creates the underlying database table.
-     */
+    public AntivirusEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public AntivirusEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Creates the underlying database table. */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"ANTIVIRUS_ENTITY\" (" + //
@@ -32,15 +39,6 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
             "\"VERSION_NAME\" TEXT," + // 4: versionName
             "\"VERSION_CODE\" TEXT," + // 5: versionCode
             "\"APP_NAME\" TEXT);"); // 6: appName
-    }
-
-
-    public AntivirusEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public AntivirusEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
     }
 
     /**
@@ -154,18 +152,18 @@ public class AntivirusEntityDao extends AbstractDao<AntivirusEntity, Long> {
     }
 
     @Override
+    protected final Long updateKeyAfterInsert(AntivirusEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
+    @Override
     public Long getKey(AntivirusEntity entity) {
         if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(AntivirusEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**

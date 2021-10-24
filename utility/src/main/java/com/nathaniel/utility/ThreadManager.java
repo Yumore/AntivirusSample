@@ -1,6 +1,9 @@
 package com.nathaniel.utility;
 
-import java.util.concurrent.BlockingQueue;
+import androidx.annotation.NonNull;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -19,7 +22,7 @@ public class ThreadManager {
     private final int maximumPoolSize;
     private final long keepAliveTime;
     private ThreadPoolExecutor normalThreadPoolExecutor;
-    private ThreadPoolExecutor policyThreadPoolExecutor;
+    private PriorityThreadPoolExecutor policyThreadPoolExecutor;
 
     private ThreadManager(int corePoolSize, int maximumPoolSize, long keepAliveTime) {
         this.corePoolSize = corePoolSize;
@@ -43,32 +46,36 @@ public class ThreadManager {
 
     private synchronized ThreadPoolExecutor initNormalExecutor() {
         if (normalThreadPoolExecutor == null || normalThreadPoolExecutor.isShutdown() || normalThreadPoolExecutor.isTerminated()) {
-            BlockingQueue<Runnable> workQueue = new LinkedBlockingDeque<>();
             ThreadFactory threadFactory = new CustomThreadFactory();
             // DiscardOldestPolicy
             RejectedExecutionHandler executionHandler = new ThreadPoolExecutor.DiscardPolicy();
             normalThreadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
-                TimeUnit.MILLISECONDS, workQueue, threadFactory, executionHandler);
+                TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>(), threadFactory, executionHandler);
         }
         return normalThreadPoolExecutor;
     }
 
-    private synchronized ThreadPoolExecutor initPolicyExecutor() {
+    private synchronized PriorityThreadPoolExecutor initPolicyExecutor() {
         if (policyThreadPoolExecutor == null || policyThreadPoolExecutor.isShutdown() || policyThreadPoolExecutor.isShutdown()) {
-            BlockingQueue<Runnable> workQueue = new PriorityBlockingQueue<>();
             ThreadFactory threadFactory = new CustomThreadFactory();
             RejectedExecutionHandler executionHandler = new ThreadPoolExecutor.AbortPolicy();
-            policyThreadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS,
-                workQueue, threadFactory, executionHandler);
+            policyThreadPoolExecutor = new PriorityThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
+                TimeUnit.MILLISECONDS, new PriorityBlockingQueue<Runnable>(), threadFactory, executionHandler);
         }
         return policyThreadPoolExecutor;
     }
 
-    public void executor(Runnable runnable) {
+    public void executor(@NonNull Runnable runnable) {
         initNormalExecutor().execute(runnable);
     }
 
-    public void submit(Runnable runnable) {
+    public void executor(@NonNull Runnable... runnableArray) {
+        for (Runnable runnable : runnableArray) {
+            initNormalExecutor().execute(runnable);
+        }
+    }
+
+    public void submit(@NonNull Runnable runnable) {
         initNormalExecutor().submit(runnable);
     }
 
@@ -76,15 +83,18 @@ public class ThreadManager {
         initNormalExecutor().remove(runnable);
     }
 
-    public void executor(PolicyTask policyTask) {
-        initPolicyExecutor().execute(policyTask);
+    public void executor(@NonNull Runnable runnable, int priority) {
+        initPolicyExecutor().execute(runnable, priority);
     }
 
-    public void submit(PolicyFutureTask runnable) {
-        initPolicyExecutor().submit(runnable);
+    public <T> Future<T> submit(@NonNull Callable<T> callable, int priority) {
+        return initPolicyExecutor().submit(callable, priority);
     }
 
-    public void remove(PolicyTask runnable) {
+    public void remove(@NonNull Runnable runnable, boolean priority) {
+        if (!priority) {
+            return;
+        }
         initPolicyExecutor().remove(runnable);
     }
 }

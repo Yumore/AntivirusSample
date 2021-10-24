@@ -37,6 +37,16 @@ public class DaoMaster extends AbstractDaoMaster {
     }
 
     /**
+     * WARNING: Drops all table on Upgrade! Use only during development.
+     * Convenience method using a {@link DevOpenHelper}.
+     */
+    public static DaoSession newDevSession(Context context, String name) {
+        Database db = new DevOpenHelper(context, name).getWritableDb();
+        DaoMaster daoMaster = new DaoMaster(db);
+        return daoMaster.newSession();
+    }
+
+    /**
      * Drops underlying database table using DAOs.
      */
     public static void dropAllTables(Database db, boolean ifExists) {
@@ -47,16 +57,6 @@ public class DaoMaster extends AbstractDaoMaster {
         SpecimenEntityDao.dropTable(db, ifExists);
         SummaryEntityDao.dropTable(db, ifExists);
         TaskEntityDao.dropTable(db, ifExists);
-    }
-
-    /**
-     * WARNING: Drops all table on Upgrade! Use only during development.
-     * Convenience method using a {@link DevOpenHelper}.
-     */
-    public static DaoSession newDevSession(Context context, String name) {
-        Database db = new DevOpenHelper(context, name).getWritableDb();
-        DaoMaster daoMaster = new DaoMaster(db);
-        return daoMaster.newSession();
     }
 
     public DaoMaster(Database db) {

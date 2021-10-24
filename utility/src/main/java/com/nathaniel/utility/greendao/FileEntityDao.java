@@ -19,9 +19,16 @@ public class FileEntityDao extends AbstractDao<FileEntity, Long> {
 
     public static final String TABLENAME = "FILE_ENTITY";
 
-    /**
-     * Creates the underlying database table.
-     */
+    public FileEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+
+    public FileEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Creates the underlying database table. */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"FILE_ENTITY\" (" + //
@@ -30,15 +37,6 @@ public class FileEntityDao extends AbstractDao<FileEntity, Long> {
             "\"FILE_NAME\" TEXT," + // 2: fileName
             "\"LENGTH\" INTEGER NOT NULL ," + // 3: length
             "\"FINISH\" INTEGER NOT NULL );"); // 4: finish
-    }
-
-
-    public FileEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public FileEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
     }
 
     /**
@@ -112,18 +110,18 @@ public class FileEntityDao extends AbstractDao<FileEntity, Long> {
     }
 
     @Override
+    protected final Long updateKeyAfterInsert(FileEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
+    @Override
     public Long getKey(FileEntity entity) {
         if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(FileEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**
