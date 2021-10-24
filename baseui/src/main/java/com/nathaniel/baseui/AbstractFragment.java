@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.nathaniel.baseui.utility.FragmentCallback;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
 
@@ -39,6 +40,7 @@ public abstract class AbstractFragment extends Fragment implements IViewBinding 
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        requireFragmentManager().registerFragmentLifecycleCallbacks(new FragmentCallback(), true);
     }
 
     @Override

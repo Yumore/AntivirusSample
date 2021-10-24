@@ -233,7 +233,7 @@ public class AppUtils {
             packageEntities.add(packageEntity);
 //            }
         }
-        SingletonUtils.getSingleton(PackageDaoHelper.class).insertMultiply(packageEntities);
+        SingletonUtils.getSingleton(PackageDaoHelper.class).inertOrUpdate(packageEntities);
         write2resXml(context, stringBuilder.toString());
         Collections.sort(packageEntities, (source, target) -> source.getAppName().compareTo(target.getAppName()));
         return packageEntities;

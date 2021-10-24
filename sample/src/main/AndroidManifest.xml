@@ -72,10 +72,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".surface.BrowserActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".surface.ScannerActivity"
             android:screenOrientation="portrait" />
 

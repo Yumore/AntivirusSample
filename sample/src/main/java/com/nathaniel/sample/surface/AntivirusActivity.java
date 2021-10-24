@@ -1,14 +1,6 @@
 package com.nathaniel.sample.surface;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
-import android.content.pm.ProviderInfo;
-import android.content.pm.ServiceInfo;
-import android.content.pm.Signature;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,21 +12,17 @@ import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.baseui.adapter.BaseRecyclerAdapter;
 import com.nathaniel.baseui.adapter.OnItemClickListener;
 import com.nathaniel.baseui.utility.ItemDecoration;
-import com.nathaniel.sample.BuildConfig;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.AntivirusAdapter;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.utility.AbstractTask;
-import com.nathaniel.utility.BitmapCacheUtils;
 import com.nathaniel.utility.EmptyUtils;
-import com.nathaniel.utility.JsonFileUtils;
-import com.nathaniel.utility.LoggerUtils;
-import com.nathaniel.utility.PackageUtils;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.ThreadManager;
 import com.nathaniel.utility.entity.AntivirusEntity;
 import com.nathaniel.utility.entity.PackageEntity;
 import com.nathaniel.utility.entity.SpecimenEntity;
+import com.nathaniel.utility.helper.PackageDaoHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,23 +75,26 @@ public class AntivirusActivity extends AbstractActivity implements OnItemClickLi
 
             @Override
             protected List<PackageEntity> doRunnableCode() {
-                List<PackageEntity> packageEntities = getAppList();
-                if (!EmptyUtils.isEmpty(JsonFileUtils.getAntivirusList(getActivity()))) {
+                List<PackageEntity> packageEntities = SingletonUtils.getSingleton(AntivirusModule.class).getPackageEntities();
+                List<AntivirusEntity> antivirusEntities = SingletonUtils.getSingleton(AntivirusModule.class).getAntivirusEntities();
+                List<SpecimenEntity> specimenEntities = SingletonUtils.getSingleton(AntivirusModule.class).getSpecimenEntities();
+                if (!EmptyUtils.isEmpty(antivirusEntities)) {
                     for (PackageEntity packageEntity : packageEntities) {
-                        for (AntivirusEntity antivirusEntity : JsonFileUtils.getAntivirusList(getActivity())) {
+                        for (AntivirusEntity antivirusEntity : antivirusEntities) {
                             if (packageEntity.getPackageName().equalsIgnoreCase(antivirusEntity.getPackageName())) {
                                 packageEntity.setVestBagged(packageEntity.getSignature().equalsIgnoreCase(antivirusEntity.getSignature()));
                                 break;
                             }
                         }
-                        traverseSpecimen(JsonFileUtils.getSpecimensList(getActivity()), packageEntity, packageEntity.getPackageName());
+                        traverseSpecimen(specimenEntities, packageEntity, packageEntity.getPackageName());
                         if (!EmptyUtils.isEmpty(packageEntity.getProcessList())) {
                             for (String process : packageEntity.getProcessList()) {
-                                traverseSpecimen(JsonFileUtils.getSpecimensList(getActivity()), packageEntity, process);
+                                traverseSpecimen(specimenEntities, packageEntity, process);
                             }
                         }
                     }
                 }
+                SingletonUtils.getInstance(PackageDaoHelper.class).inertOrUpdate(packageEntities);
                 return packageEntities;
             }
         });
@@ -147,106 +138,5 @@ public class AntivirusActivity extends AbstractActivity implements OnItemClickLi
         PackageEntity packageEntity = packageEntityList.get(position);
         SingletonUtils.getSingleton(AntivirusModule.class).setPackageEntity(packageEntity);
         startActivity(new Intent(getActivity(), ApplicationActivity.class));
-    }
-
-    private List<PackageEntity> getAppList() {
-        LoggerUtils.logger(LoggerUtils.TAG, "AntivirusActivity-getAppList-160", "开始扫描本地APP");
-        List<PackageEntity> packageEntities = new ArrayList<>();
-        PackageManager packageManager = getActivity().getPackageManager();
-        int flags = PackageManager.GET_META_DATA
-            | PackageManager.GET_SIGNATURES
-            | PackageManager.GET_PERMISSIONS
-            | PackageManager.GET_PROVIDERS
-            | PackageManager.GET_RECEIVERS
-            | PackageManager.GET_SERVICES
-            | PackageManager.GET_ACTIVITIES;
-        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(flags);
-        for (int i = 0; i < installedPackages.size(); i++) {
-            PackageInfo packageInfo = installedPackages.get(i);
-            ApplicationInfo applicationInfo = packageInfo.applicationInfo;
-            if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1
-                || (applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1
-                || applicationInfo.packageName.equals(BuildConfig.APPLICATION_ID)) {
-                // TODO 忽略系统app和自己
-                continue;
-            }
-            PackageEntity packageEntity = new PackageEntity();
-            packageEntity.setAppName(applicationInfo.loadLabel(packageManager).toString());
-            packageEntity.setPackageName(applicationInfo.packageName);
-            packageEntity.setVersionName(packageInfo.versionName);
-            packageEntity.setVersionCode(packageInfo.getLongVersionCode());
-            packageEntity.setAppIcon(BitmapCacheUtils.getBitmapFromCache(getActivity(), applicationInfo, packageManager));
-
-            Signature[] signatures = packageInfo.signatures;
-            if (!EmptyUtils.isEmpty(signatures)) {
-                packageEntity.setSignature(PackageUtils.getSignatureMd5(signatures[0]));
-            }
-
-            PermissionInfo[] permissionInfos = packageInfo.permissions;
-            if (!EmptyUtils.isEmpty(permissionInfos)) {
-                List<String> permissions = new ArrayList<>();
-                for (PermissionInfo permissionInfo : permissionInfos) {
-                    if (permissions.contains(permissionInfo.name)) {
-                        continue;
-                    }
-                    permissions.add(permissionInfo.name);
-                }
-                packageEntity.setPermissionList(permissions);
-            }
-
-            ProviderInfo[] providerInfos = packageInfo.providers;
-            if (!EmptyUtils.isEmpty(providerInfos)) {
-                List<String> providers = new ArrayList<>();
-                for (ProviderInfo providerInfo : providerInfos) {
-                    if (providers.contains(providerInfo.name)) {
-                        continue;
-                    }
-                    providers.add(providerInfo.name);
-                }
-                packageEntity.setProviderList(providers);
-            }
-
-            List<String> processes = new ArrayList<>();
-            ActivityInfo[] activityInfos = packageInfo.activities;
-            if (!EmptyUtils.isEmpty(activityInfos)) {
-                List<String> activities = new ArrayList<>();
-                for (ActivityInfo activityInfo : activityInfos) {
-                    if (activities.contains(activityInfo.name)) {
-                        continue;
-                    }
-                    activities.add(activityInfo.name);
-                    if (!EmptyUtils.isEmpty(activityInfo.processName) && !processes.contains(activityInfo.processName)) {
-                        processes.add(activityInfo.processName);
-                    }
-                }
-                packageEntity.setActivityList(activities);
-            }
-
-            ActivityInfo[] receiverInfos = packageInfo.receivers;
-            if (!EmptyUtils.isEmpty(receiverInfos)) {
-                List<String> receivers = new ArrayList<>();
-                for (ActivityInfo activityInfo : receiverInfos) {
-                    receivers.add(activityInfo.name);
-                    if (!EmptyUtils.isEmpty(activityInfo.processName) && !processes.contains(activityInfo.processName)) {
-                        processes.add(activityInfo.processName);
-                    }
-                }
-                packageEntity.setReceiverList(receivers);
-            }
-            ServiceInfo[] serviceInfos = packageInfo.services;
-            if (!EmptyUtils.isEmpty(serviceInfos)) {
-                List<String> services = new ArrayList<>();
-                for (ServiceInfo serviceInfo : serviceInfos) {
-                    services.add(serviceInfo.name);
-                    if (!EmptyUtils.isEmpty(serviceInfo.processName) && !processes.contains(serviceInfo.processName)) {
-                        processes.add(serviceInfo.processName);
-                    }
-                }
-                packageEntity.setServiceList(services);
-            }
-            packageEntity.setProcessList(processes);
-            packageEntities.add(packageEntity);
-        }
-        return packageEntities;
     }
 }

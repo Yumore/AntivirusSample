@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 
 import com.nathaniel.utility.BuildConfig;
-import com.nathaniel.utility.ContextHelper;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.helper.InitializeHelper;
@@ -19,23 +18,10 @@ import org.greenrobot.greendao.query.QueryBuilder;
  */
 public class DaoManager implements InitializeHelper {
     private static final String DATABASE_DEFAULT = "Nathaniel.db";
-    private static DaoManager daoManager;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
     private DaoMaster.DevOpenHelper devOpenHelper;
     private Context context;
-
-    private DaoManager() {
-        Context context = ContextHelper.getInstance().getContext();
-        initialize(context);
-    }
-
-    public static synchronized DaoManager getInstance() {
-        if (EmptyUtils.isEmpty(daoManager)) {
-            daoManager = new DaoManager();
-        }
-        return daoManager;
-    }
 
     public DaoMaster getDaoMaster() {
         if (EmptyUtils.isEmpty(daoMaster)) {

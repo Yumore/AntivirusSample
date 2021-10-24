@@ -1,8 +1,11 @@
 package com.nathaniel.utility;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.greenrobot.greendao.converter.PropertyConverter;
 
-import java.util.Arrays;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -12,28 +15,23 @@ import java.util.List;
  * @package com.nathaniel.utility
  * @datetime 2021/10/16 -15:39
  */
-public class GreenConverterStringList implements PropertyConverter<List<String>, String> {
-
-    private static final String SPLIT_REGEX = "#!&";
+public class StringListConverter implements PropertyConverter<List<String>, String> {
 
     @Override
     public List<String> convertToEntityProperty(String databaseValue) {
         if (databaseValue == null) {
             return null;
         }
-
-        return Arrays.asList(databaseValue.split(SPLIT_REGEX));
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        return new Gson().fromJson(databaseValue, type);
     }
 
     @Override
     public String convertToDatabaseValue(List<String> entityProperty) {
-        if (entityProperty == null) {
+        if (entityProperty == null || entityProperty.size() == 0) {
             return null;
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String string : entityProperty) {
-            stringBuilder.append(string).append(SPLIT_REGEX);
-        }
-        return stringBuilder.toString();
+        return new Gson().toJson(entityProperty);
     }
 } 

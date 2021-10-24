@@ -3,7 +3,7 @@ package com.nathaniel.utility.greendao;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
-import com.nathaniel.utility.GreenConverterStringList;
+import com.nathaniel.utility.StringListConverter;
 import com.nathaniel.utility.entity.PackageEntity;
 
 import org.greenrobot.greendao.AbstractDao;
@@ -22,24 +22,15 @@ import java.util.List;
 public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
 
     public static final String TABLENAME = "PACKAGE_ENTITY";
-    private final GreenConverterStringList permissionListConverter = new GreenConverterStringList();
-    private final GreenConverterStringList processListConverter = new GreenConverterStringList();
-    private final GreenConverterStringList receiverListConverter = new GreenConverterStringList();
-    private final GreenConverterStringList providerListConverter = new GreenConverterStringList();
-    private final GreenConverterStringList serviceListConverter = new GreenConverterStringList();
-    private final GreenConverterStringList activityListConverter = new GreenConverterStringList();
 
-    public PackageEntityDao(DaoConfig config) {
-        super(config);
-    }
+    private final StringListConverter permissionListConverter = new StringListConverter();
+    private final StringListConverter processListConverter = new StringListConverter();
+    private final StringListConverter receiverListConverter = new StringListConverter();
+    private final StringListConverter providerListConverter = new StringListConverter();
+    private final StringListConverter serviceListConverter = new StringListConverter();
+    private final StringListConverter activityListConverter = new StringListConverter();
 
-    public PackageEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
-    /**
-     * Creates the underlying database table.
-     */
+    /** Creates the underlying database table. */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"PACKAGE_ENTITY\" (" + //
@@ -71,9 +62,15 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
             "\"VIRUS_DESCRIBE\" TEXT);"); // 25: virusDescribe
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+    public PackageEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+    public PackageEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"PACKAGE_ENTITY\"";
         db.execSQL(sql);
@@ -259,6 +256,36 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
     }
 
     @Override
+    public void readEntity(Cursor cursor, PackageEntity entity, int offset) {
+        entity.setId(cursor.getLong(offset + 0));
+        entity.setPackageName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setVersionName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setVersionCode(cursor.getLong(offset + 3));
+        entity.setPermissionList(cursor.isNull(offset + 4) ? null : permissionListConverter.convertToEntityProperty(cursor.getString(offset + 4)));
+        entity.setProcessList(cursor.isNull(offset + 5) ? null : processListConverter.convertToEntityProperty(cursor.getString(offset + 5)));
+        entity.setReceiverList(cursor.isNull(offset + 6) ? null : receiverListConverter.convertToEntityProperty(cursor.getString(offset + 6)));
+        entity.setProviderList(cursor.isNull(offset + 7) ? null : providerListConverter.convertToEntityProperty(cursor.getString(offset + 7)));
+        entity.setServiceList(cursor.isNull(offset + 8) ? null : serviceListConverter.convertToEntityProperty(cursor.getString(offset + 8)));
+        entity.setActivityList(cursor.isNull(offset + 9) ? null : activityListConverter.convertToEntityProperty(cursor.getString(offset + 9)));
+        entity.setAppName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setSignature(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setWifiRx(cursor.getLong(offset + 12));
+        entity.setWifiTx(cursor.getLong(offset + 13));
+        entity.setWifiTotal(cursor.getLong(offset + 14));
+        entity.setMobileRx(cursor.getLong(offset + 15));
+        entity.setMobileTx(cursor.getLong(offset + 16));
+        entity.setMobileTotal(cursor.getLong(offset + 17));
+        entity.setUid(cursor.getInt(offset + 18));
+        entity.setOverlay(cursor.getShort(offset + 19) != 0);
+        entity.setBitmaps(cursor.isNull(offset + 20) ? null : cursor.getBlob(offset + 20));
+        entity.setVirusLevel(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setVestBagged(cursor.getShort(offset + 22) != 0);
+        entity.setVirusName(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
+        entity.setVirusNumber(cursor.getLong(offset + 24));
+        entity.setVirusDescribe(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+    }
+
+    @Override
     public PackageEntity readEntity(Cursor cursor, int offset) {
         PackageEntity entity = new PackageEntity( //
             cursor.getLong(offset + 0), // id
@@ -292,42 +319,6 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
     }
 
     @Override
-    public void readEntity(Cursor cursor, PackageEntity entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
-        entity.setPackageName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setVersionName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setVersionCode(cursor.getLong(offset + 3));
-        entity.setPermissionList(cursor.isNull(offset + 4) ? null : permissionListConverter.convertToEntityProperty(cursor.getString(offset + 4)));
-        entity.setProcessList(cursor.isNull(offset + 5) ? null : processListConverter.convertToEntityProperty(cursor.getString(offset + 5)));
-        entity.setReceiverList(cursor.isNull(offset + 6) ? null : receiverListConverter.convertToEntityProperty(cursor.getString(offset + 6)));
-        entity.setProviderList(cursor.isNull(offset + 7) ? null : providerListConverter.convertToEntityProperty(cursor.getString(offset + 7)));
-        entity.setServiceList(cursor.isNull(offset + 8) ? null : serviceListConverter.convertToEntityProperty(cursor.getString(offset + 8)));
-        entity.setActivityList(cursor.isNull(offset + 9) ? null : activityListConverter.convertToEntityProperty(cursor.getString(offset + 9)));
-        entity.setAppName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setSignature(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setWifiRx(cursor.getLong(offset + 12));
-        entity.setWifiTx(cursor.getLong(offset + 13));
-        entity.setWifiTotal(cursor.getLong(offset + 14));
-        entity.setMobileRx(cursor.getLong(offset + 15));
-        entity.setMobileTx(cursor.getLong(offset + 16));
-        entity.setMobileTotal(cursor.getLong(offset + 17));
-        entity.setUid(cursor.getInt(offset + 18));
-        entity.setOverlay(cursor.getShort(offset + 19) != 0);
-        entity.setBitmaps(cursor.isNull(offset + 20) ? null : cursor.getBlob(offset + 20));
-        entity.setVirusLevel(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
-        entity.setVestBagged(cursor.getShort(offset + 22) != 0);
-        entity.setVirusName(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
-        entity.setVirusNumber(cursor.getLong(offset + 24));
-        entity.setVirusDescribe(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(PackageEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
-    @Override
     public Long getKey(PackageEntity entity) {
         if (entity != null) {
             return entity.getId();
@@ -337,13 +328,9 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
     }
 
     @Override
-    public boolean hasKey(PackageEntity entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
-    }
-
-    @Override
-    protected final boolean isEntityUpdateable() {
-        return true;
+    protected final Long updateKeyAfterInsert(PackageEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**
@@ -377,6 +364,16 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
         public final static Property VirusName = new Property(23, String.class, "virusName", false, "VIRUS_NAME");
         public final static Property VirusNumber = new Property(24, long.class, "virusNumber", false, "VIRUS_NUMBER");
         public final static Property VirusDescribe = new Property(25, String.class, "virusDescribe", false, "VIRUS_DESCRIBE");
+    }
+
+    @Override
+    public boolean hasKey(PackageEntity entity) {
+        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+    }
+
+    @Override
+    protected final boolean isEntityUpdateable() {
+        return true;
     }
 
 }

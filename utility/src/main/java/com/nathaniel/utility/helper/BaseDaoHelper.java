@@ -3,22 +3,27 @@ package com.nathaniel.utility.helper;
 import java.util.List;
 
 /**
+ * 因为要对外暴露可调用的方法
+ * 所以用接口，而不用抽象方法
+ *
  * @author Nathaniel
  * @version V1.0.0
  * @contact <a href="mailto:nathanwriting@126.com">contact me</a>
  * @package com.nathaniel.utility.helper
  * @datetime 2021/10/17 - 11:12
  */
-abstract class BaseDaoHelper<T> {
-    protected static final String TAG = PackageDaoHelper.class.getSimpleName();
+interface BaseDaoHelper<T> {
+    String TAG = PackageDaoHelper.class.getSimpleName();
 
-    protected abstract T queryById(long id);
+    T queryById(final long id);
 
-    protected abstract List<T> queryAll();
+    List<T> queryAll();
 
-    protected abstract long inertOrUpdate(T t);
+    void inertOrUpdate(final T t);
 
-    protected abstract void deleteById(long id);
+    void inertOrUpdate(final List<T> tList);
 
-    protected abstract boolean exitEntity(T t);
+    void deleteById(final long id);
+
+    boolean exitEntity(final T t);
 }

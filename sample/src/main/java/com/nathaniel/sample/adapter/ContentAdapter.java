@@ -33,7 +33,7 @@ public class ContentAdapter extends BaseRecyclerAdapter<String> {
             return;
         }
         viewHolder.setText(R.id.item_detail_value, data);
-        boolean dangerous = SingletonUtils.getSingleton(AntivirusModule.class).isDangerous(getContext(), data);
+        boolean dangerous = SingletonUtils.getSingleton(AntivirusModule.class).isDangerous(data);
         viewHolder.setTextColor(R.id.item_detail_value, getContext().getColor(dangerous ? R.color.common_color_red_dark : R.color.common_color_black_dark));
     }
 }

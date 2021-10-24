@@ -17,21 +17,8 @@ import java.util.List;
  * @package com.nathaniel.utility.daohelper
  * @datetime 2021/6/13 - 20:23
  */
-public class TaskDaoHelper extends BaseDaoHelper<TaskEntity> {
+public class TaskDaoHelper implements BaseDaoHelper<TaskEntity> {
 
-    public void insertMultiply(final List<TaskEntity> taskEntities) {
-        if (EmptyUtils.isEmpty(taskEntities)) {
-            return;
-        }
-        SingletonUtils.getSingleton(DaoManager.class).getDaoSession().runInTx(new Runnable() {
-            @Override
-            public void run() {
-                for (TaskEntity taskEntity : taskEntities) {
-                    SingletonUtils.getSingleton(DaoManager.class).getDaoSession().getTaskEntityDao().insertOrReplace(taskEntity);
-                }
-            }
-        });
-    }
 
     public List<TaskEntity> queryByUrl(String url) {
         QueryBuilder<TaskEntity> queryBuilder = SingletonUtils.getSingleton(DaoManager.class).getDaoSession().queryBuilder(TaskEntity.class);
@@ -45,7 +32,7 @@ public class TaskDaoHelper extends BaseDaoHelper<TaskEntity> {
     }
 
     @Override
-    protected TaskEntity queryById(long id) {
+    public TaskEntity queryById(long id) {
         return null;
     }
 
@@ -55,17 +42,32 @@ public class TaskDaoHelper extends BaseDaoHelper<TaskEntity> {
     }
 
     @Override
-    protected long inertOrUpdate(TaskEntity taskEntity) {
-        return SingletonUtils.getSingleton(DaoManager.class).getDaoSession().getTaskEntityDao().insertOrReplace(taskEntity);
+    public void inertOrUpdate(TaskEntity taskEntity) {
+        SingletonUtils.getSingleton(DaoManager.class).getDaoSession().getTaskEntityDao().insertOrReplace(taskEntity);
     }
 
     @Override
-    protected void deleteById(long id) {
+    public void inertOrUpdate(final List<TaskEntity> taskEntities) {
+        if (EmptyUtils.isEmpty(taskEntities)) {
+            return;
+        }
+        SingletonUtils.getSingleton(DaoManager.class).getDaoSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                for (TaskEntity taskEntity : taskEntities) {
+                    SingletonUtils.getSingleton(DaoManager.class).getDaoSession().getTaskEntityDao().insertOrReplace(taskEntity);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deleteById(long id) {
 
     }
 
     @Override
-    protected boolean exitEntity(TaskEntity taskEntity) {
+    public boolean exitEntity(TaskEntity taskEntity) {
         return false;
     }
 }

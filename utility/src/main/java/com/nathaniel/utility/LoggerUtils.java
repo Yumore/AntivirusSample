@@ -20,9 +20,18 @@ public final class LoggerUtils {
 
     @SafeVarargs
     public static <T> void logger(T... ts) {
-        for (T t : ts) {
-            logger(t);
+        StringBuilder stringBuilder = new StringBuilder();
+        if (ts == null || ts.length == 0) {
+            logger("logger message is empty in " + LoggerUtils.class.getSimpleName());
+            return;
         }
+        for (int i = 0; i < ts.length; i++) {
+            stringBuilder.append(new Gson().toJson(ts[i]));
+            if (i < ts.length - 1) {
+                stringBuilder.append(" - ");
+            }
+        }
+        logger(stringBuilder.toString());
     }
 
     private static void logger(String message) {

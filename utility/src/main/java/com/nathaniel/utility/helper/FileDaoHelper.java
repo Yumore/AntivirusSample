@@ -13,7 +13,7 @@ import java.util.List;
  * @package com.nathaniel.utility.daohelper
  * @datetime 2021/6/13 - 20:42
  */
-public class FileDaoHelper extends BaseDaoHelper<FileEntity> {
+public class FileDaoHelper implements BaseDaoHelper<FileEntity> {
 
 
     @Override
@@ -27,8 +27,13 @@ public class FileDaoHelper extends BaseDaoHelper<FileEntity> {
     }
 
     @Override
-    public long inertOrUpdate(FileEntity fileEntity) {
-        return SingletonUtils.getSingleton(DaoManager.class).getDaoSession().getFileEntityDao().insertOrReplace(fileEntity);
+    public void inertOrUpdate(FileEntity fileEntity) {
+        SingletonUtils.getSingleton(DaoManager.class).getDaoSession().getFileEntityDao().insertOrReplace(fileEntity);
+    }
+
+    @Override
+    public void inertOrUpdate(List<FileEntity> fileEntities) {
+
     }
 
     @Override
@@ -37,7 +42,7 @@ public class FileDaoHelper extends BaseDaoHelper<FileEntity> {
     }
 
     @Override
-    protected boolean exitEntity(FileEntity fileEntity) {
+    public boolean exitEntity(FileEntity fileEntity) {
         return false;
     }
 }

@@ -88,6 +88,7 @@ android {
 
 dependencies {
     implementation project(':baseui')
+    implementation project(':starter')
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation "com.github.promeg:tinypinyin:2.0.3"
     implementation "com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3"

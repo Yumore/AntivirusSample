@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 
-import com.nathaniel.utility.GreenConverterStringList;
+import com.nathaniel.utility.StringListConverter;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
@@ -30,17 +30,17 @@ public class PackageEntity {
     private String packageName;
     private String versionName;
     private long versionCode;
-    @Convert(converter = GreenConverterStringList.class, columnType = String.class)
+    @Convert(converter = StringListConverter.class, columnType = String.class)
     private List<String> permissionList;
-    @Convert(converter = GreenConverterStringList.class, columnType = String.class)
+    @Convert(converter = StringListConverter.class, columnType = String.class)
     private List<String> processList;
-    @Convert(converter = GreenConverterStringList.class, columnType = String.class)
+    @Convert(converter = StringListConverter.class, columnType = String.class)
     private List<String> receiverList;
-    @Convert(converter = GreenConverterStringList.class, columnType = String.class)
+    @Convert(converter = StringListConverter.class, columnType = String.class)
     private List<String> providerList;
-    @Convert(converter = GreenConverterStringList.class, columnType = String.class)
+    @Convert(converter = StringListConverter.class, columnType = String.class)
     private List<String> serviceList;
-    @Convert(converter = GreenConverterStringList.class, columnType = String.class)
+    @Convert(converter = StringListConverter.class, columnType = String.class)
     private List<String> activityList;
     private String appName;
     @Transient

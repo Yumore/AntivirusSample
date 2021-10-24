@@ -21,13 +21,6 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/btn_browser"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="TabLayout"
-        android:textAllCaps="false" />
-
-    <Button
         android:id="@+id/btn_antivirus"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_header_height"

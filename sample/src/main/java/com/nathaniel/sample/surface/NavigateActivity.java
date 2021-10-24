@@ -38,8 +38,6 @@ public class NavigateActivity extends AbstractActivity {
     RelativeLayout commonHeaderRoot;
     @BindView(R.id.btn_text)
     Button btnText;
-    @BindView(R.id.btn_browser)
-    Button btnNavigate;
     @BindView(R.id.btn_scanner)
     Button btnScanner;
     @BindView(R.id.btn_antivirus)
@@ -66,7 +64,6 @@ public class NavigateActivity extends AbstractActivity {
 
     @OnClick({
         R.id.btn_package,
-        R.id.btn_browser,
         R.id.btn_text,
         R.id.btn_antivirus,
         R.id.btn_scanner
@@ -87,9 +84,6 @@ public class NavigateActivity extends AbstractActivity {
                 break;
             case R.id.btn_text:
                 startActivity(new Intent(getActivity(), TextViewActivity.class));
-                break;
-            case R.id.btn_browser:
-                startActivity(new Intent(getActivity(), BrowserActivity.class));
                 break;
             case R.id.btn_scanner:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
