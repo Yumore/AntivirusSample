@@ -33,15 +33,11 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
     private final StringListConverter serviceListConverter = new StringListConverter();
     private final StringListConverter activityListConverter = new StringListConverter();
 
-    public PackageEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PACKAGE_ENTITY\" (" + //
             "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
             "\"PACKAGE_NAME\" TEXT," + // 1: packageName
@@ -69,6 +65,18 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
             "\"VIRUS_NAME\" TEXT," + // 23: virusName
             "\"VIRUS_NUMBER\" INTEGER NOT NULL ," + // 24: virusNumber
             "\"VIRUS_DESCRIBE\" TEXT);"); // 25: virusDescribe
+    }
+
+    public PackageEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /**
+     * Drops the underlying database table.
+     */
+    public static void dropTable(Database db, boolean ifExists) {
+        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"PACKAGE_ENTITY\"";
+        db.execSQL(sql);
     }
 
     @Override
@@ -133,7 +141,7 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
         stmt.bindLong(17, entity.getMobileTx());
         stmt.bindLong(18, entity.getMobileTotal());
         stmt.bindLong(19, entity.getUid());
-        stmt.bindLong(20, entity.getOverlay() ? 1L : 0L);
+        stmt.bindLong(20, entity.getOverlay() ? 1L: 0L);
 
         byte[] bitmaps = entity.getBitmaps();
         if (bitmaps != null) {
@@ -144,7 +152,7 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
         if (virusLevel != null) {
             stmt.bindString(22, virusLevel);
         }
-        stmt.bindLong(23, entity.getVestBagged() ? 1L : 0L);
+        stmt.bindLong(23, entity.getVestBagged() ? 1L: 0L);
 
         String virusName = entity.getVirusName();
         if (virusName != null) {
@@ -156,14 +164,6 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
         if (virusDescribe != null) {
             stmt.bindString(26, virusDescribe);
         }
-    }
-
-    /**
-     * Drops the underlying database table.
-     */
-    public static void dropTable(Database db, boolean ifExists) {
-        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"PACKAGE_ENTITY\"";
-        db.execSQL(sql);
     }
 
     @Override
@@ -322,18 +322,18 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
     }
 
     @Override
-    protected final Long updateKeyAfterInsert(PackageEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
-    @Override
     public Long getKey(PackageEntity entity) {
         if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
+    }
+
+    @Override
+    protected final Long updateKeyAfterInsert(PackageEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**

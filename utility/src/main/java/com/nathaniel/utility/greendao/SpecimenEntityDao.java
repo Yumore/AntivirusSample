@@ -19,15 +19,6 @@ public class SpecimenEntityDao extends AbstractDao<SpecimenEntity, Long> {
 
     public static final String TABLENAME = "SPECIMEN_ENTITY";
 
-    public SpecimenEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-
-    public SpecimenEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
@@ -39,6 +30,15 @@ public class SpecimenEntityDao extends AbstractDao<SpecimenEntity, Long> {
             "\"VIRUS_NUMBER\" INTEGER NOT NULL ," + // 2: virusNumber
             "\"VIRUS_LEVEL\" TEXT," + // 3: virusLevel
             "\"VIRUS_DESCRIBE\" TEXT);"); // 4: virusDescribe
+    }
+
+
+    public SpecimenEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+    public SpecimenEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
     }
 
     /**
@@ -120,18 +120,18 @@ public class SpecimenEntityDao extends AbstractDao<SpecimenEntity, Long> {
     }
 
     @Override
-    protected final Long updateKeyAfterInsert(SpecimenEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
-    @Override
     public Long getKey(SpecimenEntity entity) {
         if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
+    }
+
+    @Override
+    protected final Long updateKeyAfterInsert(SpecimenEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**

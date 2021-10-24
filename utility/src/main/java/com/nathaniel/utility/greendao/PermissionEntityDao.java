@@ -19,15 +19,6 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
 
     public static final String TABLENAME = "PERMISSION_ENTITY";
 
-    public PermissionEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-
-    public PermissionEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
@@ -40,6 +31,15 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
             "\"PERMISSION_DESC\" TEXT," + // 3: permission_desc
             "\"PERMISSION_LEVEL\" INTEGER NOT NULL ," + // 4: permission_level
             "\"PERMISSION_HARM\" TEXT);"); // 5: permission_harm
+    }
+
+
+    public PermissionEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+    public PermissionEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
     }
 
     /**
@@ -133,18 +133,18 @@ public class PermissionEntityDao extends AbstractDao<PermissionEntity, Long> {
     }
 
     @Override
-    protected final Long updateKeyAfterInsert(PermissionEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
-    @Override
     public Long getKey(PermissionEntity entity) {
         if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
+    }
+
+    @Override
+    protected final Long updateKeyAfterInsert(PermissionEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**

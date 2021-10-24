@@ -14,6 +14,7 @@ import com.nathaniel.sample.starter.StarterTaskOne;
 import com.nathaniel.sample.starter.StarterTaskThree;
 import com.nathaniel.sample.starter.StarterTaskTwo;
 import com.nathaniel.sample.utility.AppUtils;
+import com.nathaniel.sample.utility.DefaultSingleton;
 import com.nathaniel.utility.ContextHelper;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.greendao.DaoManager;
@@ -64,6 +65,7 @@ public class SampleApplication extends Application implements InitializeHelper {
                 .await();
         }
         registerActivityLifecycleCallbacks(new ActivityCallback());
+        DefaultSingleton.getInstance().initialized();
     }
 
     @Override
