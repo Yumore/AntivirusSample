@@ -1,0 +1,958 @@
+{
+    "code": 200,
+    "message": "success",
+    "dataList": [
+        {
+            "id": 1,
+            "permission_en": "android.permission.ACCESS_CHECKIN_PROPERTIES",
+            "permission_cn": "访问登记属性",
+            "permission_desc": "读取或写入登记check-in数据库属性表的权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 2,
+            "permission_en": "android.permission.ACCESS_COARSE_LOCATION",
+            "permission_cn": "获取错略位置",
+            "permission_desc": "通过WiFi或移动基站的方式获取用户错略的经纬度信息,定位精度大概误差在30~1500米",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 3,
+            "permission_en": "android.permission.ACCESS_FINE_LOCATION",
+            "permission_cn": "获取精确位置",
+            "permission_desc": "通过GPS芯片接收卫星的定位信息,定位精度达10米以内",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 4,
+            "permission_en": "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS",
+            "permission_cn": "访问定位额外命令",
+            "permission_desc": "允许程序访问额外的定位提供者指令",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 5,
+            "permission_en": "android.permission.ACCESS_MOCK_LOCATION",
+            "permission_cn": "获取模拟定位信息",
+            "permission_desc": "获取模拟定位信息,一般用于帮助开发者调试应用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 6,
+            "permission_en": "android.permission.ACCESS_NETWORK_STATE",
+            "permission_cn": "获取网络状态",
+            "permission_desc": "获取网络信息状态,如当前的网络连接是否有效",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 7,
+            "permission_en": "android.permission.ACCESS_SURFACE_FLINGER",
+            "permission_cn": "访问Surface Flinger",
+            "permission_desc": "Android平台上底层的图形显示支持,一般用于游戏或照相机预览界面和底层模式的屏幕截图",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 8,
+            "permission_en": "android.permission.ACCESS_WIFI_STATE",
+            "permission_cn": "获取WiFi状态",
+            "permission_desc": "获取当前WiFi接入的状态以及WLAN热点的信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 9,
+            "permission_en": "android.permission.ACCOUNT_MANAGER",
+            "permission_cn": "账户管理",
+            "permission_desc": "获取账户验证信息,主要为GMail账户信息,只有系统级进程才能访问的权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 10,
+            "permission_en": "android.permission.AUTHENTICATE_ACCOUNTS",
+            "permission_cn": "验证账户",
+            "permission_desc": "允许一个程序通过账户验证方式访问账户管理ACCOUNT_MANAGER相关信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 11,
+            "permission_en": "android.permission.BATTERY_STATS",
+            "permission_cn": "电量统计",
+            "permission_desc": "获取电池电量统计信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 12,
+            "permission_en": "android.permission.BIND_APPWIDGET",
+            "permission_cn": "绑定小插件",
+            "permission_desc": "允许一个程序告诉appWidget服务需要访问小插件的数据库,只有非常少的应用才用到此权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 13,
+            "permission_en": "android.permission.BIND_DEVICE_ADMIN",
+            "permission_cn": "绑定设备管理",
+            "permission_desc": "请求系统管理员接收者receiver,只有系统才能使用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 14,
+            "permission_en": "android.permission.BIND_INPUT_METHOD",
+            "permission_cn": "绑定输入法",
+            "permission_desc": "请求InputMethodService服务,只有系统才能使用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 15,
+            "permission_en": "android.permission.BIND_REMOTEVIEWS",
+            "permission_cn": "绑定RemoteView",
+            "permission_desc": "必须通过RemoteViewsService服务来请求,只有系统才能用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 16,
+            "permission_en": "android.permission.BIND_WALLPAPER",
+            "permission_cn": "绑定壁纸",
+            "permission_desc": "必须通过WallpaperService服务来请求,只有系统才能用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 17,
+            "permission_en": "android.permission.BLUETOOTH",
+            "permission_cn": "使用蓝牙",
+            "permission_desc": "允许程序连接配对过的蓝牙设备",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 18,
+            "permission_en": "android.permission.BLUETOOTH_ADMIN",
+            "permission_cn": "蓝牙管理",
+            "permission_desc": "允许程序进行发现和配对新的蓝牙设备",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 19,
+            "permission_en": "android.permission.BRICK",
+            "permission_cn": "变成砖头",
+            "permission_desc": "能够禁用手机,非常危险,顾名思义就是让手机变成砖头",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 20,
+            "permission_en": "android.permission.BROADCAST_PACKAGE_REMOVED",
+            "permission_cn": "应用删除时广播",
+            "permission_desc": "当一个应用在删除时触发一个广播",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 21,
+            "permission_en": "android.permission.BROADCAST_SMS",
+            "permission_cn": "收到短信时广播",
+            "permission_desc": "当收到短信时触发一个广播",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 22,
+            "permission_en": "android.permission.BROADCAST_STICKY",
+            "permission_cn": "连续广播",
+            "permission_desc": "允许一个程序收到广播后快速收到下一个广播",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 23,
+            "permission_en": "android.permission.BROADCAST_WAP_PUSH",
+            "permission_cn": "WAP PUSH广播",
+            "permission_desc": "WAP PUSH服务收到后触发一个广播",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 24,
+            "permission_en": "android.permission.CALL_PHONE",
+            "permission_cn": "拨打电话",
+            "permission_desc": "允许程序从非系统拨号器里输入电话号码",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 25,
+            "permission_en": "android.permission.CALL_PRIVILEGED",
+            "permission_cn": "通话权限",
+            "permission_desc": "允许程序拨打电话,替换系统的拨号器界面",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 26,
+            "permission_en": "android.permission.CAMERA",
+            "permission_cn": "拍照权限",
+            "permission_desc": "允许访问摄像头进行拍照",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 27,
+            "permission_en": "android.permission.CHANGE_COMPONENT_ENABLED_STATE",
+            "permission_cn": "改变组件状态",
+            "permission_desc": "改变组件是否启用状态",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 28,
+            "permission_en": "android.permission.CHANGE_CONFIGURATION",
+            "permission_cn": "改变配置",
+            "permission_desc": "允许当前应用改变配置,如定位",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 29,
+            "permission_en": "android.permission.CHANGE_NETWORK_STATE",
+            "permission_cn": "改变网络状态",
+            "permission_desc": "改变网络状态如是否能联网",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 30,
+            "permission_en": "android.permission.CHANGE_WIFI_MULTICAST_STATE",
+            "permission_cn": "改变WiFi多播状态",
+            "permission_desc": "改变WiFi多播状态",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 31,
+            "permission_en": "android.permission.CHANGE_WIFI_STATE",
+            "permission_cn": "改变WiFi状态",
+            "permission_desc": "改变WiFi状态",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 32,
+            "permission_en": "android.permission.CLEAR_APP_CACHE",
+            "permission_cn": "清除应用缓存",
+            "permission_desc": "清除应用缓存",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 33,
+            "permission_en": "android.permission.CLEAR_APP_USER_DATA",
+            "permission_cn": "清除用户数据",
+            "permission_desc": "清除应用的用户数据",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 34,
+            "permission_en": "android.permission.CWJ_GROUP",
+            "permission_cn": "底层访问权限",
+            "permission_desc": "允许CWJ账户组访问底层信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 35,
+            "permission_en": "android.permission.CELL_PHONE_MASTER_EX",
+            "permission_cn": "手机优化大师扩展权限",
+            "permission_desc": "手机优化大师扩展权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 36,
+            "permission_en": "android.permission.CONTROL_LOCATION_UPDATES",
+            "permission_cn": "控制定位更新",
+            "permission_desc": "允许获得移动网络定位信息改变",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 37,
+            "permission_en": "android.permission.DELETE_CACHE_FILES",
+            "permission_cn": "删除缓存文件",
+            "permission_desc": "允许应用删除缓存文件",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 38,
+            "permission_en": "android.permission.DELETE_PACKAGES",
+            "permission_cn": "删除应用",
+            "permission_desc": "允许程序删除应用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 39,
+            "permission_en": "android.permission.DEVICE_POWER",
+            "permission_cn": "电源管理",
+            "permission_desc": "允许访问底层电源管理",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 40,
+            "permission_en": "android.permission.DIAGNOSTIC",
+            "permission_cn": "应用诊断",
+            "permission_desc": "允许程序到RW到诊断资源",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 41,
+            "permission_en": "android.permission.DISABLE_KEYGUARD",
+            "permission_cn": "禁用键盘锁",
+            "permission_desc": "允许程序禁用键盘锁",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 42,
+            "permission_en": "android.permission.DUMP",
+            "permission_cn": "转存系统信息",
+            "permission_desc": "允许程序获取系统dump信息从系统服务",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 43,
+            "permission_en": "android.permission.EXPAND_STATUS_BAR",
+            "permission_cn": "状态栏控制",
+            "permission_desc": "允许程序扩展或收缩状态栏",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 44,
+            "permission_en": "android.permission.FACTORY_TEST",
+            "permission_cn": "工厂测试模式",
+            "permission_desc": "允许程序运行工厂测试模式",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 45,
+            "permission_en": "android.permission.FLASHLIGHT",
+            "permission_cn": "使用闪光灯",
+            "permission_desc": "允许访问闪光灯",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 46,
+            "permission_en": "android.permission.FORCE_BACK",
+            "permission_cn": "强制后退",
+            "permission_desc": "允许程序强制使用back后退按键,无论Activity是否在顶层",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 47,
+            "permission_en": "android.permission.GET_ACCOUNTS",
+            "permission_cn": "访问账户Gmail列表",
+            "permission_desc": "访问GMail账户列表",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 48,
+            "permission_en": "android.permission.GET_PACKAGE_SIZE",
+            "permission_cn": "获取应用大小",
+            "permission_desc": "获取应用的文件大小",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 49,
+            "permission_en": "android.permission.GET_TASKS",
+            "permission_cn": "获取任务信息",
+            "permission_desc": "允许程序获取当前或最近运行的应用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 50,
+            "permission_en": "android.permission.GLOBAL_SEARCH",
+            "permission_cn": "允许全局搜索",
+            "permission_desc": "允许程序使用全局搜索功能",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 51,
+            "permission_en": "android.permission.HARDWARE_TEST",
+            "permission_cn": "硬件测试",
+            "permission_desc": "访问硬件辅助设备,用于硬件测试",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 52,
+            "permission_en": "android.permission.INJECT_EVENTS",
+            "permission_cn": "注射事件",
+            "permission_desc": "允许访问本程序的底层事件,获取按键、轨迹球的事件流",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 53,
+            "permission_en": "android.permission.INSTALL_LOCATION_PROVIDER",
+            "permission_cn": "安装定位提供",
+            "permission_desc": "安装定位提供",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 54,
+            "permission_en": "android.permission.INSTALL_PACKAGES",
+            "permission_cn": "安装应用程序",
+            "permission_desc": "允许程序安装应用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 55,
+            "permission_en": "android.permission.INTERNAL_SYSTEM_WINDOW",
+            "permission_cn": "内部系统窗口",
+            "permission_desc": "允许程序打开内部窗口,不对第三方应用程序开放此权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 56,
+            "permission_en": "android.permission.INTERNET",
+            "permission_cn": "访问网络",
+            "permission_desc": "访问网络连接,可能产生GPRS流量",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 57,
+            "permission_en": "android.permission.KILL_BACKGROUND_PROCESSES",
+            "permission_cn": "结束后台进程",
+            "permission_desc": "允许程序调用killBackgroundProcesses(String).方法结束后台进程",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 58,
+            "permission_en": "android.permission.MANAGE_ACCOUNTS",
+            "permission_cn": "管理账户",
+            "permission_desc": "允许程序管理AccountManager中的账户列表",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 59,
+            "permission_en": "android.permission.MANAGE_APP_TOKENS",
+            "permission_cn": "管理程序引用",
+            "permission_desc": "管理创建、摧毁、Z轴顺序,仅用于系统",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 60,
+            "permission_en": "android.permission.MTWEAK_USER",
+            "permission_cn": "高级权限",
+            "permission_desc": "允许mTweak用户访问高级系统权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 61,
+            "permission_en": "android.permission.MTWEAK_FORUM",
+            "permission_cn": "社区权限",
+            "permission_desc": "允许使用mTweak社区权限",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 62,
+            "permission_en": "android.permission.MASTER_CLEAR",
+            "permission_cn": "软格式化",
+            "permission_desc": "允许程序执行软格式化,删除系统配置信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 63,
+            "permission_en": "android.permission.MODIFY_AUDIO_SETTINGS",
+            "permission_cn": "修改声音设置",
+            "permission_desc": "修改声音设置信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 64,
+            "permission_en": "android.permission.MODIFY_PHONE_STATE",
+            "permission_cn": "修改电话状态",
+            "permission_desc": "修改电话状态,如飞行模式,但不包含替换系统拨号器界面",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 65,
+            "permission_en": "android.permission.MOUNT_FORMAT_FILESYSTEMS",
+            "permission_cn": "格式化文件系统",
+            "permission_desc": "格式化可移动文件系统,比如格式化清空SD卡",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 66,
+            "permission_en": "android.permission.MOUNT_UNMOUNT_FILESYSTEMS",
+            "permission_cn": "挂载文件系统",
+            "permission_desc": "挂载、反挂载外部文件系统",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 67,
+            "permission_en": "android.permission.NFC",
+            "permission_cn": "允许NFC通讯",
+            "permission_desc": "允许程序执行NFC近距离通讯操作,用于移动支持",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 68,
+            "permission_en": "android.permission.PERSISTENT_ACTIVITY",
+            "permission_cn": "永久Activity",
+            "permission_desc": "创建一个永久的Activity,该功能标记为将来将被移除",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 69,
+            "permission_en": "android.permission.PROCESS_OUTGOING_CALLS",
+            "permission_cn": "处理拨出电话",
+            "permission_desc": "允许程序监视,修改或放弃播出电话",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 70,
+            "permission_en": "android.permission.READ_CALENDAR",
+            "permission_cn": "读取日程提醒",
+            "permission_desc": "允许程序读取用户的日程信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 71,
+            "permission_en": "android.permission.READ_CONTACTS",
+            "permission_cn": "读取联系人",
+            "permission_desc": "允许应用访问联系人通讯录信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 72,
+            "permission_en": "android.permission.READ_FRAME_BUFFER",
+            "permission_cn": "屏幕截图",
+            "permission_desc": "读取帧缓存用于屏幕截图",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 73,
+            "permission_en": "com.android.browser.permission.READ_HISTORY_BOOKMARKS",
+            "permission_cn": "读取收藏夹和历史记录",
+            "permission_desc": "读取浏览器收藏夹和历史记录",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 74,
+            "permission_en": "android.permission.READ_INPUT_STATE",
+            "permission_cn": "读取输入状态",
+            "permission_desc": "读取当前键的输入状态,仅用于系统",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 75,
+            "permission_en": "android.permission.READ_LOGS",
+            "permission_cn": "读取系统日志",
+            "permission_desc": "读取系统底层日志",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 76,
+            "permission_en": "android.permission.READ_PHONE_STATE",
+            "permission_cn": "读取电话状态",
+            "permission_desc": "访问电话状态",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 77,
+            "permission_en": "android.permission.READ_SMS",
+            "permission_cn": "读取短信内容",
+            "permission_desc": "读取短信内容",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 78,
+            "permission_en": "android.permission.READ_SYNC_SETTINGS",
+            "permission_cn": "读取同步设置",
+            "permission_desc": "读取同步设置,读取Google在线同步设置",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 79,
+            "permission_en": "android.permission.READ_SYNC_STATS",
+            "permission_cn": "读取同步状态",
+            "permission_desc": "读取同步状态,获得Google在线同步状态",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 80,
+            "permission_en": "android.permission.REBOOT",
+            "permission_cn": "重启设备",
+            "permission_desc": "允许程序重新启动设备",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 81,
+            "permission_en": "android.permission.RECEIVE_BOOT_COMPLETED",
+            "permission_cn": "开机自动允许",
+            "permission_desc": "允许程序开机自动运行",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 82,
+            "permission_en": "android.permission.RECEIVE_MMS",
+            "permission_cn": "接收彩信",
+            "permission_desc": "接收彩信",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 83,
+            "permission_en": "android.permission.RECEIVE_SMS",
+            "permission_cn": "接收短信",
+            "permission_desc": "接收短信",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 84,
+            "permission_en": "android.permission.RECEIVE_WAP_PUSH",
+            "permission_cn": "接收Wap Push",
+            "permission_desc": "接收WAP PUSH信息",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 85,
+            "permission_en": "android.permission.RECORD_AUDIO",
+            "permission_cn": "录音",
+            "permission_desc": "录制声音通过手机或耳机的麦克",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 86,
+            "permission_en": "android.permission.REORDER_TASKS",
+            "permission_cn": "排序系统任务",
+            "permission_desc": "重新排序系统Z轴运行中的任务",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 87,
+            "permission_en": "android.permission.RESTART_PACKAGES",
+            "permission_cn": "结束系统任务",
+            "permission_desc": "结束任务通过restartPackage(String)方法,该方式将在外来放弃",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 88,
+            "permission_en": "android.permission.SEND_SMS",
+            "permission_cn": "发送短信",
+            "permission_desc": "发送短信",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 89,
+            "permission_en": "android.permission.SET_ACTIVITY_WATCHER",
+            "permission_cn": "设置Activity观察其",
+            "permission_desc": "设置Activity观察器一般用于monkey测试",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 90,
+            "permission_en": "com.android.alarm.permission.SET_ALARM",
+            "permission_cn": "设置闹铃提醒",
+            "permission_desc": "设置闹铃提醒",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 91,
+            "permission_en": "android.permission.SET_ALWAYS_FINISH",
+            "permission_cn": "设置总是退出",
+            "permission_desc": "设置程序在后台是否总是退出",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 92,
+            "permission_en": "android.permission.SET_ANIMATION_SCALE",
+            "permission_cn": "设置动画缩放",
+            "permission_desc": "设置全局动画缩放",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 93,
+            "permission_en": "android.permission.SET_DEBUG_APP",
+            "permission_cn": "设置调试程序",
+            "permission_desc": "设置调试程序,一般用于开发",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 94,
+            "permission_en": "android.permission.SET_ORIENTATION",
+            "permission_cn": "设置屏幕方向",
+            "permission_desc": "设置屏幕方向为横屏或标准方式显示,不用于普通应用",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 95,
+            "permission_en": "android.permission.SET_PREFERRED_APPLICATIONS",
+            "permission_cn": "设置应用参数",
+            "permission_desc": "设置应用的参数,已不再工作具体查看addPackageToPreferred(String)介绍",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 96,
+            "permission_en": "android.permission.SET_PROCESS_LIMIT",
+            "permission_cn": "设置进程限制",
+            "permission_desc": "允许程序设置最大的进程数量的限制",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 97,
+            "permission_en": "android.permission.SET_TIME",
+            "permission_cn": "设置系统时间",
+            "permission_desc": "设置系统时间",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 98,
+            "permission_en": "android.permission.SET_TIME_ZONE",
+            "permission_cn": "设置系统时区",
+            "permission_desc": "设置系统时区",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 99,
+            "permission_en": "android.permission.SET_WALLPAPER",
+            "permission_cn": "设置桌面壁纸",
+            "permission_desc": "设置桌面壁纸",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 100,
+            "permission_en": "android.permission.SET_WALLPAPER_HINTS",
+            "permission_cn": "设置壁纸建议",
+            "permission_desc": "设置壁纸建议",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 101,
+            "permission_en": "android.permission.SIGNAL_PERSISTENT_PROCESSES",
+            "permission_cn": "发送永久进程信号",
+            "permission_desc": "发送一个永久的进程信号",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 102,
+            "permission_en": "android.permission.STATUS_BAR",
+            "permission_cn": "状态栏控制",
+            "permission_desc": "允许程序打开、关闭、禁用状态栏",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 103,
+            "permission_en": "android.permission.SUBSCRIBED_FEEDS_READ",
+            "permission_cn": "访问订阅内容",
+            "permission_desc": "访问订阅信息的数据库",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 104,
+            "permission_en": "android.permission.SUBSCRIBED_FEEDS_WRITE",
+            "permission_cn": "写入订阅内容",
+            "permission_desc": "写入或修改订阅内容的数据库",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 105,
+            "permission_en": "android.permission.SYSTEM_ALERT_WINDOW",
+            "permission_cn": "显示系统窗口",
+            "permission_desc": "显示系统窗口",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 106,
+            "permission_en": "android.permission.UPDATE_DEVICE_STATS",
+            "permission_cn": "更新设备状态",
+            "permission_desc": "更新设备状态",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 107,
+            "permission_en": "android.permission.USE_CREDENTIALS",
+            "permission_cn": "使用证书",
+            "permission_desc": "允许程序请求验证从AccountManager",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 108,
+            "permission_en": "android.permission.USE_SIP",
+            "permission_cn": "使用SIP视频",
+            "permission_desc": "允许程序使用SIP视频服务",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 109,
+            "permission_en": "android.permission.VIBRATE",
+            "permission_cn": "使用振动",
+            "permission_desc": "允许振动",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 110,
+            "permission_en": "android.permission.WAKE_LOCK",
+            "permission_cn": "唤醒锁定",
+            "permission_desc": "允许程序在手机屏幕关闭后后台进程仍然运行",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 111,
+            "permission_en": "android.permission.WRITE_APN_SETTINGS",
+            "permission_cn": "写入GPRS接入点设置",
+            "permission_desc": "写入网络GPRS接入点设置",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 112,
+            "permission_en": "android.permission.WRITE_CALENDAR",
+            "permission_cn": "写入日程提醒",
+            "permission_desc": "写入日程,但不可读取",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 113,
+            "permission_en": "android.permission.WRITE_CONTACTS",
+            "permission_cn": "写入联系人",
+            "permission_desc": "写入联系人,但不可读取",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 114,
+            "permission_en": "android.permission.WRITE_EXTERNAL_STORAGE",
+            "permission_cn": "写入外部存储",
+            "permission_desc": "允许程序写入外部存储,如SD卡上写文件",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 115,
+            "permission_en": "android.permission.WRITE_GSERVICES",
+            "permission_cn": "写入Google地图数据",
+            "permission_desc": "允许程序写入Google Map服务数据",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 116,
+            "permission_en": "com.android.browser.permission.WRITE_HISTORY_BOOKMARKS",
+            "permission_cn": "写入收藏夹和历史记录",
+            "permission_desc": "写入浏览器历史记录或收藏夹,但不可读取",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 117,
+            "permission_en": "android.permission.WRITE_SECURE_SETTINGS",
+            "permission_cn": "读写系统敏感设置",
+            "permission_desc": "允许程序读写系统安全敏感的设置项",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 118,
+            "permission_en": "android.permission.WRITE_SETTINGS",
+            "permission_cn": "读写系统设置",
+            "permission_desc": "允许读写系统设置项",
+            "permission_level": null,
+            "permission_harm": null
+        },
+        {
+            "id": 119,
+            "permission_en": "android.permission.WRITE_SMS",
+            "permission_cn": "编写短信",
+            "permission_desc": "允许编写短信",
+            "permission_level": null,
+            "permission_harm": null
+        }
+    ]
+}

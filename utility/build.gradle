@@ -1,0 +1,30 @@
+apply plugin: "com.android.library"
+apply from: "${rootDir}/common.gradle"
+apply plugin: 'org.greenrobot.greendao'
+
+Properties properties = new Properties()
+File keyStore = project.rootProject.file("config.properties")
+if (keyStore.exists()) {
+    properties.load(keyStore.newDataInputStream())
+}
+
+android {
+    greendao {
+        schemaVersion properties.getProperty("config.schemaVersion") as Integer
+        daoPackage 'com.nathaniel.utility.greendao'
+        targetGenDir 'src/main/java'
+        generateTests false
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+
+dependencies {
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'androidx.annotation:annotation:1.0.0'
+    implementation 'org.greenrobot:greendao:3.3.0'
+}

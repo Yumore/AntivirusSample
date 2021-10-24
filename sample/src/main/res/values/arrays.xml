@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="item_names">
+        <item>百度</item>
+        <item>简书</item>
+        <item>掘金</item>
+        <item>CSDN</item>
+    </string-array>
+
+    <string-array name="item_websites">
+        <item>https://m.baidu.com</item>
+        <item>https://www.jianshu.com</item>
+        <item>https://juejin.cn</item>
+        <item>https://www.csdn.net</item>
+    </string-array>
+</resources>

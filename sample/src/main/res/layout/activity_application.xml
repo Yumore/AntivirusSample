@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@color/common_color_divider"
+    android:orientation="vertical"
+    android:showDividers="middle">
+
+    <include layout="@layout/common_header_blue" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/common_padding_normal"
+        android:paddingTop="@dimen/common_padding_small"
+        android:paddingRight="@dimen/common_padding_normal"
+        android:paddingBottom="@dimen/common_padding_small">
+
+        <ImageView
+            android:id="@+id/item_antivirus_logo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_padding_normal"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_antivirus_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="病毒信息" />
+
+            <TextView
+                android:id="@+id/item_antivirus_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="版本信息" />
+
+            <TextView
+                android:id="@+id/item_antivirus_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="危险等级" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

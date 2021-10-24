@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="这是原生TextView" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_theme"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier="0.9"
+            android:text="@string/text_origin"
+            android:textColor="@color/common_color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_orange_dark"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier="0.9"
+            android:text="@string/text_english"
+            android:textColor="@color/common_color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="这是原生TextView:20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_theme"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier="0.9"
+            android:text="@string/text_origin"
+            android:textColor="@color/common_color_white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_orange_dark"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier="0.9"
+            android:text="@string/text_english"
+            android:textColor="@color/common_color_white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="这是CustomTextView" />
+
+        <com.nathaniel.baseui.widget.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_theme"
+            android:includeFontPadding="false"
+            android:text="@string/text_origin"
+            android:textColor="@color/common_color_white" />
+
+        <com.nathaniel.baseui.widget.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_orange_dark"
+            android:includeFontPadding="false"
+            android:text="@string/text_english"
+            android:textColor="@color/common_color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="这是CustomTextView:20dp" />
+
+        <com.nathaniel.baseui.widget.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_theme"
+            android:includeFontPadding="false"
+            android:text="@string/text_origin"
+            android:textColor="@color/common_color_white"
+            android:textSize="20dp" />
+
+        <com.nathaniel.baseui.widget.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_orange_dark"
+            android:includeFontPadding="false"
+            android:text="@string/text_english"
+            android:textColor="@color/common_color_white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="这是原生CustomTextView" />
+
+        <com.nathaniel.baseui.widget.TextViewWithoutPaddings
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_theme"
+            android:includeFontPadding="false"
+            android:text="@string/text_origin"
+            android:textColor="@color/common_color_white" />
+
+        <com.nathaniel.baseui.widget.TextViewWithoutPaddings
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_orange_dark"
+            android:includeFontPadding="false"
+            android:text="@string/text_english"
+            android:textColor="@color/common_color_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/common_header_height_normal"
+            android:text="这是TextViewWithoutPaddings" />
+
+        <com.nathaniel.baseui.widget.TextViewWithoutPaddings
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_theme"
+            android:includeFontPadding="false"
+            android:text="@string/text_origin"
+            android:textColor="@color/common_color_white"
+            android:textSize="20dp" />
+
+        <com.nathaniel.baseui.widget.TextViewWithoutPaddings
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_color_orange_dark"
+            android:includeFontPadding="false"
+            android:text="@string/text_english"
+            android:textColor="@color/common_color_white"
+            android:textSize="20dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

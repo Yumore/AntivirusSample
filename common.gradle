@@ -1,0 +1,68 @@
+
+Properties properties = new Properties()
+File keyStore = project.rootProject.file("config.properties")
+if (keyStore.exists()) {
+    properties.load(keyStore.newDataInputStream())
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    lintOptions {
+        abortOnError false
+        disable "NewApi"
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+        ignoreWarnings true
+    }
+
+    aaptOptions {
+        cruncherEnabled false
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release {
+            keyAlias properties.getProperty("config.keyAlias")
+            keyPassword properties.getProperty("config.keyPassword")
+            storeFile file(properties.getProperty("config.storeFile"))
+            storePassword properties.getProperty("config.storePassword")
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            signingConfig signingConfigs.release
+            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
+            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
+            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            useProguard true
+            shrinkResources false
+            crunchPngs false
+            zipAlignEnabled false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
+            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
+            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
+        }
+    }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/common_header_root"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_header_height"
+    android:background="@color/common_color_theme">
+
+    <ImageView
+        android:id="@+id/common_header_back_iv"
+        android:layout_width="@dimen/common_header_height"
+        android:layout_height="match_parent"
+        android:padding="@dimen/common_padding_middle"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_back_white"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/common_header_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/common_header_back_iv"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxWidth="260dp"
+        android:maxEms="20"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/common_text_size_large"
+        tools:text="Title text container for test here" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/common_header_option_iv"
+            android:layout_width="@dimen/common_header_height"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/common_padding_normal"
+            android:src="@mipmap/icon_more_white"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/common_header_option_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/common_padding_normal"
+            android:gravity="center"
+            android:minWidth="60dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/common_text_size_large"
+            android:visibility="gone"
+            tools:text="操作"
+            tools:visibility="visible" />
+    </LinearLayout>
+</RelativeLayout>

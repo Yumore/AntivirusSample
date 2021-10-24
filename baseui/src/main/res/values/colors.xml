@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#48C6FF</color>
+    <color name="colorPrimaryDark">#48C6FF</color>
+    <color name="colorAccent">#48C6FF</color>
+
+    <color name="common_color_transparent">#00000000</color>
+    <color name="common_color_theme">#48C6FF</color>
+    <color name="common_color_pager">#FFF2F2F2</color>
+    <color name="common_color_divider">#E2E2E2</color>
+    <color name="common_color_blue_dark">#FF6A9CFF</color>
+    <color name="common_color_blue_darkly">#886A9CFF</color>
+    <color name="common_color_blue_light">#88A4E2FF</color>
+    <color name="common_color_blue_lightly">#88B4CEFF</color>
+    <color name="common_color_blue_sky">#FFECF9FF</color>
+    <color name="common_color_blue_grey">#FFF5F7FA</color>
+    <color name="common_color_grey_light">#FFC0C4CC</color>
+    <color name="common_color_grey_lightly">#FFDCDFE6</color>
+    <color name="common_color_grey_dark">#FF909399</color>
+    <color name="common_color_parchment_dark">#AAEDD7AD</color>
+    <color name="common_color_black_light">#FF303133</color>
+    <color name="common_color_black_dark">#FF000000</color>
+    <color name="common_color_orange_light">#f3c751</color>
+    <color name="common_color_orange_dark">#ffaa00</color>
+    <color name="common_color_brown_light">#d1b689</color>
+    <color name="common_color_red_dark">#FF554A</color>
+    <color name="common_color_red_light">#33FF8888</color>
+    <color name="common_color_purple_dark">#FF748AB5</color>
+    <color name="common_color_purple">#FF6A9CFF</color>
+    <color name="common_color_green_light">#0fd850</color>
+    <color name="common_color_green_grass">#70c492</color>
+    <color name="common_color_green_dark">#068631</color>
+    <color name="common_color_white">#FFFFFFFF</color>
+    <color name="common_color_60white">#99FFFFFF</color>
+    <color name="common_color_shadow">#660D327E</color>
+</resources>

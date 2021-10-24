@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_header_blue" />
+
+    <Button
+        android:id="@+id/btn_package"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="查看app流量（所有app）"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="TextView显示"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_browser"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="TabLayout"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_antivirus"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="病毒扫描"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="Scanner"
+        android:textAllCaps="false" />
+</LinearLayout>

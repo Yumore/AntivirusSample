@@ -1,0 +1,846 @@
+{
+    "code": 200,
+    "message": "success",
+    "dataList": [
+        {
+            "id": 1,
+            "virus_name": "Android.Trojan.Pjapps",
+            "virus_number": 49657,
+            "virus_level": "高危",
+            "virus_describe": "Android Pjapps 是一种特洛伊木马，嵌入第三方应用程序，并在受攻击的设备上开启后门，并从远程命令和控制服务器接收指令。\r\n"
+        },
+        {
+            "id": 2,
+            "virus_name": "Android.HackTool.SpyPhone",
+            "virus_number": 29554,
+            "virus_level": "高危",
+            "virus_describe": "SpyPhone是一个黑客工具。它跟踪记录来电、短信、地理位置，浏览器活动和应用程序的消息，如Whatsapp，Facebook，Viber，Skype和Line。"
+        },
+        {
+            "id": 3,
+            "virus_name": "Android.Riskware.Generic",
+            "virus_number": 24540,
+            "virus_level": "低危",
+            "virus_describe": "Riskware.Generic是风险软件的通用检测名称。Riskware一般是不是严格意义的恶意软件。可能是合法的软件应用，可能会误报。如果恶意用户利用这些软件可能对用户构成安全风险。"
+        },
+        {
+            "id": 4,
+            "virus_name": "Android.PUA.Jiagu",
+            "virus_number": 19214,
+            "virus_level": "低危",
+            "virus_describe": "Android Jiagu 是一种常见的PUA（可能不需要的应用程序），这是一种恶意软件类型，在不知不觉中与合法应用程序一起下载，虽然无害，但可能消耗手机系统资源，或可能带来安全风险。"
+        },
+        {
+            "id": 5,
+            "virus_name": "Android.Trojan.Agent",
+            "virus_number": 14984,
+            "virus_level": "中危",
+            "virus_describe": "Android特洛伊木马代理是一个恶意应用程序，在用户不知情的情况下在移动设备后台运行。它静默地等待来自远程服务器的命令。这些命令可以是任何内容，从窃取并将个人信息发送到远程服务器，到充当针对目标受害者的拒绝服务攻击机器人。 "
+        },
+        {
+            "id": 6,
+            "virus_name": "Android.Adware.Generic",
+            "virus_number": 6744,
+            "virus_level": "低危",
+            "virus_describe": "Android Generic是一种常见的在程序运行时自动显示广告的软件包。该类广告软件通常隐蔽地安装在用户的设备上，用于显示广告消息，横幅，或用于将搜索查询重定向到广告网页，以及用于收集关于用户的营销数据并进一步将该信息传送给广告公司。基本上，此类程序没有卸载程序，并与其他恶意文件一起使用。"
+        },
+        {
+            "id": 7,
+            "virus_name": "Android.HackTool.StealthSpy",
+            "virus_number": 6742,
+            "virus_level": "中危",
+            "virus_describe": "StealthSpy是一种间谍工具。它是一体化的 Android手机监控解决方案。安装后，它将保持完全隐藏，并开始立即将信息直接发送到您的用户帐户。然后，您可以在地球上的任何位置通过你的帐户访问所有被监控手机数据。"
+        },
+        {
+            "id": 8,
+            "virus_name": "Android.Trojan.EICARVirusApp ",
+            "virus_number": 4296,
+            "virus_level": "中危",
+            "virus_describe": "EICARVirusApp是一个特洛伊木马，假冒“EICAR Anti-virus Test”测试工具，它在受害设备上开启后门并将信息从设备传输到远程服务器。"
+        },
+        {
+            "id": 9,
+            "virus_name": "Android.Trojan.Dropper",
+            "virus_number": 3033,
+            "virus_level": "高危",
+            "virus_describe": "Android Dropper是一种特洛伊木马，在其应用里包含其它恶意应用，并将额外的恶意应用安装到受感染的移动设备上。"
+        },
+        {
+            "id": 10,
+            "virus_name": "Android.PUA.TencentProtect",
+            "virus_number": 2932,
+            "virus_level": "低危",
+            "virus_describe": "Android TencentProtect是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 11,
+            "virus_name": "Android.Adware.Youmi",
+            "virus_number": 2904,
+            "virus_level": "低危",
+            "virus_describe": "Android Youmi是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 12,
+            "virus_name": "Android.Adware.Ewind",
+            "virus_number": 2839,
+            "virus_level": "低危",
+            "virus_describe": "Android Ewind是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 13,
+            "virus_name": "Android.PUA.SMSreg",
+            "virus_number": 2704,
+            "virus_level": "低危",
+            "virus_describe": "Android SMSreg 是一种常见的PUA（可能不需要的应用程序），它注册了系统的短信服务。PUA是一种恶意软件类型，在不知不觉中与合法应用程序一起下载，虽然无害，但可能消耗手机系统资源，或可能带来安全风险。"
+        },
+        {
+            "id": 14,
+            "virus_name": "Android.Trojan.Smforw",
+            "virus_number": 2449,
+            "virus_level": "高危",
+            "virus_describe": "Android Smforw及其变种是Android设备的特洛伊木马，将监视和拦截传入的 SMS 消息，并将它们转发到远程服务器。"
+        },
+        {
+            "id": 15,
+            "virus_name": "Android.Trojan.Basebridge",
+            "virus_number": 2382,
+            "virus_level": "中危",
+            "virus_describe": "Android Basebridge 是一种特洛伊木马，它尝试向预定号码发送收费短消息。"
+        },
+        {
+            "id": 16,
+            "virus_name": "Android.Adware.Mobidash",
+            "virus_number": 2165,
+            "virus_level": "低危",
+            "virus_describe": "Android Mobidash是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 17,
+            "virus_name": "Android.Trojan.Autoins",
+            "virus_number": 2158,
+            "virus_level": "中危",
+            "virus_describe": "Android Autoins是一种特洛伊木马，可能会在受感染的设备上自动安装恶意软件。它是某些手机上预装的应用程序，虽然它本身并不是恶意的，但它可以用来吸引其他恶意软件。"
+        },
+        {
+            "id": 18,
+            "virus_name": "Android.Trojan.FakeApp",
+            "virus_number": 2091,
+            "virus_level": "中危",
+            "virus_describe": "Android FakeApp是一种木马软件，它通常伪装成一个合法的应用程序，声称执行各种操作，如防病毒应用、更新程序和其他应用。其真正意图通常是通过展示广告和重定向用户安装其他应用来获取收入。"
+        },
+        {
+            "id": 19,
+            "virus_name": "Android.Riskware.SmsPay",
+            "virus_number": 1687,
+            "virus_level": "低危",
+            "virus_describe": "Android SmsPay通常是合法应用程序，其中包含用于发送和接收SMS消息的附加模块。虽然本身并不是恶意的，但Android恶意软件通常会滥用此类功能来静默发送高价或垃圾短信。如果用户不知道应用程序的功能，应用程序的短信发送行为可能会导致意外的高额手机费用。"
+        },
+        {
+            "id": 20,
+            "virus_name": "Android.Trojan.Geinimi",
+            "virus_number": 1666,
+            "virus_level": "高危",
+            "virus_describe": "Android Geinimi 是一种特洛伊木马程序，它在受害设备上打开后门并将信息从设备传输到远程服务器。"
+        },
+        {
+            "id": 21,
+            "virus_name": "Android.Trojan.SMSSend",
+            "virus_number": 1502,
+            "virus_level": "中危",
+            "virus_describe": "Android SMSSend是一种特洛伊木马，通过默默地向付费号码发送短信来获取利润。"
+        },
+        {
+            "id": 22,
+            "virus_name": "Android.Trojan.Plankton",
+            "virus_number": 1459,
+            "virus_level": "高危",
+            "virus_describe": "Android Plankon是一种特洛伊木马，它默默地将有关设备的信息转发到远程位置。此外，它还将附加文件下载到设备上。"
+        },
+        {
+            "id": 23,
+            "virus_name": "Android.Adware.AirPush",
+            "virus_number": 1337,
+            "virus_level": "低危",
+            "virus_describe": "Android AirPush是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 24,
+            "virus_name": "Android.Adware.Wapsx",
+            "virus_number": 1304,
+            "virus_level": "低危",
+            "virus_describe": "Android Wapsx是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 25,
+            "virus_name": "Android.Trojan.Downloader",
+            "virus_number": 1182,
+            "virus_level": "中危",
+            "virus_describe": "Android Downloader是一个特洛伊木马应用程序，默默地连接到远程站点，并尝试将其他应用程序下载到受害设备上。它一般还尝试获取设备详细信息，如 IMEI 和 IMSI 信息。"
+        },
+        {
+            "id": 26,
+            "virus_name": "Android.Trojan.HiddenAds",
+            "virus_number": 1122,
+            "virus_level": "中危",
+            "virus_describe": "Android HiddenAds是一种隐藏广告的特洛伊木马，在 Android手机上很常见。广告功能隐藏在应用中，用户在安装过程中不知道应用包含广告。木马在用户的设备上弹出广告，而最终用户很难识别是哪一个应用弹出的广告。\r\n"
+        },
+        {
+            "id": 27,
+            "virus_name": "Android.PUA.QihooProtect",
+            "virus_number": 1101,
+            "virus_level": "低危",
+            "virus_describe": "Android QihooProtect是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 28,
+            "virus_name": "Android.Trojan.MLW",
+            "virus_number": 1098,
+            "virus_level": "中危",
+            "virus_describe": "MLW是一种特洛伊木马程序，它在受害设备上开启后门并将信息从设备传输到远程服务器。"
+        },
+        {
+            "id": 29,
+            "virus_name": "Android.PUA.Generic",
+            "virus_number": 973,
+            "virus_level": "低危",
+            "virus_describe": "Android.PUA.Generic 是对常见且可能不需要的应用程序 (PUA)的通用名称，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 30,
+            "virus_name": "Android.Adware.Dowgin",
+            "virus_number": 923,
+            "virus_level": "低危",
+            "virus_describe": "Android Dowgin是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 31,
+            "virus_name": "Android.Trojan.Banker",
+            "virus_number": 895,
+            "virus_level": "高危",
+            "virus_describe": "Android Banker是一种特洛伊木马，可窃取与受影响系统中的在线银行系统，电子支付系统和信用卡系统相关的用户帐户数据，然后将数据传输给控制特洛伊木马的恶意用户。"
+        },
+        {
+            "id": 32,
+            "virus_name": "Android.Adware.Kuguo",
+            "virus_number": 885,
+            "virus_level": "低危",
+            "virus_describe": "Android Kuguo是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 33,
+            "virus_name": "Android.Adware.GingerMaster",
+            "virus_number": 824,
+            "virus_level": "低危",
+            "virus_describe": "Android GingetMaster是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 34,
+            "virus_name": "Android.Adware.KyView",
+            "virus_number": 747,
+            "virus_level": "低危",
+            "virus_describe": "Android KyView是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 35,
+            "virus_name": "Android.PUA.Bruad",
+            "virus_number": 747,
+            "virus_level": "低危",
+            "virus_describe": "Android Bruad是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 36,
+            "virus_name": "Android.Trojan.Fakengry",
+            "virus_number": 660,
+            "virus_level": "中危",
+            "virus_describe": "Android Fakengry是一个后门特洛伊木马，可默默地从手机上收集信息，并将收集的信息转发到远程服务器。\r\n"
+        },
+        {
+            "id": 37,
+            "virus_name": "Android.Adware.Adwo",
+            "virus_number": 658,
+            "virus_level": "低危",
+            "virus_describe": "Android Adwo是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 38,
+            "virus_name": "Android.Trojan.Secapk",
+            "virus_number": 635,
+            "virus_level": "中危",
+            "virus_describe": "Android Secapk是一种特洛伊木马，包含该木马的应用通过在线加密服务，在提交 .apk 后，对其进行加密并添加一些保护层，这使得恶意代码难以被检测出来。"
+        },
+        {
+            "id": 39,
+            "virus_name": "Android.Trojan.Clicker",
+            "virus_number": 621,
+            "virus_level": "中危",
+            "virus_describe": "Android Clicker是一个特洛伊木马，旨在提高网站访问率和赚取在线流量的钱。它们通过单击链接和其他交互式元素来模拟网页上的用户操作。它内置于普通应用中，所有这些程序都是可操作的，对Android用户无害。"
+        },
+        {
+            "id": 40,
+            "virus_name": "Android.PUA.BaiduProtect",
+            "virus_number": 511,
+            "virus_level": "低危",
+            "virus_describe": "Android BaiduProtect是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 41,
+            "virus_name": "Android.Trojan.SpyAgent",
+            "virus_number": 509,
+            "virus_level": "高危",
+            "virus_describe": "Android SpyAgent是一种特洛伊木马，它能够拦截短信并绕过基于短信的双因素身份验证系统。"
+        },
+        {
+            "id": 42,
+            "virus_name": "Android.Adware.Domob",
+            "virus_number": 424,
+            "virus_level": "低危",
+            "virus_describe": "Android Domob是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 43,
+            "virus_name": "Android.HackTool.Root",
+            "virus_number": 418,
+            "virus_level": "中危",
+            "virus_describe": "Android Root是一种黑客工具，它们利用漏洞获取受攻击的Android设备的root权限，在受攻击的设备上实现即时root访问。"
+        },
+        {
+            "id": 44,
+            "virus_name": "Android.HackTool.Luomao",
+            "virus_number": 418,
+            "virus_level": "中危",
+            "virus_describe": "Android.HackTool.Luomao是一种Android APK破解工具，可以向其它Andorid应用插入特定代码，从而达到获取用户数据、控制手机操作的目的。"
+        },
+        {
+            "id": 45,
+            "virus_name": "Android.PUA.Umpay",
+            "virus_number": 411,
+            "virus_level": "低危",
+            "virus_describe": "Umpay是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 46,
+            "virus_name": "Android.Trojan.SMSThief ",
+            "virus_number": 394,
+            "virus_level": "高危",
+            "virus_describe": "SMSThief是特洛伊木马，伪装成第三方中文应用程序商店中提供的卸载程序。 应用程序下载到用户的设备后，便可以发送Android用户的SMS消息，并使其可供黑客和公众使用。"
+        },
+        {
+            "id": 47,
+            "virus_name": "Android.Trojan.Boogr",
+            "virus_number": 370,
+            "virus_level": "高危",
+            "virus_describe": "Android Boogr 是一种伪装成游戏或流行应用程序的特洛伊木马，此家族的恶意软件可以下载其他恶意文件、向付费号码发送短消息或将受害者的智能手机连接到攻击者的命令和控制服务器。"
+        },
+        {
+            "id": 48,
+            "virus_name": "Android.Trojan.Piom",
+            "virus_number": 365,
+            "virus_level": "高危",
+            "virus_describe": "Android Piom 是一个特洛伊木马。该木马使用不同的方法向用户展示尽可能多的广告，包括安装新的广告软件。该木马程序通过获取根用户权限以将自己隐藏在系统文件夹中，这使得删除非常困难。"
+        },
+        {
+            "id": 49,
+            "virus_name": "Android.Adware.LeadBolt",
+            "virus_number": 357,
+            "virus_level": "低危",
+            "virus_describe": "Android LeadBolt是一种常见的在程序运行时自动显示广告的软件包。它能够更改浏览器设置或在状态栏中显示广告。"
+        },
+        {
+            "id": 50,
+            "virus_name": "Android.Adware.CyFin",
+            "virus_number": 318,
+            "virus_level": "低危",
+            "virus_describe": "Android CyFin是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 51,
+            "virus_name": "Android.Adware.AdMogo",
+            "virus_number": 313,
+            "virus_level": "低危",
+            "virus_describe": "Android AdMogo是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 52,
+            "virus_name": "Android.Trojan.GinMaster",
+            "virus_number": 290,
+            "virus_level": "高危",
+            "virus_describe": "Android GinMaster是一个具有后门特性的特洛伊木马。它从设备窃取机密信息并将其发送到远程网站。后门类木马具有从恶意黑客接收远程连接并对受感染设备执行操作的功能。"
+        },
+        {
+            "id": 53,
+            "virus_name": "Android.Trojan.AndroRAT",
+            "virus_number": 272,
+            "virus_level": "高危",
+            "virus_describe": "Android AndroRAT是一个远程访问控制的特洛伊木马。一旦该应用安装在设备上，内嵌的远程控制功能将允许黑客远程控制被感染的设备。"
+        },
+        {
+            "id": 54,
+            "virus_name": "Android.Adware.Mulad",
+            "virus_number": 250,
+            "virus_level": "低危",
+            "virus_describe": "Android Mulad是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 55,
+            "virus_name": "Android.Trojan.FakeInst",
+            "virus_number": 247,
+            "virus_level": "中危",
+            "virus_describe": "Android FakeInst是一个特洛伊木马，似乎是其他应用程序的安装程序。当执行时，安装的是其它的应用程序，并且会向付费号码或服务发送短消息。"
+        },
+        {
+            "id": 56,
+            "virus_name": "Android.Trojan.Ransom",
+            "virus_number": 232,
+            "virus_level": "高危",
+            "virus_describe": "Android Ransom是一种勒索软件，通常包装成成人主题的应用程序，并使用恐吓战术，如显示FBI警告，以欺骗受害者支付赎金。"
+        },
+        {
+            "id": 57,
+            "virus_name": "Android.Trojan.SLocker",
+            "virus_number": 225,
+            "virus_level": "高危",
+            "virus_describe": "Android SLocker 是一种高度危险的病毒，主要针对移动设备。它指的是一个假的FBI警报，锁定Android用户访问他们的手机，直到支付500美元费用。"
+        },
+        {
+            "id": 58,
+            "virus_name": "Android.Adware.RevMob",
+            "virus_number": 225,
+            "virus_level": "低危",
+            "virus_describe": "Android RevMob是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 59,
+            "virus_name": "Android.PUA.KyVu",
+            "virus_number": 213,
+            "virus_level": "低危",
+            "virus_describe": "Android KyVu是一种常见的PUA（可能不需要的应用程序）。PUA是一种恶意软件类型，在不知不觉中与合法应用程序一起下载，虽然无害，但可能消耗手机系统资源，或可能带来安全风险。"
+        },
+        {
+            "id": 60,
+            "virus_name": "Android.Riskware.Locker",
+            "virus_number": 186,
+            "virus_level": "中危",
+            "virus_describe": "Android Locker是一种旨在在您的移动设备中造成严重破坏的恶意软件。它既可以在屏幕上显示恼人的消息，也可以完全禁用设备。"
+        },
+        {
+            "id": 61,
+            "virus_name": "Android.Trojan.Triada",
+            "virus_number": 184,
+            "virus_level": "高危",
+            "virus_describe": "Android Triada是一个高度危险的特洛伊木马。它获得root权限，使其能够更改系统文件，并为它下载的其它木马程序提供此类权限。该木马将受感染设备的信息发送到远程控制服务器，并下载包含受感染设备ID和设置的配置文件。"
+        },
+        {
+            "id": 62,
+            "virus_name": "Android.PUA.SystemMonitor",
+            "virus_number": 178,
+            "virus_level": "低危",
+            "virus_describe": "SystemMonitor是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 63,
+            "virus_name": "Android.Adware.Mobclick",
+            "virus_number": 177,
+            "virus_level": "低危",
+            "virus_describe": "Android Mobclick是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 64,
+            "virus_name": "Android.Adware.Wooboo",
+            "virus_number": 167,
+            "virus_level": "低危",
+            "virus_describe": "Android Wooboo是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 65,
+            "virus_name": "Android.Adware.Igexin",
+            "virus_number": 166,
+            "virus_level": "低危",
+            "virus_describe": "Android Igexin是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 66,
+            "virus_name": "Android.PUA.DataCollector",
+            "virus_number": 165,
+            "virus_level": "低危",
+            "virus_describe": "Android DataCollector是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。"
+        },
+        {
+            "id": 67,
+            "virus_name": "Android.Trojan.MobilePay",
+            "virus_number": 159,
+            "virus_level": "高危",
+            "virus_describe": "MobilePay是一种特洛伊木马，它获取了几乎所有Android权限以启用其恶意活动。为了避免被检测到，MobilePay一开始并未附带恶意组件，也没有立即启动恶意活动，而是设计为与其命令和控制服务器进行通信以获得实际的恶意代码，然后将恶意代码安装到设备上。"
+        },
+        {
+            "id": 68,
+            "virus_name": "Android.Trojan.Syringe",
+            "virus_number": 142,
+            "virus_level": "中危",
+            "virus_describe": "Android Syringe是一种特洛伊木马，可以从受感染的设备上收集系统信息并捕获键盘输入。"
+        },
+        {
+            "id": 69,
+            "virus_name": "Android.Trojan.Neucore",
+            "virus_number": 139,
+            "virus_level": "中危",
+            "virus_describe": "Android Neucore是一种特洛伊木马程序，它在受害设备上开启后门并将信息从设备传输到远程服务器。"
+        },
+        {
+            "id": 70,
+            "virus_name": "Android.Adware.AppQuanta",
+            "virus_number": 138,
+            "virus_level": "低危",
+            "virus_describe": "Android AppQuanta是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 71,
+            "virus_name": "Android.PUA.Lotoor",
+            "virus_number": 120,
+            "virus_level": "低危",
+            "virus_describe": "Android Lottor是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。该恶意应用只参与信息捕获或试图宣传不需要的产品和服务。"
+        },
+        {
+            "id": 72,
+            "virus_name": "Android.Trojan.obfus",
+            "virus_number": 115,
+            "virus_level": "中危",
+            "virus_describe": "Android obfus是一种特洛伊木马，它试图向潜在受害者掩盖其真实意图并且试图向执行分析的安全研究人员隐藏其恶意代码。"
+        },
+        {
+            "id": 73,
+            "virus_name": "Android.Trojan.Shedun",
+            "virus_number": 106,
+            "virus_level": "高危",
+            "virus_describe": "Android Shedun是一个特洛伊木马家族。木马的攻击载体是将广告模块重新打包到合法的Android应用程序中。被重新打包的应用功能仍然可以正常使用并被发布到第三方应用商店。用户一旦下载，应用程序通过投放广告产生收入。目前大多数用户无法摆脱该病毒，除非他们换一个新的手机或者重新刷机。"
+        },
+        {
+            "id": 74,
+            "virus_name": "Android.PUA.Cimsci",
+            "virus_number": 105,
+            "virus_level": "低危",
+            "virus_describe": "Android Cimsci是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 75,
+            "virus_name": "Android.Trojan.GenericAP",
+            "virus_number": 98,
+            "virus_level": "高危",
+            "virus_describe": "GenericAP是一种特洛伊木马。 它可以建立远程访问，捕获击键，收集系统信息，下载/上传文件，执行拒绝服务攻击以及运行/终止进程。在具有BYOD策略的内部网络中，受感染的设备可以成为引入其他恶意软件并获得未经授权的访问的渠道。"
+        },
+        {
+            "id": 76,
+            "virus_name": "Android.PUA.Congur",
+            "virus_number": 76,
+            "virus_level": "低危",
+            "virus_describe": "Congur是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 77,
+            "virus_name": "Android.Adware.DianJoyPush",
+            "virus_number": 76,
+            "virus_level": "低危",
+            "virus_describe": "DianJoyPush是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 78,
+            "virus_name": "Android.PUA.Aceheur",
+            "virus_number": 71,
+            "virus_level": "低危",
+            "virus_describe": "Android Aceheur 是一种常见的PUA（可能不需要的应用程序），它注册了系统的短信服务。PUA是一种恶意软件类型，在不知不觉中与合法应用程序一起下载，虽然无害，但可能消耗手机系统资源，或可能带来安全风险。"
+        },
+        {
+            "id": 79,
+            "virus_name": "Android.Trojan.Styricka",
+            "virus_number": 68,
+            "virus_level": "高危",
+            "virus_describe": "Android Styricka是一个特洛伊木马，将对你的系统造成很大的损害。当它渗透到你的系统，它会注入一些恶意代码，此外，它安装更多的威胁到你的系统。\r\n"
+        },
+        {
+            "id": 80,
+            "virus_name": "Android.Adware.Cnzz",
+            "virus_number": 67,
+            "virus_level": "低危",
+            "virus_describe": "Cnzz是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 81,
+            "virus_name": "Android.PUA.Hypay",
+            "virus_number": 64,
+            "virus_level": "低危",
+            "virus_describe": "Hypay是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 82,
+            "virus_name": "Android.Trojan.Paccy",
+            "virus_number": 64,
+            "virus_level": "中危",
+            "virus_describe": "Android Paccy是一种特洛伊木马，伪装成系统程序，安装后无图标，自动下载并安装广告插件，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 83,
+            "virus_name": "Android.Adware.Dianjin",
+            "virus_number": 58,
+            "virus_level": "低危",
+            "virus_describe": "Android Dianjin是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 84,
+            "virus_name": "Android.PUA.Iop",
+            "virus_number": 56,
+            "virus_level": "低危",
+            "virus_describe": "Android Iop 是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 85,
+            "virus_name": "Android.HackTool.Metasploit",
+            "virus_number": 54,
+            "virus_level": "高危",
+            "virus_describe": "Android Metasploit是一个重要而强大的黑客工具，用于通过创建有效负载进行黑客攻击。"
+        },
+        {
+            "id": 86,
+            "virus_name": "Android.PUA.Apptrack",
+            "virus_number": 53,
+            "virus_level": "低危",
+            "virus_describe": "Android Apptrack是一种常见的PUA（可能不需要的应用程序）。PUA是一种恶意软件类型，在不知不觉中与合法应用程序一起下载，虽然无害，但可能消耗手机系统资源，或可能带来安全风险。"
+        },
+        {
+            "id": 87,
+            "virus_name": "Android.Trojan.Loapi",
+            "virus_number": 46,
+            "virus_level": "高危",
+            "virus_describe": "Android Loapi是一个非常恶劣的木马，它几乎包含了木马的大多数功能：下载、注入、拦截短信、发送短信、显示广告等等。如果让这个木马在你手机上驻留，会使CPU过热，电池发烫，极大的缩短手机寿命。"
+        },
+        {
+            "id": 88,
+            "virus_name": "Android.Trojan.Mobtes",
+            "virus_number": 43,
+            "virus_level": "高危",
+            "virus_describe": "Android Mobtes是一个特洛伊木马。该木马在未经用户授权的情况下执行信息销毁、阻止、修改或复制以及移动设备故障的操作。"
+        },
+        {
+            "id": 89,
+            "virus_name": "Android.Adware.Feiwo",
+            "virus_number": 43,
+            "virus_level": "低危",
+            "virus_describe": "Feiwo是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 90,
+            "virus_name": "Android.Trojan.Secneo",
+            "virus_number": 41,
+            "virus_level": "中危",
+            "virus_describe": "Secneo是一种特洛伊木马程序，它在受害设备上开启后门并将信息从设备传输到远程服务器。"
+        },
+        {
+            "id": 91,
+            "virus_name": "Android.Trojan.Sandr",
+            "virus_number": 41,
+            "virus_level": "中危",
+            "virus_describe": "Android Sandr 是一种特洛伊木马程序，它在受害设备上开启后门并将信息从设备传输到远程服务器。"
+        },
+        {
+            "id": 92,
+            "virus_name": "Android.Riskware.RogueUrl",
+            "virus_number": 40,
+            "virus_level": "低危",
+            "virus_describe": "None"
+        },
+        {
+            "id": 93,
+            "virus_name": "Android.Trojan.Backdoor",
+            "virus_number": 39,
+            "virus_level": "高危",
+            "virus_describe": "Backdoor是一种特洛伊木马，它能够执行几种不同的功能，例如（但不限于）在控制台中远程执行命令、向收费号码发送短信、下载其他恶意软件甚至安装恶意软件在受感染的设备上，并通过蓝牙通信将其恶意软件发送给其他人。"
+        },
+        {
+            "id": 94,
+            "virus_name": "Android.Trojan.FakeBank",
+            "virus_number": 34,
+            "virus_level": "高危",
+            "virus_describe": "Android Fakebank 是一种特洛伊木马，它伪装成银行应用，从受攻击的设备窃取信息，拦截传入的 SMS 消息并将其转发到远程服务器。某些变种可以拦截用户与银行相关的呼入和呼出电话。"
+        },
+        {
+            "id": 95,
+            "virus_name": "Android.Adware.Mobcore",
+            "virus_number": 31,
+            "virus_level": "低危",
+            "virus_describe": "Android Mobcore是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 96,
+            "virus_name": "Android.PUA.Wapron",
+            "virus_number": 29,
+            "virus_level": "低危",
+            "virus_describe": "Wapron是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 97,
+            "virus_name": "Android.PUA.Fictus",
+            "virus_number": 27,
+            "virus_level": "低危",
+            "virus_describe": "Fictus是一种常见且可能不需要的应用程序 (PUA)，这是一种恶意软件类型，虽然无害，但通常在您的系统上是不需要的。PUA监视用户行为，以释放有针对性的弹出式广告，这些广告会降低手机性能并阻碍用户体验。"
+        },
+        {
+            "id": 98,
+            "virus_name": "Android.Adware.Epatroa",
+            "virus_number": 26,
+            "virus_level": "低危",
+            "virus_describe": "Epatroa是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 99,
+            "virus_name": "Android.Adware.AppFlood",
+            "virus_number": 26,
+            "virus_level": "低危",
+            "virus_describe": "AppFlood是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 100,
+            "virus_name": "Android.Adware.Pandaad",
+            "virus_number": 23,
+            "virus_level": "低危",
+            "virus_describe": "Pandaad是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 101,
+            "virus_name": "Android.Adware.RecmAds",
+            "virus_number": 23,
+            "virus_level": "低危",
+            "virus_describe": "RecmAds是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 102,
+            "virus_name": "Android.PUA.Dnotua",
+            "virus_number": 13,
+            "virus_level": "低危",
+            "virus_describe": "Android Dnotua是一种常见的PUA（可能不需要的应用程序）。PUA是一种恶意软件类型，在不知不觉中与合法应用程序一起下载，虽然无害，但可能消耗手机系统资源，或可能带来安全风险。"
+        },
+        {
+            "id": 103,
+            "virus_name": "Android.Adware.Dataeye",
+            "virus_number": 12,
+            "virus_level": "低危",
+            "virus_describe": "Android Dataeye是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 104,
+            "virus_name": "Android.Trojan.VirtualApp",
+            "virus_number": 12,
+            "virus_level": "高危",
+            "virus_describe": "Android VirtualApp是一个特洛伊木马，包含该木马的应用程序包含合法功能，和恶意行为。恶意行为始终发生在使用 VirtualApp 框架创建的虚拟机内。"
+        },
+        {
+            "id": 105,
+            "virus_name": "Android.Adware.Zdtad",
+            "virus_number": 12,
+            "virus_level": "低危",
+            "virus_describe": "Zdtad是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 106,
+            "virus_name": "Android.Trojan.Climap",
+            "virus_number": 11,
+            "virus_level": "高危",
+            "virus_describe": "Android Climap是一类后门木马，它可以使远程用户可以未经授权访问被感染的设备。"
+        },
+        {
+            "id": 107,
+            "virus_name": "Android.Adware.Repacked",
+            "virus_number": 10,
+            "virus_level": "低危",
+            "virus_describe": "Android Repacked是一种常见的在合法应用上插入广告代码，然后重打包并以合法应用发布。用于显示广告消息，横幅，或用于将搜索查询重定向到广告网页，以及用于收集关于用户的营销数据并进一步将该信息传送给广告公司。"
+        },
+        {
+            "id": 108,
+            "virus_name": "Android.HackTool.SMSBomber ",
+            "virus_number": 9,
+            "virus_level": "中危",
+            "virus_describe": "SMSBomber是一个短信轰炸工具应用，允许攻击者发送短信使接收者的短信收件箱被无限短信填充。"
+        },
+        {
+            "id": 109,
+            "virus_name": "Android.Adware.Yekrand",
+            "virus_number": 9,
+            "virus_level": "低危",
+            "virus_describe": "Yekrand是一种常见的在程序运行时自动显示广告的软件包。广告软件通常不是恶意的，而是不需要的，用户通常不知道它安装在手机上了。"
+        },
+        {
+            "id": 110,
+            "virus_name": "Android.Trojan.Habey",
+            "virus_number": 7,
+            "virus_level": "高危",
+            "virus_describe": "Android Habey 是 针对Android 设备的特洛伊木马，可能尝试删除文件并从受攻击的设备上发送 SMS 消息。"
+        },
+        {
+            "id": 111,
+            "virus_name": "Android.Trojan.Ztorg",
+            "virus_number": 7,
+            "virus_level": "高危",
+            "virus_describe": "Android Ztorg是一个特洛伊木马。安装后，该恶意软件将保持休眠状态一段时间，因为它确定它是在实际的 Android 设备上还是在虚拟机上。确定它位于实际设备上后，它会收集诸如型号、操作系统版本、位置和语言等信息，并将其发送给攻击者。然后，它安装隐藏的软件，旨在获得根访问权限，并将不需要的广告推送到屏幕上。它还能够应攻击者的请求秘密将其他恶意软件下载到设备上。"
+        },
+        {
+            "id": 112,
+            "virus_name": "Android.PUA.Skymobi",
+            "virus_number": 5,
+            "virus_level": "中危",
+            "virus_describe": "Android Skymobi被预装载低端手机上，收集、追踪用户数据，并出售这些数据，同时根据用户的兴趣安装新应用程序。"
+        },
+        {
+            "id": 113,
+            "virus_name": "Android.Trojan.Zitmo",
+            "virus_number": 3,
+            "virus_level": "高危",
+            "virus_describe": "Android ZitMo 是一种针对用户网上银行信息的特洛伊木马，一旦安装，应用将所有接收到的短消息转发到位于瑞典的两个命令和控制号码之一，目的是获取短信验证码和其他数据。"
+        },
+        {
+            "id": 114,
+            "virus_name": "Android.Trojan.Svpeng",
+            "virus_number": 2,
+            "virus_level": "高危",
+            "virus_describe": "Android Svpeng 是最臭名昭著的银行特洛伊木马程序之一，因为它会定期进行升级，以保持新鲜感并持续感染受害者。"
+        },
+        {
+            "id": 115,
+            "virus_name": "Android.PUA.Cooee",
+            "virus_number": 2,
+            "virus_level": "中危",
+            "virus_describe": "Android Cooee是一个预装于手机ROM中的木马程序，它包含许多负责显示广告的SDK。此外，该木马程序还可以下载和运行额外的广告包以及其他应用程序，包括恶意的应用程序。"
+        },
+        {
+            "id": 116,
+            "virus_name": "Android.Trojan.Inazigram",
+            "virus_number": 1,
+            "virus_level": "中危",
+            "virus_describe": "Android Inazigram 是针对 Instagram 用户的一种特洛伊木马程序。该木马窃取 Instagram 凭据并将其发送到远程服务器。为了吸引用户下载，该木马应用程序承诺迅速增加Instagram账户的关注者的数量，点赞的数量和评论数量。\r\n"
+        },
+        {
+            "id": 117,
+            "virus_name": "Android.Trojan.MulDrop",
+            "virus_number": 1,
+            "virus_level": "高危",
+            "virus_describe": "Android MulDrop是一个特洛伊木马，该恶意软件可以显示不需要的广告，并在用户的智能手机上秘密下载应用程序，要求用户启动安装过程。"
+        },
+        {
+            "id": 118,
+            "virus_name": "Android.Trojan.Luckycat",
+            "virus_number": 1,
+            "virus_level": "中危",
+            "virus_describe": "Android Luckycat 是针对Android 设备的特洛伊木马，可在受攻击设备上打开后门并窃取信息。"
+        },
+        {
+            "id": 119,
+            "virus_name": "Android.HackTool.Lanmitm ",
+            "virus_number": 1,
+            "virus_level": "高危",
+            "virus_describe": "Lanmitm是Android平台中间人攻击工具，可对目标设备进行数据嗅探、注入、断网等操作。 "
+        },
+        {
+            "id": 120,
+            "virus_name": "Android.HackTool.GameGuardian",
+            "virus_number": 1,
+            "virus_level": "低危",
+            "virus_describe": "GameGuardian 是一款允许您修改 Android 视频游戏内容以&quot;非法&quot;获得优势和改进的应用程序。它的工作原理是运行期间的代码注入来修改所需的参数。"
+        }
+    ]
+}

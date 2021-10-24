@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <com.nathaniel.baseui.widget.MultiplTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MultiplTextView渐变字体"
+            android:textSize="18sp"
+            app:gradient="true"
+            app:gradientCenterColor="@color/teal_200"
+            app:gradientEndColor="@color/common_color_theme"
+            app:gradientStartColor="@color/common_color_red_dark" />
+
+        <com.nathaniel.baseui.widget.MultiplTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="MultiplTextView闪动字体"
+            android:textSize="18sp"
+            app:gradient="true"
+            app:gradientCenterColor="@color/teal_200"
+            app:gradientEndColor="@color/common_color_theme"
+            app:gradientStartColor="@color/common_color_red_dark"
+            app:runText="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/common_color_red_dark"
+            android:text="原生textview有默认边距"
+            android:textColor="@color/teal_200"
+            android:textSize="18sp" />
+
+        <com.nathaniel.baseui.widget.MultiplTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/common_color_red_dark"
+            android:text="MultiplTextView去除默认边距后"
+            android:textColor="@color/teal_200"
+            android:textSize="18sp"
+            app:removeDefaultPadding="true" />
+
+        <com.nathaniel.baseui.widget.MultiplTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/common_color_red_dark"
+            android:text="MultiplTextView设置思源黑体"
+            android:textColor="@color/teal_200"
+            android:textSize="18sp"
+            app:removeDefaultPadding="true"
+            app:textFont="font/source.OTF" />
+    </LinearLayout>
+</RelativeLayout>

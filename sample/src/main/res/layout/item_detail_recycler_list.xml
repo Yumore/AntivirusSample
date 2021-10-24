@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:background="@color/common_color_blue_light"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/common_padding_normal"
+        android:paddingRight="@dimen/common_padding_normal"
+        android:text="标题" />
+
+    <com.nathaniel.baseui.widget.CustomRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_text_recycler_list" />
+</LinearLayout>

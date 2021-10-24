@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MultiplTextView">
+        <attr name="runText" format="boolean" />
+        <attr name="gradient" format="boolean" />
+        <attr name="gradientStartColor" format="color" />
+        <attr name="gradientCenterColor" format="color" />
+        <attr name="gradientEndColor" format="color" />
+        <attr name="removeDefaultPadding" format="boolean" />
+        <attr name="textFont" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+</resources>
