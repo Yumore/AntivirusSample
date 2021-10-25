@@ -10,9 +10,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import androidx.viewbinding.ViewBinding;
 
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
@@ -28,25 +30,34 @@ import butterknife.Unbinder;
  * @package com.nathaniel.baseui.binding
  * @datetime 2021/3/31 - 19:50
  */
-public abstract class AbstractActivity extends AppCompatActivity implements IViewBinding {
+public abstract class AbstractActivity<VB extends ViewBinding> extends AppCompatActivity implements IViewBinding {
     private static final String TAG = AbstractActivity.class.getSimpleName();
     protected boolean firstTime = true;
+    protected VB viewBinding;
     private AlertDialog alertDialog;
-    private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         beforeInit();
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+        viewBinding = initViewBinding();
+        setContentView(viewBinding.getRoot());
         loadData();
-        initView();
         bindView();
     }
 
+    protected abstract VB initViewBinding();
+
     @Override
     public void beforeInit() {
-        LoggerUtils.logger(TAG, Thread.currentThread().getStackTrace()[1].getMethodName());
+        LoggerUtils.logger(Thread.currentThread().getStackTrace()[1].getMethodName());
+        if (immersionEnable()) {
+            initImmersion();
+        }
+    }
+
+    @Override
+    public void initImmersion() {
         ImmersionBar.with(this)
             .transparentStatusBar()
             .transparentNavigationBar()
@@ -71,7 +82,8 @@ public abstract class AbstractActivity extends AppCompatActivity implements IVie
             .init();
     }
 
-    protected boolean immersionEnable() {
+    @Override
+    public boolean immersionEnable() {
         return true;
     }
 
@@ -109,11 +121,6 @@ public abstract class AbstractActivity extends AppCompatActivity implements IVie
 
     protected boolean navigationEnable() {
         return true;
-    }
-
-    @Override
-    public void initView() {
-        unbinder = ButterKnife.bind(getActivity());
     }
 
     protected final FragmentActivity getActivity() {
@@ -161,20 +168,15 @@ public abstract class AbstractActivity extends AppCompatActivity implements IVie
     }
 
     @Override
-    public <T extends View> T obtainView(int viewId) {
-        return findViewById(viewId);
-    }
-
-    protected <T extends View> T obtainView(View parent, int viewId) {
-        return parent.findViewById(viewId);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!EmptyUtils.isEmpty(unbinder)) {
-            unbinder.unbind();
-            unbinder = null;
+        if (!EmptyUtils.isEmpty(viewBinding)) {
+            viewBinding = null;
         }
+        System.gc();
+    }
+
+    protected <V extends View> V obtainView(View parent, @IdRes int viewId) {
+        return parent.findViewById(viewId);
     }
 }

@@ -17,8 +17,16 @@ import androidx.annotation.Nullable;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
+import com.nathaniel.sample.databinding.ActivityNavigateBinding;
+import com.nathaniel.sample.utility.EventConstants;
+import com.nathaniel.sample.utility.ToastUtils;
 import com.nathaniel.utility.LoggerUtils;
+import com.nathaniel.utility.entity.EventMessage;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,47 +35,29 @@ import butterknife.OnClick;
 /**
  * @author nathaniel
  */
-public class NavigateActivity extends AbstractActivity {
+public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> implements View.OnClickListener {
     private static final int REQUEST_CODE_STORAGE = 0x1001;
     private static final String TAG = NavigateActivity.class.getSimpleName();
-    @BindView(R.id.btn_package)
-    Button btnPackage;
-    @BindView(R.id.common_header_title_tv)
-    TextView commonHeaderTitleTv;
-    @BindView(R.id.common_header_root)
-    RelativeLayout commonHeaderRoot;
-    @BindView(R.id.btn_text)
-    Button btnText;
-    @BindView(R.id.btn_scanner)
-    Button btnScanner;
-    @BindView(R.id.btn_antivirus)
-    Button btnAntivirus;
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_navigate;
-    }
 
     @Override
     public void loadData() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void bindView() {
-        commonHeaderTitleTv.setText(R.string.app_name);
-        commonHeaderTitleTv.setGravity(Gravity.CENTER);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) commonHeaderTitleTv.getLayoutParams();
+        viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setText(R.string.app_name);
+        viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setGravity(Gravity.CENTER);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.getLayoutParams();
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+        viewBinding.btnPackage.setOnClickListener(this);
+        viewBinding.btnText.setOnClickListener(this);
+        viewBinding.btnScanner.setOnClickListener(this);
+        viewBinding.btnAntivirus.setOnClickListener(this);
     }
 
-
-    @OnClick({
-        R.id.btn_package,
-        R.id.btn_text,
-        R.id.btn_antivirus,
-        R.id.btn_scanner
-    })
+    @Override
     public void onClick(View view) {
         RxPermissions permissions = new RxPermissions(getActivity());
         switch (view.getId()) {
@@ -112,7 +102,7 @@ public class NavigateActivity extends AbstractActivity {
         if (granted) {
             startActivity(new Intent(getActivity(), ScannerActivity.class));
         } else {
-            Toast.makeText(getActivity(), "没有权限将无法获扫描整个磁盘", Toast.LENGTH_SHORT).show();
+            ToastUtils.show(getActivity(), "没有权限将无法获扫描整个磁盘");
         }
     }
 
@@ -121,5 +111,27 @@ public class NavigateActivity extends AbstractActivity {
         super.onActivityResult(requestCode, resultCode, data);
         LoggerUtils.logger(TAG, requestCode, resultCode, data);
         gotoScanner(Environment.isExternalStorageManager());
+    }
+
+    @Override
+    protected ActivityNavigateBinding initViewBinding() {
+        return ActivityNavigateBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleEventMessage(EventMessage<?> eventMessage) {
+        switch (eventMessage.getAction()) {
+            case EventConstants.TASK_FINISH_PACKAGE:
+                ToastUtils.show(getActivity(), "可以开始扫描是否有病毒应用了");
+                break;
+            default:
+                break;
+        }
     }
 }

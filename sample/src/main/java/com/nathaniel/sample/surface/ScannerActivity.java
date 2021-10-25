@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.ScannerAdapter;
+import com.nathaniel.sample.databinding.ActivityScannerBinding;
 import com.nathaniel.sample.module.ScannerModel;
 import com.nathaniel.utility.DiskUtils;
 import com.nathaniel.utility.SingletonUtils;
@@ -29,27 +30,12 @@ import butterknife.OnClick;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/7/30 - 09:56
  */
-public class ScannerActivity extends AbstractActivity implements View.OnClickListener {
-    private static final String TAG = ScannerActivity.class.getSimpleName();
-    @BindView(R.id.common_header_back_iv)
-    ImageView commonHeaderBackIv;
-    @BindView(R.id.common_header_title_tv)
-    TextView commonHeaderTitleTv;
-    @BindView(R.id.scanner_starting_btn)
-    Button scannerStartingBtn;
-    @BindView(R.id.scanner_stopping_btn)
-    Button scannerStoppingBtn;
-    @BindView(R.id.scanner_container_rv)
-    RecyclerView scannerContainerRv;
+public class ScannerActivity extends AbstractActivity<ActivityScannerBinding> implements View.OnClickListener {
 
     private String rootPath;
     private ScannerAdapter scannerAdapter;
     private List<PathEntity> pathEntityList;
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_scanner;
-    }
 
     @Override
     public void loadData() {
@@ -60,19 +46,17 @@ public class ScannerActivity extends AbstractActivity implements View.OnClickLis
 
     @Override
     public void bindView() {
-        commonHeaderBackIv.setVisibility(View.VISIBLE);
-        commonHeaderTitleTv.setText("全盘文件扫描");
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setVisibility(View.VISIBLE);
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setOnClickListener(this);
+        viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setText("全盘文件扫描");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        scannerContainerRv.setLayoutManager(linearLayoutManager);
-        scannerContainerRv.setAdapter(scannerAdapter);
+        viewBinding.scannerContainerRv.setLayoutManager(linearLayoutManager);
+        viewBinding.scannerContainerRv.setAdapter(scannerAdapter);
+        viewBinding.scannerStartingBtn.setOnClickListener(this);
+        viewBinding.scannerStoppingBtn.setOnClickListener(this);
     }
 
     @Override
-    @OnClick({
-        R.id.common_header_back_iv,
-        R.id.scanner_starting_btn,
-        R.id.scanner_stopping_btn
-    })
     public void onClick(View view) {
         if (view.getId() == R.id.common_header_back_iv) {
             finish();
@@ -95,4 +79,8 @@ public class ScannerActivity extends AbstractActivity implements View.OnClickLis
         }
     }
 
+    @Override
+    protected ActivityScannerBinding initViewBinding() {
+        return ActivityScannerBinding.inflate(getLayoutInflater());
+    }
 }

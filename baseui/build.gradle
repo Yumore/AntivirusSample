@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply from: "${rootDir}/common.gradle"
-apply plugin: 'com.jakewharton.butterknife'
 
 dependencies {
     api project(':utility')
@@ -13,6 +12,4 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 }

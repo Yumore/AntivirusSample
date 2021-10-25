@@ -13,14 +13,18 @@ import android.util.Log;
 
 import com.nathaniel.sample.BuildConfig;
 import com.nathaniel.sample.module.AntivirusModule;
+import com.nathaniel.sample.utility.EventConstants;
 import com.nathaniel.utility.BitmapCacheUtils;
 import com.nathaniel.utility.ContextHelper;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.PackageUtils;
 import com.nathaniel.utility.SingletonUtils;
+import com.nathaniel.utility.entity.EventMessage;
 import com.nathaniel.utility.entity.PackageEntity;
 import com.wxy.appstartfaster.task.BaseStarterTask;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +133,8 @@ public class StarterTaskFour extends BaseStarterTask {
             packageEntities.add(packageEntity);
         }
         SingletonUtils.getInstance(AntivirusModule.class).setPackageEntities(packageEntities);
-        Log.i("Task:", "TestAppStartTaskFour执行耗时: " + (System.currentTimeMillis() - start));
+        EventBus.getDefault().post(new EventMessage<>(EventConstants.TASK_FINISH_PACKAGE));
+        LoggerUtils.logger("TestAppStartTaskFour执行耗时: " + (System.currentTimeMillis() - start));
     }
 
     @Override

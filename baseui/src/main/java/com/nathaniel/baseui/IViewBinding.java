@@ -3,6 +3,7 @@ package com.nathaniel.baseui;
 import android.view.View;
 
 import androidx.annotation.IdRes;
+import androidx.viewbinding.ViewBinding;
 
 /**
  * @author Nathaniel
@@ -11,22 +12,22 @@ import androidx.annotation.IdRes;
  * @datetime 2021/3/31 - 20:33
  */
 interface IViewBinding {
-    /**
-     * 获取布局文件
-     *
-     * @return layoutId
-     */
-    int getLayoutId();
-
-    /**
-     * initialize view
-     */
-    void initView();
 
     /**
      * before ui init
      */
     void beforeInit();
+
+    /**
+     * 是否使用沉浸式状态栏
+     * @return true|false
+     */
+    boolean immersionEnable();
+
+    /**
+     * 初始化沉浸式状态栏
+     */
+    void initImmersion();
 
     /**
      * loading data
@@ -49,13 +50,4 @@ interface IViewBinding {
      * dismiss loading
      */
     void dismissLoading();
-
-    /**
-     * obtain view
-     *
-     * @param viewId viewId
-     * @param <T>    T
-     * @return T
-     */
-    <T extends View> T obtainView(@IdRes int viewId);
 }

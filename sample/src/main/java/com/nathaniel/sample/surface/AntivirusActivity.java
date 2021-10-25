@@ -14,6 +14,7 @@ import com.nathaniel.baseui.adapter.OnItemClickListener;
 import com.nathaniel.baseui.utility.ItemDecoration;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.AntivirusAdapter;
+import com.nathaniel.sample.databinding.ActivityAntivirusBinding;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.utility.AbstractTask;
 import com.nathaniel.utility.EmptyUtils;
@@ -23,6 +24,8 @@ import com.nathaniel.utility.entity.AntivirusEntity;
 import com.nathaniel.utility.entity.PackageEntity;
 import com.nathaniel.utility.entity.SpecimenEntity;
 import com.nathaniel.utility.helper.PackageDaoHelper;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,20 +40,9 @@ import butterknife.OnClick;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/10/16 - 13:03
  */
-public class AntivirusActivity extends AbstractActivity implements OnItemClickListener {
-    @BindView(R.id.common_header_back_iv)
-    ImageView commonHeaderBackIv;
-    @BindView(R.id.common_header_title_tv)
-    TextView commonHeaderTitleTv;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding> implements OnItemClickListener {
     private AntivirusAdapter antivirusAdapter;
     private List<PackageEntity> packageEntityList;
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_antivirus;
-    }
 
     @Override
     public void loadData() {
@@ -114,13 +106,13 @@ public class AntivirusActivity extends AbstractActivity implements OnItemClickLi
 
     @Override
     public void bindView() {
-        commonHeaderBackIv.setVisibility(View.VISIBLE);
-        commonHeaderTitleTv.setText("手机安全检测");
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setVisibility(View.VISIBLE);
+        viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setText("手机安全检测");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        viewBinding.recyclerView.setLayoutManager(linearLayoutManager);
         int itemSpace = (int) getResources().getDimension(R.dimen.common_height_divider);
-        recyclerView.addItemDecoration(new ItemDecoration(itemSpace, ItemDecoration.LINEAR_LAYOUT_MANAGER));
-        recyclerView.setAdapter(antivirusAdapter);
+        viewBinding.recyclerView.addItemDecoration(new ItemDecoration(itemSpace, ItemDecoration.LINEAR_LAYOUT_MANAGER));
+        viewBinding.recyclerView.setAdapter(antivirusAdapter);
         antivirusAdapter.setOnItemClickListener(this);
     }
 
@@ -138,5 +130,10 @@ public class AntivirusActivity extends AbstractActivity implements OnItemClickLi
         PackageEntity packageEntity = packageEntityList.get(position);
         SingletonUtils.getSingleton(AntivirusModule.class).setPackageEntity(packageEntity);
         startActivity(new Intent(getActivity(), ApplicationActivity.class));
+    }
+
+    @Override
+    protected ActivityAntivirusBinding initViewBinding() {
+        return ActivityAntivirusBinding.inflate(getLayoutInflater());
     }
 }

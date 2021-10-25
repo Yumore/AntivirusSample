@@ -12,12 +12,18 @@ import android.view.WindowManager;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
+import com.nathaniel.sample.databinding.ActivitySplashBinding;
 
 
 /**
  * @author nathaniel
  */
-public class SplashActivity extends AbstractActivity {
+public class SplashActivity extends AbstractActivity<ActivitySplashBinding> {
+
+    @Override
+    protected ActivitySplashBinding initViewBinding() {
+        return ActivitySplashBinding.inflate(getLayoutInflater());
+    }
 
     @Override
     public void beforeInit() {
@@ -37,11 +43,6 @@ public class SplashActivity extends AbstractActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         }
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_splash;
     }
 
     @Override

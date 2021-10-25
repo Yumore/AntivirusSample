@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDaoMaster;
+import org.greenrobot.greendao.database.StandardDatabase;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseOpenHelper;
-import org.greenrobot.greendao.database.StandardDatabase;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 
 
@@ -19,13 +19,7 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 public class DaoMaster extends AbstractDaoMaster {
     public static final int SCHEMA_VERSION = 1;
 
-    public DaoMaster(SQLiteDatabase db) {
-        this(new StandardDatabase(db));
-    }
-
-    /**
-     * Creates underlying database table using DAOs.
-     */
+    /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         AntivirusEntityDao.createTable(db, ifNotExists);
         FileEntityDao.createTable(db, ifNotExists);
@@ -34,6 +28,17 @@ public class DaoMaster extends AbstractDaoMaster {
         SpecimenEntityDao.createTable(db, ifNotExists);
         SummaryEntityDao.createTable(db, ifNotExists);
         TaskEntityDao.createTable(db, ifNotExists);
+    }
+
+    /** Drops underlying database table using DAOs. */
+    public static void dropAllTables(Database db, boolean ifExists) {
+        AntivirusEntityDao.dropTable(db, ifExists);
+        FileEntityDao.dropTable(db, ifExists);
+        PackageEntityDao.dropTable(db, ifExists);
+        PermissionEntityDao.dropTable(db, ifExists);
+        SpecimenEntityDao.dropTable(db, ifExists);
+        SummaryEntityDao.dropTable(db, ifExists);
+        TaskEntityDao.dropTable(db, ifExists);
     }
 
     /**
@@ -46,17 +51,8 @@ public class DaoMaster extends AbstractDaoMaster {
         return daoMaster.newSession();
     }
 
-    /**
-     * Drops underlying database table using DAOs.
-     */
-    public static void dropAllTables(Database db, boolean ifExists) {
-        AntivirusEntityDao.dropTable(db, ifExists);
-        FileEntityDao.dropTable(db, ifExists);
-        PackageEntityDao.dropTable(db, ifExists);
-        PermissionEntityDao.dropTable(db, ifExists);
-        SpecimenEntityDao.dropTable(db, ifExists);
-        SummaryEntityDao.dropTable(db, ifExists);
-        TaskEntityDao.dropTable(db, ifExists);
+    public DaoMaster(SQLiteDatabase db) {
+        this(new StandardDatabase(db));
     }
 
     public DaoMaster(Database db) {

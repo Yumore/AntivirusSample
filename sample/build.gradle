@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply from: "${rootDir}/common.gradle"
-apply plugin: 'com.jakewharton.butterknife'
 
 Properties properties = new Properties()
 File configFile = project.rootProject.file("config.properties")
@@ -38,7 +37,7 @@ android {
         versionName "${properties.getProperty("config.versionName")}"
         multiDexEnabled true
 
-        ndk{
+        ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
     }
@@ -92,7 +91,4 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation "com.github.promeg:tinypinyin:2.0.3"
     implementation "com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3"
-
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 }

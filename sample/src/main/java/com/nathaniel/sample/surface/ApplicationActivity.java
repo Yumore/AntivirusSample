@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.DetailAdapter;
+import com.nathaniel.sample.databinding.ActivityAntivirusBinding;
+import com.nathaniel.sample.databinding.ActivityApplicationBinding;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.sample.module.DetailEntity;
 import com.nathaniel.utility.SingletonUtils;
@@ -27,28 +29,9 @@ import butterknife.OnClick;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/10/17 - 8:25
  */
-public class ApplicationActivity extends AbstractActivity {
-    @BindView(R.id.common_header_back_iv)
-    ImageView commonHeaderBackIv;
-    @BindView(R.id.common_header_title_tv)
-    TextView commonHeaderTitleTv;
-    @BindView(R.id.item_antivirus_logo)
-    ImageView appIcon;
-    @BindView(R.id.item_antivirus_name)
-    TextView appName;
-    @BindView(R.id.item_antivirus_version)
-    TextView appVersion;
-    @BindView(R.id.item_antivirus_level)
-    TextView appLevel;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+public class ApplicationActivity extends AbstractActivity<ActivityApplicationBinding> implements View.OnClickListener {
     private PackageEntity packageEntity;
     private DetailAdapter detailAdapter;
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_application;
-    }
 
     @Override
     public void loadData() {
@@ -59,21 +42,27 @@ public class ApplicationActivity extends AbstractActivity {
 
     @Override
     public void bindView() {
-        commonHeaderBackIv.setVisibility(View.VISIBLE);
-        commonHeaderTitleTv.setText("应用详情");
-        appIcon.setImageDrawable(packageEntity.getAppIcon());
-        appName.setText(String.format("%s\t\t%s", packageEntity.getAppName(), packageEntity.getPackageName()));
-        appVersion.setText(String.format("%s\t\t（%s）", packageEntity.getVersionName(), packageEntity.getVersionCode()));
-        appLevel.setText(String.format("危险等级\t\t（%s）", packageEntity.getVirusLevel()));
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setVisibility(View.VISIBLE);
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setOnClickListener(this);
+        viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setText("应用详情");
+        viewBinding.antivirusDetailLayout.itemAntivirusLogo.setImageDrawable(packageEntity.getAppIcon());
+        viewBinding.antivirusDetailLayout.itemAntivirusName.setText(String.format("%s\t\t%s", packageEntity.getAppName(), packageEntity.getPackageName()));
+        viewBinding.antivirusDetailLayout.itemAntivirusVersion.setText(String.format("%s\t\t（%s）", packageEntity.getVersionName(), packageEntity.getVersionCode()));
+        viewBinding.antivirusDetailLayout.itemAntivirusLevel.setText(String.format("危险等级\t\t（%s）", packageEntity.getVirusLevel()));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(detailAdapter);
+        viewBinding.recyclerView.setLayoutManager(linearLayoutManager);
+        viewBinding.recyclerView.setAdapter(detailAdapter);
     }
 
-    @OnClick(R.id.common_header_back_iv)
+    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.common_header_back_iv) {
             finish();
         }
+    }
+
+    @Override
+    protected ActivityApplicationBinding initViewBinding() {
+        return ActivityApplicationBinding.inflate(getLayoutInflater());
     }
 }

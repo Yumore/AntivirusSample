@@ -2,6 +2,7 @@ package com.nathaniel.sample.surface;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
+import com.nathaniel.sample.databinding.ActivityTextBinding;
 
 /**
  * @author nathaniel
@@ -10,11 +11,7 @@ import com.nathaniel.sample.R;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/5/18 - 21:32
  */
-public class TextViewActivity extends AbstractActivity {
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_text;
-    }
+public class TextViewActivity extends AbstractActivity<ActivityTextBinding> {
 
     @Override
     public void loadData() {
@@ -24,5 +21,10 @@ public class TextViewActivity extends AbstractActivity {
     @Override
     public void bindView() {
 
+    }
+
+    @Override
+    protected ActivityTextBinding initViewBinding() {
+        return ActivityTextBinding.inflate(getLayoutInflater());
     }
 }

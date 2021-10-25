@@ -1,5 +1,6 @@
 package com.nathaniel.baseui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,8 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewbinding.ViewBinding;
 
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.nathaniel.baseui.utility.FragmentCallback;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
@@ -29,17 +35,18 @@ import butterknife.Unbinder;
  * @package com.nathaniel.baseui.binding
  * @datetime 2021/3/31 - 19:57
  */
-public abstract class AbstractFragment extends Fragment implements IViewBinding {
+public abstract class AbstractFragment<VB extends ViewBinding> extends Fragment implements IViewBinding {
     private static final String TAG = AbstractFragment.class.getSimpleName();
+    protected VB viewBinding;
     private AlertDialog alertDialog;
     private Context context;
-    private View rootView;
-    private Unbinder unbinder;
+    private FragmentActivity fragmentActivity;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        fragmentActivity = (FragmentActivity) context;
         requireFragmentManager().registerFragmentLifecycleCallbacks(new FragmentCallback(), true);
     }
 
@@ -51,21 +58,87 @@ public abstract class AbstractFragment extends Fragment implements IViewBinding 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(context).inflate(getLayoutId(), container, false);
+        viewBinding = initViewBinding(inflater, container, false);
         loadData();
-        initView();
         bindView();
-        return rootView;
+        return viewBinding.getRoot();
+    }
+
+    protected abstract VB initViewBinding(LayoutInflater inflater, ViewGroup viewGroup, boolean attachToRoot);
+
+    @Override
+    public boolean immersionEnable() {
+        return true;
     }
 
     @Override
-    public void initView() {
-        unbinder = ButterKnife.bind(getFragment(), rootView);
+    public void initImmersion() {
+        ImmersionBar.with(this)
+            .transparentStatusBar()
+            .transparentNavigationBar()
+            .transparentBar()
+            .statusBarColor(statusBarColor())
+            .navigationBarColor(navigationColor())
+            .statusBarDarkFont(darkModeEnable())
+            .navigationBarDarkIcon(darkModeEnable())
+            .autoDarkModeEnable(darkModeEnable())
+            .flymeOSStatusBarFontColor(statusFontColor())
+            .fullScreen(fitsSystemWindows())
+            .hideBar(getBarHide())
+            .fitsSystemWindows(fitsSystemWindows())
+            .navigationBarEnable(navigationEnable())
+            .navigationBarWithKitkatEnable(navigationEnable())
+            .navigationBarWithEMUI3Enable(navigationEnable())
+            .keyboardEnable(keyboardEnable())
+            .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+            .setOnKeyboardListener((popupEnable, keyboardHeight) -> LoggerUtils.logger(TAG, popupEnable, keyboardHeight))
+            .setOnNavigationBarListener(show -> LoggerUtils.logger(TAG, show))
+            .setOnBarListener(barProperties -> LoggerUtils.logger(TAG, barProperties))
+            .init();
     }
 
     @Override
     public void beforeInit() {
         LoggerUtils.logger(TAG, "beforeUI()");
+        if (immersionEnable()) {
+            initImmersion();
+        }
+    }
+
+    protected int statusBarColor() {
+        return R.color.common_color_theme;
+    }
+
+    protected int navigationColor() {
+        return R.color.common_color_transparent;
+    }
+
+    protected int statusFontColor() {
+        return R.color.common_color_black_light;
+    }
+
+    protected boolean darkModeEnable() {
+        return true;
+    }
+
+    protected boolean fitsSystemWindows() {
+        return true;
+    }
+
+    protected boolean keyboardEnable() {
+        return true;
+    }
+
+    private BarHide getBarHide() {
+        return hideNavigation() ? BarHide.FLAG_HIDE_NAVIGATION_BAR : BarHide.FLAG_SHOW_BAR;
+    }
+
+    protected boolean hideNavigation() {
+        return false;
+    }
+
+    protected boolean navigationEnable() {
+        return true;
     }
 
     protected final Fragment getFragment() {
@@ -105,21 +178,12 @@ public abstract class AbstractFragment extends Fragment implements IViewBinding 
         }
     }
 
-    @Override
-    public <T extends View> T obtainView(int viewId) {
-        return rootView.findViewById(viewId);
-    }
-
-    protected <T extends View> T obtainView(View parent, int viewId) {
-        return parent.findViewById(viewId);
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (!EmptyUtils.isEmpty(unbinder)) {
-            unbinder.unbind();
-            unbinder = null;
+        if (!EmptyUtils.isEmpty(viewBinding)) {
+            viewBinding = null;
         }
     }
 }

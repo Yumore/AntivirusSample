@@ -19,8 +19,9 @@ public class ToastUtils {
     }
 
     public static void show(Context context, CharSequence message, int time) {
-        if (TextUtils.isEmpty(message))
+        if (TextUtils.isEmpty(message)) {
             return;
+        }
 
         if (sToast == null) {
             sToast = Toast.makeText(context, message, time);
