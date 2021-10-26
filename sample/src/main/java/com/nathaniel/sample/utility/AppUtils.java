@@ -24,7 +24,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-import android.net.TrafficStats;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.RemoteException;
@@ -54,7 +53,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -150,92 +148,6 @@ public class AppUtils {
             packageEntity.setVersionName(getVersionNameByPackageName(context, packageName));
             packageEntities.add(packageEntity);
         }
-        return packageEntities;
-    }
-
-    @SuppressLint("HardwareIds")
-    public static List<PackageEntity> getPackageEntities(Context context) {
-        List<PackageEntity> packageEntities = new ArrayList<>();
-        PackageManager packageManager = context.getPackageManager();
-        StringBuilder stringBuilder = new StringBuilder();
-        int flags = PackageManager.GET_META_DATA
-            | PackageManager.GET_PERMISSIONS
-            | PackageManager.GET_SERVICES
-            | PackageManager.GET_RECEIVERS
-            | PackageManager.GET_ACTIVITIES;
-        @SuppressLint("QueryPermissionsNeeded")
-        List<PackageInfo> installedPackages = packageManager.getInstalledPackages(flags);
-        for (int i = 0; i < installedPackages.size(); i++) {
-            PackageInfo packageInfo = installedPackages.get(i);
-            PackageEntity packageEntity = new PackageEntity();
-            packageEntity.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
-            packageEntity.setPackageName(packageInfo.packageName);
-            packageEntity.setVersionName(packageInfo.versionName);
-            packageEntity.setVersionCode(packageInfo.versionCode);
-            packageEntity.setAppIcon(packageInfo.applicationInfo.loadIcon(packageManager));
-            packageEntity.setUid(packageInfo.applicationInfo.uid);
-            packageEntity.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
-            packageEntity.setOverlay(getOverlay(packageInfo));
-            packageEntity.setBitmaps(drawable2bytes(packageInfo.applicationInfo.loadIcon(packageManager)));
-            boolean appendable = i >= 1 && i < installedPackages.size() - 1;
-            stringBuilder.append(packageInfo.packageName);
-            if (appendable) {
-                stringBuilder.append(",");
-            }
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                // TODO 需要统计重启机器的
-                packageEntity.setMobileRx(TrafficStats.getUidRxBytes(packageInfo.applicationInfo.uid));
-                packageEntity.setMobileTx(TrafficStats.getUidTxBytes(packageInfo.applicationInfo.uid));
-                packageEntity.setMobileTotal(packageEntity.getMobileRx() + packageEntity.getMobileTx());
-            } else {
-                NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
-                // 获取subscriberId
-                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                String subscriberId;
-                try {
-                    NetworkStats summaryStats;
-                    NetworkStats.Bucket summaryBucket = new NetworkStats.Bucket();
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                        subscriberId = telephonyManager.getSubscriberId();
-                    } else {
-                        subscriberId = PreferencesUtils.getInstance(context).getSubscribeId();
-                    }
-                    summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_WIFI, subscriberId, getFirstDayTimestamp(), System.currentTimeMillis());
-                    do {
-                        summaryStats.getNextBucket(summaryBucket);
-                        int summaryUid = summaryBucket.getUid();
-                        int uid = getUidByPackageName(context, packageInfo.packageName);
-                        if (uid == summaryUid) {
-                            packageEntity.setWifiRx(summaryBucket.getRxBytes());
-                            packageEntity.setWifiTx(summaryBucket.getTxBytes());
-                            packageEntity.setWifiTotal(summaryBucket.getRxBytes() + summaryBucket.getTxBytes());
-                            LoggerUtils.logger(TAG, "uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
-                        }
-                    } while (summaryStats.hasNextBucket());
-                    summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_MOBILE, subscriberId, getFirstDayTimestamp(), System.currentTimeMillis());
-                    do {
-                        summaryStats.getNextBucket(summaryBucket);
-                        int summaryUid = summaryBucket.getUid();
-                        int uid = getUidByPackageName(context, packageInfo.packageName);
-                        if (uid == summaryUid) {
-                            packageEntity.setMobileRx(summaryBucket.getRxBytes());
-                            packageEntity.setMobileRx(summaryBucket.getTxBytes());
-                            packageEntity.setMobileTotal(summaryBucket.getRxBytes() + summaryBucket.getTxBytes());
-                            LoggerUtils.logger(TAG, "uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
-                        }
-                    } while (summaryStats.hasNextBucket());
-                } catch (SecurityException | RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            context.getSystemService(Context.NOTIFICATION_SERVICE);
-//            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-            packageEntities.add(packageEntity);
-//            }
-        }
-        SingletonUtils.getSingleton(PackageDaoHelper.class).inertOrUpdate(packageEntities);
-        write2resXml(context, stringBuilder.toString());
-        Collections.sort(packageEntities, (source, target) -> source.getAppName().compareTo(target.getAppName()));
         return packageEntities;
     }
 

@@ -14,34 +14,33 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.baseui.utility.ItemDecoration;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.PackageAdapter;
 import com.nathaniel.sample.databinding.ActivityPackageBinding;
+import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.DataUtils;
 import com.nathaniel.utility.AbstractTask;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
+import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.ThreadManager;
 import com.nathaniel.utility.entity.PackageEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
 
 /**
  * @author nathaniel
@@ -206,7 +205,9 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
 
             @Override
             protected List<PackageEntity> doRunnableCode() {
-                return AppUtils.getPackageEntities(getActivity());
+                List<PackageEntity> packageEntities = SingletonUtils.getSingleton(AntivirusModule.class).getPackageEntities();
+                Collections.sort(packageEntities, (source, target) -> source.getAppName().compareTo(target.getAppName()));
+                return packageEntities;
             }
         });
     }
