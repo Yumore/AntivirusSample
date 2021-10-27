@@ -2,8 +2,6 @@ package com.nathaniel.utility.entity;
 
 import android.graphics.drawable.Drawable;
 
-import androidx.annotation.NonNull;
-
 import com.nathaniel.utility.StringListConverter;
 
 import org.greenrobot.greendao.annotation.Convert;
@@ -12,7 +10,6 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -60,15 +57,18 @@ public class PackageEntity {
     private String virusName;
     private long virusNumber;
     private String virusDescribe;
+    private long cacheSize;
+    private long dataSize;
+    private long codeSize;
+    private boolean sizeValube;
 
-    @Generated(hash = 871948562)
-    public PackageEntity(long id, String packageName, String versionName, long versionCode,
-                         List<String> permissionList, List<String> processList, List<String> receiverList,
-                         List<String> providerList, List<String> serviceList, List<String> activityList,
-                         String appName, String signature, long wifiRx, long wifiTx, long wifiTotal, long mobileRx,
-                         long mobileTx, long mobileTotal, int uid, boolean overlay, byte[] bitmaps,
-                         String virusLevel, boolean vestBagged, String virusName, long virusNumber,
-                         String virusDescribe) {
+    @Generated(hash = 195955962)
+    public PackageEntity(long id, String packageName, String versionName, long versionCode, List<String> permissionList,
+                         List<String> processList, List<String> receiverList, List<String> providerList, List<String> serviceList,
+                         List<String> activityList, String appName, String signature, long wifiRx, long wifiTx, long wifiTotal, long mobileRx,
+                         long mobileTx, long mobileTotal, int uid, boolean overlay, byte[] bitmaps, String virusLevel, boolean vestBagged,
+                         String virusName, long virusNumber, String virusDescribe, long cacheSize, long dataSize, long codeSize,
+                         boolean sizeValube) {
         this.id = id;
         this.packageName = packageName;
         this.versionName = versionName;
@@ -95,6 +95,10 @@ public class PackageEntity {
         this.virusName = virusName;
         this.virusNumber = virusNumber;
         this.virusDescribe = virusDescribe;
+        this.cacheSize = cacheSize;
+        this.dataSize = dataSize;
+        this.codeSize = codeSize;
+        this.sizeValube = sizeValube;
     }
 
     @Generated(hash = 1977018204)
@@ -309,40 +313,6 @@ public class PackageEntity {
         this.virusDescribe = virusDescribe;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "PackageEntity{" +
-            "id=" + id +
-            ", packageName='" + packageName + '\'' +
-            ", versionName='" + versionName + '\'' +
-            ", versionCode=" + versionCode +
-            ", permissionList=" + permissionList +
-            ", processList=" + processList +
-            ", receiverList=" + receiverList +
-            ", providerList=" + providerList +
-            ", serviceList=" + serviceList +
-            ", activityList=" + activityList +
-            ", appName='" + appName + '\'' +
-            ", appIcon=" + appIcon +
-            ", signature='" + signature + '\'' +
-            ", wifiRx=" + wifiRx +
-            ", wifiTx=" + wifiTx +
-            ", wifiTotal=" + wifiTotal +
-            ", mobileRx=" + mobileRx +
-            ", mobileTx=" + mobileTx +
-            ", mobileTotal=" + mobileTotal +
-            ", uid=" + uid +
-            ", overlay=" + overlay +
-            ", bitmaps=" + Arrays.toString(bitmaps) +
-            ", virusLevel='" + virusLevel + '\'' +
-            ", vestBagged=" + vestBagged +
-            ", virusName='" + virusName + '\'' +
-            ", virusNumber=" + virusNumber +
-            ", virusDescribe='" + virusDescribe + '\'' +
-            '}';
-    }
-
     public boolean getOverlay() {
         return this.overlay;
     }
@@ -357,5 +327,41 @@ public class PackageEntity {
 
     public void setVestBagged(boolean vestBagged) {
         this.vestBagged = vestBagged;
+    }
+
+    public long getCacheSize() {
+        return cacheSize;
+    }
+
+    public void setCacheSize(long cacheSize) {
+        this.cacheSize = cacheSize;
+    }
+
+    public long getDataSize() {
+        return dataSize;
+    }
+
+    public void setDataSize(long dataSize) {
+        this.dataSize = dataSize;
+    }
+
+    public long getCodeSize() {
+        return codeSize;
+    }
+
+    public void setCodeSize(long codeSize) {
+        this.codeSize = codeSize;
+    }
+
+    public boolean isSizeValube() {
+        return sizeValube;
+    }
+
+    public boolean getSizeValube() {
+        return this.sizeValube;
+    }
+
+    public void setSizeValube(boolean sizeValube) {
+        this.sizeValube = sizeValube;
     }
 }

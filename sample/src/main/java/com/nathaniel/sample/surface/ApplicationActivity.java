@@ -1,16 +1,12 @@
 package com.nathaniel.sample.surface;
 
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.DetailAdapter;
-import com.nathaniel.sample.databinding.ActivityAntivirusBinding;
 import com.nathaniel.sample.databinding.ActivityApplicationBinding;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.sample.module.DetailEntity;
@@ -19,8 +15,6 @@ import com.nathaniel.utility.entity.PackageEntity;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author Nathaniel

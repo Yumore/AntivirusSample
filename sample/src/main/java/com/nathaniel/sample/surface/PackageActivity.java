@@ -49,7 +49,7 @@ import java.util.List;
  * @package com.nathaniel.sample
  * @datetime 4/29/21 - 7:33 PM
  */
-public class PackageActivity extends AbstractActivity<ActivityPackageBinding> implements TextWatcher, TextView.OnEditorActionListener {
+public class PackageActivity extends AbstractActivity<ActivityPackageBinding> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
     private static final int HANDLER_WHAT_REFRESH = 0x0101;
     private static final long DELAY_MILLIS = 1000L;
     private static final String TAG = PackageActivity.class.getSimpleName();
@@ -133,10 +133,8 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
         viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setText("流量排行");
         viewBinding.commonHeaderRootLayout.commonHeaderOptionTv.setText("运营商设置");
         viewBinding.commonHeaderRootLayout.commonHeaderOptionTv.setVisibility(View.VISIBLE);
-        viewBinding.commonHeaderRootLayout.commonHeaderOptionTv.setOnClickListener(view -> {
-            Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
-            startActivity(intent);
-        });
+        viewBinding.commonHeaderRootLayout.commonHeaderOptionTv.setOnClickListener(this);
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setOnClickListener(this);
         viewBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         int padding = (int) getResources().getDimension(R.dimen.common_padding_small);
         viewBinding.recyclerView.addItemDecoration(new ItemDecoration(padding, ItemDecoration.LINEAR_LAYOUT_MANAGER));
@@ -265,5 +263,20 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
     protected void onDestroy() {
         handler.removeMessages(HANDLER_WHAT_REFRESH);
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.common_header_back_iv:
+                finish();
+                break;
+            case R.id.common_header_option_tv:
+                Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -1,0 +1,29 @@
+/data/local/tmp/*
+/data/tmp/*
+/data/system/usagestats/*
+/data/system/appusagestates/*
+/data/system/dropbox/*
+/data/tombstones/*
+/data/anr/*
+/dev/log/main
+
+读取您的USB存储设备中的内容
+· 修改或删除您的USB存储设备中的内容
+· android.permission.MANAGE_EXTERNAL_STORAGE
+· 完全的网络访问权限
+· 查看网络连接
+· 查看WLAN连接
+· 防止手机休眠
+· android.permission.RECEIVE_USER_PRESENT
+· 在其他应用之上显示内容
+· android.permission.REQUEST_INSTALL_PACKAGES
+· android.permission.REQUEST_DELETE_PACKAGES
+· android.permission.QUERY_ALL_PACKAGES
+· com.android.launcher.permission.INSTALL_SHORTCUT
+· com.android.launcher.permission.UNINSTALL_SHORTCUT
+· android.permission.INSTALL_SHORTCUT
+· android.permission.UNINSTALL_SHORTCUT
+· 读取手机状态和身份
+· 访问USB存储设备的文件系统
+· android.permission.FOREGROUND_SERVICE
+· 连接WLAN网络和断开连接

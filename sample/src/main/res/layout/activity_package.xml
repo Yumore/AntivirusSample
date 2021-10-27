@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,18 +15,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="12dp"
-        android:textSize="@dimen/common_text_size_middle" />
+        android:paddingLeft="@dimen/common_padding_normal"
+        android:paddingTop="@dimen/common_padding_small"
+        android:paddingRight="@dimen/common_padding_normal"
+        android:paddingBottom="@dimen/common_padding_small"
+        android:textSize="@dimen/common_text_size_small" />
 
     <EditText
         android:id="@+id/package_search_et"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_margin="@dimen/common_padding_middle"
+        android:layout_height="@dimen/common_header_height"
+        android:layout_marginLeft="@dimen/common_padding_normal"
+        android:layout_marginRight="@dimen/common_padding_normal"
         android:background="@drawable/common_shape_round_grey_light_empty"
         android:drawableStart="@mipmap/icon_search_handler_blue"
         android:drawableLeft="@mipmap/icon_search_handler_blue"
         android:drawablePadding="@dimen/common_padding_middle"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="false"
         android:hint="通过app名称搜索"
         android:imeOptions="actionSearch"
         android:lines="1"
@@ -36,5 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_package_recycler_list" />
 </LinearLayout>

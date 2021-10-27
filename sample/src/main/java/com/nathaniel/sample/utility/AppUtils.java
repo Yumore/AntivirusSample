@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -51,6 +52,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -671,6 +673,16 @@ public class AppUtils {
                 }
             }
             uid++;
+        }
+    }
+
+    public static void getAppSizeInfo(Context context, String packageName, IPackageStatsObserver packageStatsObserver) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            Method getPackageSizeInfo = packageManager.getClass().getMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
+            getPackageSizeInfo.invoke(packageManager, packageName, packageStatsObserver);
+        } catch (Exception e) {
+            LoggerUtils.logger("AppUtils-getAppSizeInfo-684", e);
         }
     }
 }

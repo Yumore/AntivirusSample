@@ -1,27 +1,23 @@
 package com.nathaniel.sample.surface;
 
+import android.os.Build;
 import android.os.Environment;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.ScannerAdapter;
 import com.nathaniel.sample.databinding.ActivityScannerBinding;
 import com.nathaniel.sample.module.ScannerModel;
-import com.nathaniel.utility.DiskUtils;
+import com.nathaniel.sample.utility.CleanManager;
+import com.nathaniel.sample.utility.ToastUtils;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.entity.PathEntity;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author nathaniel
@@ -39,7 +35,11 @@ public class ScannerActivity extends AbstractActivity<ActivityScannerBinding> im
 
     @Override
     public void loadData() {
-        rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy()) {
+            rootPath = getExternalFilesDir(null).getAbsolutePath();
+        } else {
+            rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
         pathEntityList = SingletonUtils.getSingleton(ScannerModel.class).getRootPaths();
         scannerAdapter = new ScannerAdapter(R.layout.item_scanner_result_list, pathEntityList);
     }
@@ -61,21 +61,16 @@ public class ScannerActivity extends AbstractActivity<ActivityScannerBinding> im
         if (view.getId() == R.id.common_header_back_iv) {
             finish();
         } else if (view.getId() == R.id.scanner_starting_btn) {
-            SingletonUtils.getSingleton(DiskUtils.class).scannerFiles(rootPath, pathEntities -> {
+            SingletonUtils.getSingleton(CleanManager.class).scannerFiles(rootPath, pathEntities -> {
                 if (pathEntityList.size() > 0) {
                     pathEntityList.clear();
                 }
                 pathEntityList.addAll(pathEntities);
                 scannerAdapter.notifyDataSetChanged();
+                ToastUtils.show(this, "扫描完成");
             });
-//            List<Map<String, Object>> mapList = SingletonUtils.getSingleton(DiskUtils.class).scannerOldFiles(rootPath);
-//            for (Map<String, Object> objectMap : mapList) {
-//                for (Map.Entry<String, Object> objectEntry : objectMap.entrySet()) {
-//                    LoggerUtils.logger(TAG, objectEntry.getKey() + " => " + objectEntry.getValue());
-//                }
-//            }
         } else if (view.getId() == R.id.scanner_stopping_btn) {
-            SingletonUtils.getSingleton(DiskUtils.class).stopScanner();
+            SingletonUtils.getSingleton(CleanManager.class).stopScanner();
         }
     }
 

@@ -1,6 +1,5 @@
 package com.nathaniel.baseui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewbinding.ViewBinding;
@@ -25,9 +23,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.nathaniel.baseui.utility.FragmentCallback;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author Nathaniel

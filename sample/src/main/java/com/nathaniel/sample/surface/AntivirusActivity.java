@@ -2,11 +2,8 @@ package com.nathaniel.sample.surface;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.baseui.adapter.BaseRecyclerAdapter;
@@ -25,13 +22,9 @@ import com.nathaniel.utility.entity.PackageEntity;
 import com.nathaniel.utility.entity.SpecimenEntity;
 import com.nathaniel.utility.helper.PackageDaoHelper;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author nathaniel
@@ -116,9 +109,6 @@ public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding
         antivirusAdapter.setOnItemClickListener(this);
     }
 
-    @OnClick({
-        R.id.common_header_back_iv
-    })
     public void onClick(View view) {
         if (view.getId() == R.id.common_header_back_iv) {
             finish();

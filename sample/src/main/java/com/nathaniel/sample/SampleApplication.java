@@ -3,6 +3,7 @@ package com.nathaniel.sample;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
@@ -15,7 +16,7 @@ import com.nathaniel.sample.starter.StarterTaskThree;
 import com.nathaniel.sample.starter.StarterTaskTwo;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.DefaultSingleton;
-import com.nathaniel.sample.utility.TenSecondTask;
+import com.nathaniel.sample.utility.SecondTask;
 import com.nathaniel.utility.ContextHelper;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.PriorityTask;
@@ -159,7 +160,7 @@ public class SampleApplication extends Application implements InitializeHelper {
         Future[] futures = new Future[10];
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < futures.length; i++) {
-            futures[i] = ThreadManager.getInstance().submit(new TenSecondTask(i, 1, buffer), 1);
+            futures[i] = ThreadManager.getInstance().submit(new SecondTask(i, 1, buffer), 1);
         }
         // 等待所有任务结束
         for (Future future : futures) {
@@ -174,7 +175,7 @@ public class SampleApplication extends Application implements InitializeHelper {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < futures.length; i++) {
             int r = (int) (Math.random() * 100);
-            futures[i] = ThreadManager.getInstance().submit(new TenSecondTask(i, r, buffer), r);
+            futures[i] = ThreadManager.getInstance().submit(new SecondTask(i, r, buffer), r);
         }
         // 等待所有任务结束
         for (Future future : futures) {
@@ -186,8 +187,15 @@ public class SampleApplication extends Application implements InitializeHelper {
         String[] split = buffer.toString().split(", ");
         // 从 2 开始, 因为前面的任务可能已经开始
         for (int i = 2; i < split.length - 1; i++) {
-            String s = split[i].split("@")[0];
-            LoggerUtils.logger(Integer.parseInt(s) >= Integer.parseInt(split[i + 1].split("@")[0]));
+            String prefixString = split[i].split("@")[0];
+            if (TextUtils.isEmpty(prefixString)) {
+                prefixString = "0";
+            }
+            String suffixString = split[i + 1].split("@")[0];
+            if (TextUtils.isEmpty(suffixString)) {
+                suffixString = "0";
+            }
+            LoggerUtils.logger(Integer.parseInt(prefixString) >= Integer.parseInt(suffixString));
         }
     }
 }

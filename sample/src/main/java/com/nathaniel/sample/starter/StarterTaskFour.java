@@ -5,8 +5,10 @@ import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageStats;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
@@ -14,6 +16,7 @@ import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.TrafficStats;
 import android.os.Build;
+import android.os.IBinder;
 import android.os.RemoteException;
 import android.telephony.TelephonyManager;
 
@@ -67,7 +70,11 @@ public class StarterTaskFour extends BaseStarterTask {
             packageEntity.setAppName(applicationInfo.loadLabel(packageManager).toString());
             packageEntity.setPackageName(applicationInfo.packageName);
             packageEntity.setVersionName(packageInfo.versionName);
-            packageEntity.setVersionCode(packageInfo.getLongVersionCode());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                packageEntity.setVersionCode(packageInfo.getLongVersionCode());
+            } else {
+                packageEntity.setVersionCode(packageInfo.versionCode);
+            }
             packageEntity.setUid(packageInfo.applicationInfo.uid);
             packageEntity.setOverlay(AppUtils.getOverlay(packageInfo));
             packageEntity.setBitmaps(AppUtils.drawable2bytes(packageInfo.applicationInfo.loadIcon(packageManager)));
@@ -141,6 +148,23 @@ public class StarterTaskFour extends BaseStarterTask {
                 packageEntity.setServiceList(services);
             }
             packageEntity.setProcessList(processes);
+            AppUtils.getAppSizeInfo(context, packageEntity.getPackageName(), new IPackageStatsObserver() {
+                @Override
+                public void onGetStatsCompleted(PackageStats packageStats, boolean succeeded) {
+                    if (EmptyUtils.isEmpty(packageStats) || !succeeded) {
+                        packageEntity.setSizeValube(false);
+                    }
+                    packageEntity.setCodeSize(packageStats.codeSize);
+                    packageEntity.setCacheSize(packageStats.cacheSize);
+                    packageEntity.setDataSize(packageStats.dataSize);
+                    packageEntity.setSizeValube(true);
+                }
+
+                @Override
+                public IBinder asBinder() {
+                    return null;
+                }
+            });
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 // TODO 需要统计重启机器的
                 packageEntity.setMobileRx(TrafficStats.getUidRxBytes(packageInfo.applicationInfo.uid));
@@ -206,5 +230,4 @@ public class StarterTaskFour extends BaseStarterTask {
     public boolean runOnMainThread() {
         return false;
     }
-
 }

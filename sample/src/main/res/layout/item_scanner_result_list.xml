@@ -4,20 +4,22 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:minHeight="@dimen/common_header_height"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/common_padding_small"
+    android:paddingRight="@dimen/common_padding_small">
 
     <TextView
         android:id="@+id/item_scanner_path_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="扫描路径" />
 
     <TextView
         android:id="@+id/item_scanner_time_tv"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|right"
         android:text="耗时" />
 </LinearLayout>

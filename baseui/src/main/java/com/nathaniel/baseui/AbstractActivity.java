@@ -21,8 +21,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author Nathaniel
@@ -46,6 +44,11 @@ public abstract class AbstractActivity<VB extends ViewBinding> extends AppCompat
         bindView();
     }
 
+    /**
+     * ViewBinding 初始化
+     *
+     * @return VB extends ViewBinding
+     */
     protected abstract VB initViewBinding();
 
     @Override
