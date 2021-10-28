@@ -52,6 +52,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -628,6 +629,35 @@ public class AppUtils {
         return bitmap;
     }
 
+    private static String shellRun(String command) {
+        Process process = null;
+        BufferedReader bufferedReader = null;
+        String result = "";
+        try {
+            process = Runtime.getRuntime().exec(command);
+            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            process.waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    // TODO: handle exception
+                }
+            }
+            if (process != null) {
+                process.destroy();
+            }
+        }
+        return result;
+    }
+
     public long getAllRxBytesMobile(Context context) {
         final long startTime = 0;
         NetworkStats.Bucket bucket;
@@ -651,6 +681,44 @@ public class AppUtils {
         }
         return "";
     }
+
+//    public static boolean deleteAppData(String packageName) {
+//        boolean isSuccess = false;
+//        Method clearMethod;
+//        Object am = null;
+//        IPackageDataObserver.Stub mStub = new IPackageDataObserver.Stub() {
+//            public void onRemoveCompleted(String paramAnonymousString, boolean paramAnonymousBoolean) {
+//            }
+//        };
+//        try {
+//            Class<?> activityManagerNative = Class.forName("android.app.ActivityManagerNative");
+//            // android.app.IActivityManager
+//            am = activityManagerNative.getMethod("getDefault").invoke(activityManagerNative);
+//
+//            clearMethod = am.getClass().getMethod("clearApplicationUserData", String.class, boolean.class,IPackageDataObserver.class, int.class);
+//            if (clearMethod != null) {
+//                Log.e("ClearCacheUtils", "clearMethod 9.0 ");
+//                clearMethod.setAccessible(true);
+//                isSuccess = (boolean) clearMethod.invoke(am, packageName, true, mStub, 0);
+//            }
+//
+//        } catch (Exception localException) {
+//            localException.printStackTrace();
+//            Log.e("ClearCacheUtils", "Exception:" + localException.getMessage());
+//            Log.e("ClearCacheUtils", "clearMethod <9.0 ");
+//            try {
+//                clearMethod = am.getClass().getMethod("clearApplicationUserData", String.class,IPackageDataObserver.class, int.class);
+//                if(clearMethod!=null) {
+//                    clearMethod.setAccessible(true);
+//                    isSuccess = (boolean) clearMethod.invoke(am, packageName, mStub, 0);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                shellRun("pm clear " + packageName);
+//            }
+//        }
+//        return isSuccess;
+//    }
 
     public void listInstallPackages(Context context) {
         PackageManager packageManager = context.getPackageManager();

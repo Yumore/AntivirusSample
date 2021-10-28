@@ -36,6 +36,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        // 剔除这个包下的所有文件（不会移除签名信息）
+        exclude 'META-INF/*******'
+    }
+
+//    android.libraryVariants.all { variant ->
+//        // aar 输出文件名配置
+//        variant.outputs.all { output ->
+//            outputFileName = "${rootProject.name}-${android.defaultConfig.versionName}.aar"
+//        }
+//    }
+
     signingConfigs {
         release {
             keyAlias properties.getProperty("config.keyAlias")

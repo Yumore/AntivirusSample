@@ -6,13 +6,13 @@ import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.hjq.toast.ToastUtils;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.ScannerAdapter;
 import com.nathaniel.sample.databinding.ActivityScannerBinding;
 import com.nathaniel.sample.module.ScannerModel;
 import com.nathaniel.sample.utility.CleanManager;
-import com.nathaniel.sample.utility.ToastUtils;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.entity.PathEntity;
 
@@ -67,7 +67,7 @@ public class ScannerActivity extends AbstractActivity<ActivityScannerBinding> im
                 }
                 pathEntityList.addAll(pathEntities);
                 scannerAdapter.notifyDataSetChanged();
-                ToastUtils.show(this, "扫描完成");
+                ToastUtils.show("扫描完成");
             });
         } else if (view.getId() == R.id.scanner_stopping_btn) {
             SingletonUtils.getSingleton(CleanManager.class).stopScanner();

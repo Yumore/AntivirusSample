@@ -13,4 +13,23 @@
     <declare-styleable name="CustomTextView">
         <attr name="textSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="PasswordEditText">
+        <attr name="pet_iconShow" format="integer" />
+        <attr name="pet_iconHide" format="integer" />
+        <attr name="pet_hoverShow" format="boolean" />
+        <attr name="pet_nonMonospaceFont" format="boolean" />
+        <attr name="pet_disableIconAlpha" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ClearEditText">
+        <attr name="clearDrawable" format="reference" />
+        <attr name="clearSize" format="dimension|integer" />
+        <attr name="leftDrawable" format="reference" />
+        <attr name="leftSize" format="dimension|integer" />
+    </declare-styleable>
+
+    <declare-styleable name="MaxHeightRecyclerView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
 </resources>

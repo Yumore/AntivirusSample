@@ -26,14 +26,20 @@
     </style>
 
     <style name="CustomDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="background">@drawable/common_shape_round_white_solid</item>
-        <item name="android:windowBackground">@drawable/common_shape_round_white_solid</item>
+        <item name="android:background">@drawable/common_shape_transparent</item>
+        <item name="android:windowBackground">@drawable/common_shape_transparent</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <!-- 解决TabLayout的Tab中text英文全部大写的问题 -->
+    <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/common_text_size_middle</item>
+        <item name="textAllCaps">false</item>
     </style>
 </resources>

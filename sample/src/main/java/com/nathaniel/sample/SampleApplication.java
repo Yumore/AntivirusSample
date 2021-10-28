@@ -1,12 +1,12 @@
 package com.nathaniel.sample;
 
 
-import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
+import com.nathaniel.baseui.BaseApplication;
 import com.nathaniel.baseui.utility.ActivityCallback;
 import com.nathaniel.sample.multidex.MultidexUtils;
 import com.nathaniel.sample.starter.StarterTaskFive;
@@ -17,13 +17,11 @@ import com.nathaniel.sample.starter.StarterTaskTwo;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.DefaultSingleton;
 import com.nathaniel.sample.utility.SecondTask;
-import com.nathaniel.utility.ContextHelper;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.PriorityTask;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.ThreadManager;
 import com.nathaniel.utility.greendao.DaoManager;
-import com.nathaniel.utility.helper.InitializeHelper;
 import com.wxy.appstartfaster.dispatcher.StarterTaskDispatcher;
 
 import java.util.concurrent.Callable;
@@ -37,7 +35,7 @@ import java.util.concurrent.Future;
  * @package com.nathaniel.sample
  * @datetime 4/16/21 - 10:44 AM
  */
-public class SampleApplication extends Application implements InitializeHelper {
+public class SampleApplication extends BaseApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -50,14 +48,8 @@ public class SampleApplication extends Application implements InitializeHelper {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        initialize(getApplicationContext());
-    }
-
-    @Override
     public void initialize(@NonNull Context context) {
-        ContextHelper.getInstance().initialize(context);
+        super.initialize(context);
         AppUtils.getRunningTasks(getApplicationContext());
         SingletonUtils.getInstance(DaoManager.class).initialize(context);
         if (MultidexUtils.isMainProcess(context)) {

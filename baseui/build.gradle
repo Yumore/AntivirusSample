@@ -3,6 +3,7 @@ apply from: "${rootDir}/common.gradle"
 
 dependencies {
     api project(':utility')
+    api project(':toasty')
     api 'androidx.recyclerview:recyclerview:1.0.0'
     api 'androidx.appcompat:appcompat:1.0.0'
     api 'com.github.tbruyelle:rxpermissions:0.10.2'

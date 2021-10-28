@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.hjq.toast.ToastUtils;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.databinding.ActivityNavigateBinding;
 import com.nathaniel.sample.utility.EventConstants;
-import com.nathaniel.sample.utility.ToastUtils;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.entity.EventMessage;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -97,7 +97,7 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
         if (granted) {
             startActivity(new Intent(getActivity(), ScannerActivity.class));
         } else {
-            ToastUtils.show(getActivity(), "没有权限将无法获扫描整个磁盘");
+            ToastUtils.show("没有权限将无法获扫描整个磁盘");
         }
     }
 
@@ -123,7 +123,7 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
     public void handleEventMessage(EventMessage<?> eventMessage) {
         switch (eventMessage.getAction()) {
             case EventConstants.TASK_FINISH_PACKAGE:
-                ToastUtils.show(getActivity(), "可以开始扫描是否有病毒应用了");
+                ToastUtils.show("可以开始扫描是否有病毒应用了");
                 break;
             default:
                 break;
