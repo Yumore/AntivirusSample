@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="app_name">Sample</string>
+    <string name="app_name">0Sample0</string>
     <string name="app_description">app外弹窗检测</string>
     <string name="text_origin">喾(ku)盦(an)嚍(jin)韡(wei)龘(da)罅(xia)嚩(po)鱫(ai)雾(wu)\n龘靐齉齾龗麤鱻爩龖吁灪麣鸾鹂鲡驫饢籱癵爨滟厵麷鸜郁骊钃讟虋纞龞齽齼鼺黸麢鹳鹦鸙鸘</string>
     <string name="text_english">The spring outside, however, is much too cheap, for the sun shines on everything, and so does not seem as bright as that which shoots into the darkness of the house. Outside the sun-sloshed breeze blows everywhere, but it is not so lively as that which stirs the gloominess inside the house.</string>
+
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="rationale_photo_picker">We require this permission to select photo from gallery and camera.</string>
+    <string name="rationale_doc_picker">We need this permission to read documents from device.</string>
 </resources>

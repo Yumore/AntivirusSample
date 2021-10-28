@@ -84,6 +84,24 @@
             android:name=".surface.ApplicationActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".surface.ExploreActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".surface.FragmentActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="vi.filepicker"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <service
             android:name=".service.CustomAccessService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">

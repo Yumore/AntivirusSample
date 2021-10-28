@@ -10,9 +10,9 @@
         android:id="@+id/common_header_back_iv"
         android:layout_width="@dimen/common_header_height"
         android:layout_height="match_parent"
-        android:padding="@dimen/common_padding_middle"
+        android:padding="@dimen/common_padding_small"
         android:scaleType="centerCrop"
-        android:src="@mipmap/icon_back_white"
+        android:src="@drawable/icon_back_white"
         android:visibility="gone"
         tools:visibility="visible" />
 

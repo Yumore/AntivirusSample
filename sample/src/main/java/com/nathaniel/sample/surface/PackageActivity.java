@@ -261,7 +261,10 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
 
     @Override
     protected void onDestroy() {
-        handler.removeMessages(HANDLER_WHAT_REFRESH);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+        }
         super.onDestroy();
     }
 

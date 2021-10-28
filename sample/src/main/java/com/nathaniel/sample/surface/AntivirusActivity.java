@@ -33,7 +33,7 @@ import java.util.List;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/10/16 - 13:03
  */
-public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding> implements OnItemClickListener {
+public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding> implements OnItemClickListener, View.OnClickListener {
     private AntivirusAdapter antivirusAdapter;
     private List<PackageEntity> packageEntityList;
 
@@ -101,6 +101,7 @@ public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding
     public void bindView() {
         viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setVisibility(View.VISIBLE);
         viewBinding.commonHeaderRootLayout.commonHeaderTitleTv.setText("手机安全检测");
+        viewBinding.commonHeaderRootLayout.commonHeaderBackIv.setOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         viewBinding.recyclerView.setLayoutManager(linearLayoutManager);
         int itemSpace = (int) getResources().getDimension(R.dimen.common_height_divider);
@@ -109,6 +110,7 @@ public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding
         antivirusAdapter.setOnItemClickListener(this);
     }
 
+    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.common_header_back_iv) {
             finish();

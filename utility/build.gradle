@@ -15,11 +15,6 @@ android {
         targetGenDir 'src/main/java'
         generateTests false
     }
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_7
-        sourceCompatibility JavaVersion.VERSION_1_7
-    }
 }
 
 

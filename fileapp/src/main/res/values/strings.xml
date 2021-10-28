@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name" translatable="false">Android FilePicker</string>
-
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="rationale_photo_picker">We require this permission to select photo from gallery and camera.</string>
-    <string name="rationale_doc_picker">We need this permission to read documents from device.</string>
-</resources>

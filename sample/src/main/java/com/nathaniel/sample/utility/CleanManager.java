@@ -284,6 +284,9 @@ public class CleanManager {
             LoggerUtils.logger("停止扫描");
             return;
         }
+        if (futureTask.isDone()) {
+            return;
+        }
         final boolean interrupt = true;
         futureTask.cancel(interrupt);
     }

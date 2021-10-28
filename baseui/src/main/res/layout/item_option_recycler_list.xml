@@ -14,7 +14,7 @@
         android:layout_width="@dimen/common_image_size_minimum"
         android:layout_height="@dimen/common_image_size_minimum"
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_avatar_first"
+        android:src="@drawable/icon_loading_gif"
         android:visibility="gone"
         tools:visibility="visible" />
 
