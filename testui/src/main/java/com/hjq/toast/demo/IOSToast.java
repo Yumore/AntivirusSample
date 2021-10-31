@@ -1,9 +1,8 @@
-package com.hjq.xtoast.demo;
+package com.hjq.toast.demo;
 
 import android.app.Activity;
 
 import com.hjq.toast.XToast;
-import com.hjq.toast.demo.R;
 
 /**
  * author : Android 轮子哥

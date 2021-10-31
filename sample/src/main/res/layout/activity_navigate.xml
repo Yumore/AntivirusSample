@@ -35,4 +35,18 @@
         android:layout_height="@dimen/common_header_height"
         android:text="Scanner"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_toast"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="Toast"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_toastx"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="XToast"
+        android:textAllCaps="false" />
 </LinearLayout>

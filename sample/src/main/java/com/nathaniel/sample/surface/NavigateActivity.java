@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.hjq.toast.ToastUtils;
+import com.hjq.toast.demo.ToastActivity;
+import com.hjq.toast.demo.XToastActivity;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.databinding.ActivityNavigateBinding;
@@ -50,6 +52,8 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
         viewBinding.btnText.setOnClickListener(this);
         viewBinding.btnScanner.setOnClickListener(this);
         viewBinding.btnAntivirus.setOnClickListener(this);
+        viewBinding.btnToast.setOnClickListener(this);
+        viewBinding.btnToastx.setOnClickListener(this);
     }
 
     @Override
@@ -87,6 +91,12 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
                 break;
             case R.id.btn_antivirus:
                 startActivity(new Intent(getActivity(), AntivirusActivity.class));
+                break;
+            case R.id.btn_toast:
+                startActivity(new Intent(getActivity(), ToastActivity.class));
+                break;
+            case R.id.btn_toastx:
+                startActivity(new Intent(getActivity(), XToastActivity.class));
                 break;
             default:
                 break;

@@ -1,4 +1,4 @@
-package com.hjq.xtoast.demo;
+package com.hjq.toast.demo;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,7 +14,6 @@ import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 import com.hjq.toast.ToastUtils;
 import com.hjq.toast.XToast;
-import com.hjq.toast.demo.R;
 import com.hjq.toast.draggable.MovingDraggable;
 import com.hjq.toast.draggable.SpringDraggable;
 
@@ -26,7 +25,7 @@ import java.util.List;
  * time   : 2019/01/04
  * desc   : Demo 使用案例
  */
-public final class MainActivity extends AppCompatActivity {
+public final class XToastActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,7 +175,7 @@ public final class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onDenied(List<String> denied, boolean never) {
-                    new XToast<>(MainActivity.this)
+                    new XToast<>(XToastActivity.this)
                         .setDuration(1000)
                         .setContentView(R.layout.toast_hint)
                         .setImageDrawable(android.R.id.icon, R.mipmap.ic_dialog_tip_error)
