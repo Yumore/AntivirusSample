@@ -30,7 +30,7 @@ public final class XToastActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_xtoast);
     }
 
     public void show1(View v) {

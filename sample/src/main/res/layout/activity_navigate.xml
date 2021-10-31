@@ -49,4 +49,12 @@
         android:layout_height="@dimen/common_header_height"
         android:text="XToast"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_header_height"
+        android:text="Settings"
+        android:textAllCaps="false" />
+
 </LinearLayout>

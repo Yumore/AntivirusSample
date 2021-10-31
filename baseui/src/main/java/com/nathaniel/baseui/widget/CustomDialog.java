@@ -81,6 +81,7 @@ public class CustomDialog extends DialogFragment implements View.OnClickListener
     @DrawableRes
     private int backgroundResource;
     private SpannableString spannableString;
+    private int windowStyle;
 
     private CustomDialog(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -232,6 +233,11 @@ public class CustomDialog extends DialogFragment implements View.OnClickListener
     }
 
     public CustomDialog getCustomDialog() {
+        return this;
+    }
+
+    public CustomDialog setWindowStyle(int windowStyle) {
+        this.windowStyle = windowStyle;
         return this;
     }
 
@@ -400,6 +406,7 @@ public class CustomDialog extends DialogFragment implements View.OnClickListener
                 widthAndHeight = ScreenUtils.getWidthAndHeight(window);
                 window.setBackgroundDrawableResource(R.drawable.common_shape_transparent);
                 WindowManager.LayoutParams layoutParams = window.getAttributes();
+                window.setType(windowStyle);
                 if (fullWidth) {
                     layoutParams.width = ScreenUtils.getScreenWidth(context);
                 } else {

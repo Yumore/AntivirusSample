@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/corners">
+
+    <TextView
+        android:id="@+id/tv_content_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:shadowColor="#BB000000"
+        android:shadowRadius="2.75"
+        android:text="这是一个Toast"
+        android:textColor="#ffffff"
+        android:textSize="14dp" />
+
+</RelativeLayout>

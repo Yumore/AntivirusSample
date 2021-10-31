@@ -1,7 +1,5 @@
 package com.nathaniel.sample.starter;
 
-import android.app.usage.NetworkStats;
-import android.app.usage.NetworkStatsManager;
 import android.app.usage.StorageStats;
 import android.app.usage.StorageStatsManager;
 import android.content.Context;
@@ -15,14 +13,10 @@ import android.content.pm.PermissionInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
 import android.content.pm.Signature;
-import android.net.ConnectivityManager;
-import android.net.TrafficStats;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
-import android.telephony.TelephonyManager;
 
 import androidx.annotation.RequiresApi;
 
@@ -30,7 +24,6 @@ import com.nathaniel.sample.BuildConfig;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.EventConstants;
-import com.nathaniel.sample.utility.PreferencesUtils;
 import com.nathaniel.utility.BitmapCacheUtils;
 import com.nathaniel.utility.ContextHelper;
 import com.nathaniel.utility.EmptyUtils;
@@ -173,52 +166,6 @@ public class StarterTaskFour extends BaseStarterTask {
                     return null;
                 }
             });
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                // TODO 需要统计重启机器的
-                packageEntity.setMobileRx(TrafficStats.getUidRxBytes(packageInfo.applicationInfo.uid));
-                packageEntity.setMobileTx(TrafficStats.getUidTxBytes(packageInfo.applicationInfo.uid));
-                packageEntity.setMobileTotal(packageEntity.getMobileRx() + packageEntity.getMobileTx());
-            } else {
-                NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
-                // 获取subscriberId
-                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                String subscriberId;
-                try {
-                    NetworkStats summaryStats;
-                    NetworkStats.Bucket summaryBucket = new NetworkStats.Bucket();
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                        subscriberId = telephonyManager.getSubscriberId();
-                    } else {
-                        subscriberId = PreferencesUtils.getInstance(context).getSubscribeId();
-                    }
-                    summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_WIFI, subscriberId, AppUtils.getFirstDayTimestamp(), System.currentTimeMillis());
-                    do {
-                        summaryStats.getNextBucket(summaryBucket);
-                        int summaryUid = summaryBucket.getUid();
-                        int uid = AppUtils.getUidByPackageName(context, packageInfo.packageName);
-                        if (uid == summaryUid) {
-                            packageEntity.setWifiRx(summaryBucket.getRxBytes());
-                            packageEntity.setWifiTx(summaryBucket.getTxBytes());
-                            packageEntity.setWifiTotal(summaryBucket.getRxBytes() + summaryBucket.getTxBytes());
-                            LoggerUtils.logger("uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
-                        }
-                    } while (summaryStats.hasNextBucket());
-                    summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_MOBILE, subscriberId, AppUtils.getFirstDayTimestamp(), System.currentTimeMillis());
-                    do {
-                        summaryStats.getNextBucket(summaryBucket);
-                        int summaryUid = summaryBucket.getUid();
-                        int uid = AppUtils.getUidByPackageName(context, packageInfo.packageName);
-                        if (uid == summaryUid) {
-                            packageEntity.setMobileRx(summaryBucket.getRxBytes());
-                            packageEntity.setMobileRx(summaryBucket.getTxBytes());
-                            packageEntity.setMobileTotal(summaryBucket.getRxBytes() + summaryBucket.getTxBytes());
-                            LoggerUtils.logger("uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
-                        }
-                    } while (summaryStats.hasNextBucket());
-                } catch (SecurityException | RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
             packageEntities.add(packageEntity);
         }
         SingletonUtils.getInstance(AntivirusModule.class).setPackageEntities(packageEntities);

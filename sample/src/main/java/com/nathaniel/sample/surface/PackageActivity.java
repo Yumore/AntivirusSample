@@ -1,21 +1,26 @@
 package com.nathaniel.sample.surface;
 
 import android.annotation.SuppressLint;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.TrafficStats;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -29,6 +34,7 @@ import com.nathaniel.sample.databinding.ActivityPackageBinding;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.DataUtils;
+import com.nathaniel.sample.utility.PreferencesUtils;
 import com.nathaniel.utility.AbstractTask;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
@@ -63,13 +69,11 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
     private PackageAdapter packageAdapter;
     private List<PackageEntity> packageEntityList, originalPackageEntityList;
     private View emptyLayout;
-    private boolean cacheEnable;
 
     @SuppressLint("DefaultLocale")
     @Override
     public void loadData() {
-        packageEntityList = AppUtils.queryPackageList();
-        cacheEnable = EmptyUtils.isEmpty(packageEntityList);
+        packageEntityList = new ArrayList<>();
         originalPackageEntityList = new ArrayList<>();
         handler = new Handler(getMainLooper()) {
             @SuppressLint("DefaultLocale")
@@ -184,15 +188,12 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
             @Override
             public void prepareRunnable() {
                 super.prepareRunnable();
-                showLoading("因扫描所有流量信息比较耗费时间，且需要分开统计，所以时间会比较长，请耐心等待......", cacheEnable);
+                showLoading("因扫描所有流量信息比较耗费时间，且需要分开统计，所以时间会比较长，请耐心等待......");
             }
 
             @Override
             public void runnableCallback(List<PackageEntity> packageEntities) {
                 dismissLoading();
-                if (cacheEnable) {
-                    Toast.makeText(getActivity(), "更新完成", Toast.LENGTH_SHORT).show();
-                }
                 if (!EmptyUtils.isEmpty(packageEntityList)) {
                     packageEntityList.clear();
                 }
@@ -204,6 +205,54 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
             @Override
             protected List<PackageEntity> doRunnableCode() {
                 List<PackageEntity> packageEntities = SingletonUtils.getSingleton(AntivirusModule.class).getPackageEntities();
+                for (PackageEntity packageEntity : packageEntities) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                        // TODO 需要统计重启机器的
+                        packageEntity.setMobileRx(TrafficStats.getUidRxBytes(packageEntity.getUid()));
+                        packageEntity.setMobileTx(TrafficStats.getUidTxBytes(packageEntity.getUid()));
+                        packageEntity.setMobileTotal(packageEntity.getMobileRx() + packageEntity.getMobileTx());
+                    } else {
+                        NetworkStatsManager networkStatsManager = (NetworkStatsManager) getActivity().getSystemService(Context.NETWORK_STATS_SERVICE);
+//                        获取subscriberId
+                        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                        String subscriberId;
+                        try {
+                            NetworkStats summaryStats;
+                            NetworkStats.Bucket summaryBucket = new NetworkStats.Bucket();
+                            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                                subscriberId = telephonyManager.getSubscriberId();
+                            } else {
+                                subscriberId = PreferencesUtils.getInstance(getActivity()).getSubscribeId();
+                            }
+                            summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_WIFI, subscriberId, AppUtils.getFirstDayTimestamp(), System.currentTimeMillis());
+                            do {
+                                summaryStats.getNextBucket(summaryBucket);
+                                int summaryUid = summaryBucket.getUid();
+                                int uid = AppUtils.getUidByPackageName(getActivity(), packageEntity.getPackageName());
+                                if (uid == summaryUid) {
+                                    packageEntity.setWifiRx(summaryBucket.getRxBytes());
+                                    packageEntity.setWifiTx(summaryBucket.getTxBytes());
+                                    packageEntity.setWifiTotal(summaryBucket.getRxBytes() + summaryBucket.getTxBytes());
+                                    LoggerUtils.logger("uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
+                                }
+                            } while (summaryStats.hasNextBucket());
+                            summaryStats = networkStatsManager.querySummary(ConnectivityManager.TYPE_MOBILE, subscriberId, AppUtils.getFirstDayTimestamp(), System.currentTimeMillis());
+                            do {
+                                summaryStats.getNextBucket(summaryBucket);
+                                int summaryUid = summaryBucket.getUid();
+                                int uid = AppUtils.getUidByPackageName(getActivity(), packageEntity.getPackageName());
+                                if (uid == summaryUid) {
+                                    packageEntity.setMobileRx(summaryBucket.getRxBytes());
+                                    packageEntity.setMobileRx(summaryBucket.getTxBytes());
+                                    packageEntity.setMobileTotal(summaryBucket.getRxBytes() + summaryBucket.getTxBytes());
+                                    LoggerUtils.logger("uid:" + summaryBucket.getUid() + " rx:" + summaryBucket.getRxBytes() + " tx:" + summaryBucket.getTxBytes());
+                                }
+                            } while (summaryStats.hasNextBucket());
+                        } catch (SecurityException | RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
                 Collections.sort(packageEntities, (source, target) -> source.getAppName().compareTo(target.getAppName()));
                 return packageEntities;
             }

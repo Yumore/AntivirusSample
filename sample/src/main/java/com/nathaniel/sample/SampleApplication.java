@@ -7,13 +7,8 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.nathaniel.baseui.BaseApplication;
-import com.nathaniel.baseui.utility.ActivityCallback;
 import com.nathaniel.sample.multidex.MultidexUtils;
-import com.nathaniel.sample.starter.StarterTaskFive;
-import com.nathaniel.sample.starter.StarterTaskFour;
-import com.nathaniel.sample.starter.StarterTaskOne;
-import com.nathaniel.sample.starter.StarterTaskThree;
-import com.nathaniel.sample.starter.StarterTaskTwo;
+import com.nathaniel.sample.utility.ActivityCallback;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.DefaultSingleton;
 import com.nathaniel.sample.utility.SecondTask;
@@ -22,7 +17,6 @@ import com.nathaniel.utility.PriorityTask;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.ThreadManager;
 import com.nathaniel.utility.greendao.DaoManager;
-import com.wxy.appstartfaster.dispatcher.StarterTaskDispatcher;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -52,19 +46,19 @@ public class SampleApplication extends BaseApplication {
         super.initialize(context);
         AppUtils.getRunningTasks(getApplicationContext());
         SingletonUtils.getInstance(DaoManager.class).initialize(context);
-        if (MultidexUtils.isMainProcess(context)) {
-            StarterTaskDispatcher.getInstance()
-                .setContext(this)
-                .setShowLog(true)
-                .setAllTaskWaitTimeOut(1000)
-                .addAppStartTask(new StarterTaskTwo())
-                .addAppStartTask(new StarterTaskFour())
-                .addAppStartTask(new StarterTaskFive())
-                .addAppStartTask(new StarterTaskThree())
-                .addAppStartTask(new StarterTaskOne())
-                .start()
-                .await();
-        }
+//        if (MultidexUtils.isMainProcess(context)) {
+//            StarterTaskDispatcher.getInstance()
+//                .setContext(this)
+//                .setShowLog(true)
+//                .setAllTaskWaitTimeOut(1000)
+//                .addAppStartTask(new StarterTaskTwo())
+//                .addAppStartTask(new StarterTaskFour())
+//                .addAppStartTask(new StarterTaskFive())
+//                .addAppStartTask(new StarterTaskThree())
+//                .addAppStartTask(new StarterTaskOne())
+//                .start()
+//                .await();
+//        }
         registerActivityLifecycleCallbacks(new ActivityCallback());
         DefaultSingleton.getInstance().initialized();
         Runnable runnable = () -> {

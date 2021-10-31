@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import com.hjq.toast.ToastUtils;
 import com.hjq.toast.demo.ToastActivity;
 import com.hjq.toast.demo.XToastActivity;
+import com.hjq.toast.dtoast.DToast;
 import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.databinding.ActivityNavigateBinding;
@@ -54,6 +55,7 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
         viewBinding.btnAntivirus.setOnClickListener(this);
         viewBinding.btnToast.setOnClickListener(this);
         viewBinding.btnToastx.setOnClickListener(this);
+        viewBinding.btnSetting.setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +99,26 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
                 break;
             case R.id.btn_toastx:
                 startActivity(new Intent(getActivity(), XToastActivity.class));
+                break;
+            case R.id.btn_setting:
+                Uri packageUri = Uri.parse(String.format("package:%s", getPackageName()));
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
+                startActivity(intent);
+
+                DToast.make(getActivity())
+                    .setView(View.inflate(getActivity(), R.layout.layout_toast_center, null))
+                    .setText(R.id.tv_content_custom, "======================msg=============================")
+                    .setGravity(Gravity.CENTER, 0, 0)
+                    .showLong();
+//                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                    View customView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.five_star_toast, null);
+//                    CustomDialog.getInstance(getSupportFragmentManager())
+//                        .setTitle("给个五星好评呗")
+//                        .setCustomView(customView, false)
+//                        .setPositiveButton("开心给小星星", view1 -> ToastUtils.show("谢谢大爷"))
+//                        .setNegativeButton("残忍拒绝", view1 -> ToastUtils.show("该死的白嫖党，臭不要脸的"))
+//                        .showDialog();
+//                }, 5000);
                 break;
             default:
                 break;

@@ -1,4 +1,4 @@
-package com.nathaniel.baseui.utility;
+package com.nathaniel.sample.utility;
 
 import android.app.Activity;
 import android.app.Application;
