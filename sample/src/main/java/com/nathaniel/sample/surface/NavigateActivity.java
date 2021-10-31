@@ -1,6 +1,7 @@
 package com.nathaniel.sample.surface;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -32,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Locale;
+
 
 /**
  * @author nathaniel
@@ -58,6 +61,7 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
         viewBinding.btnAntivirus.setOnClickListener(this);
         viewBinding.btnToast.setOnClickListener(this);
         viewBinding.btnSetting.setOnClickListener(this);
+        viewBinding.btnSetting2.setOnClickListener(this);
     }
 
     @Override
@@ -110,9 +114,120 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
                     .setGravity(Gravity.CENTER, 0, 0)
                     .showLong();
                 break;
+            case R.id.btn_setting2:
+                gotoRomSettings();
+                break;
             default:
                 break;
         }
+    }
+
+    private void gotoRomSettings() {
+        Intent intent = new Intent();
+        ComponentName componentName = null;
+        switch (Build.MANUFACTURER.toLowerCase(Locale.ROOT)) {
+            case "huawei":
+                try {
+                    intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("packageName", getPackageName());
+                    componentName = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");
+                    intent.setComponent(componentName);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    startActivity(getAppDetailSettingIntent());
+                }
+                break;
+            case "meizu":
+                try {
+                    intent = new Intent("com.meizu.safe.security.SHOW_APPSEC");
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    intent.putExtra("packageName", getPackageName());
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    startActivity(getAppDetailSettingIntent());
+                }
+                break;
+            case "xiaomi":
+            case "redmi":
+                try { // MIUI 8
+                    intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                    intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                    intent.putExtra("extra_pkgname", getPackageName());
+                    startActivity(intent);
+                } catch (Exception e) {
+                    try { // MIUI 5/6/7
+                        intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                        intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                        intent.putExtra("extra_pkgname", getPackageName());
+                        startActivity(intent);
+                    } catch (Exception e1) { // 否则跳转到应用详情
+                        startActivity(getAppDetailSettingIntent());
+                    }
+                }
+                break;
+            case "sony":
+                intent = new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("packageName", getPackageName());
+                componentName = new ComponentName("com.sonymobile.cta", "com.sonymobile.cta.SomcCTAMainActivity");
+                intent.setComponent(componentName);
+                startActivity(intent);
+                break;
+            case "oppo":
+                intent = new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("packageName", getPackageName());
+                componentName = new ComponentName("com.color.safecenter", "com.color.safecenter.permission.PermissionManagerActivity");
+                intent.setComponent(componentName);
+                startActivity(intent);
+                break;
+            case "letv":
+                intent = new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("packageName", getPackageName());
+                componentName = new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.PermissionAndApps");
+                intent.setComponent(componentName);
+                break;
+            case "qihu360":
+                intent = new Intent("android.intent.action.MAIN");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("packageName", getPackageName());
+                componentName = new ComponentName("com.qihoo360.mobilesafe", "com.qihoo360.mobilesafe.ui.index.AppEnterActivity");
+                intent.setComponent(componentName);
+                startActivity(intent);
+                break;
+            default:
+                intent = new Intent("android.intent.action.MAIN");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("packageName", getPackageName());
+                componentName = new ComponentName("com.android.settings", "com.android.settings.Settings$AccessLockSummaryActivity");
+                intent.setComponent(componentName);
+                startActivity(intent);
+                break;
+        }
+
+        CustomToastUtils.make(getActivity())
+            .setView(View.inflate(getActivity(), R.layout.five_star_toast, null))
+            .setText(R.id.tv_content_custom, "*_* *_* *_* *_* 你礼貌么，就这样搞我？我权限不要面子的么！！！*_* *_* *_*")
+            .setGravity(Gravity.CENTER, 0, 0)
+            .showLong();
+    }
+
+    private Intent getAppDetailSettingIntent() {
+        final Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.setData(Uri.fromParts("package", getPackageName(), null));
+        } else {
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+            intent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+        }
+        return intent;
     }
 
     /**

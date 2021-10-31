@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/common_shape_round_grey_solid"
-    android:gravity="center">
+    android:gravity="center"
+    tools:background="@drawable/common_shape_round_grey_solid">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="18dp"
         android:background="@drawable/common_shape_round_white_solid"
         android:gravity="center"
         android:orientation="vertical"
@@ -19,25 +19,23 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="给个五星好评呗，大爷" />
+            android:text="权限管理界面" />
 
         <TextView
             android:id="@+id/tv_content_custom"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:text="给个五星好评呗，大爷" />
-
-        <RatingBar
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1" />
+            android:gravity="center"
+            android:minHeight="120dp"
+            android:text="你礼貌么，就这样搞我？我权限不要面子的么！！！" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:orientation="horizontal">
+            android:background="@drawable/common_shape_round_grey_light_empty"
+            android:divider="@drawable/common_shape_divider_horizontal"
+            android:orientation="horizontal"
+            android:showDividers="middle">
 
             <TextView
                 android:id="@+id/star_positive_tv"

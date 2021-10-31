@@ -15,7 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 public class CustomToastUtils {
 
     public static final int DURATION_SHORT = 2000;
-    public static final int DURATION_LONG = 3500;
+    public static final int DURATION_LONG = 6000;
 
     public static void enableLog(boolean enable) {
         RomUtils.enableLog = enable;

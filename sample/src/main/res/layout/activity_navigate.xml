@@ -36,5 +36,10 @@
     <Button
         android:id="@+id/btn_setting"
         style="@style/ButtonStyle"
-        android:text="Settings" />
+        android:text="应用详情" />
+
+    <Button
+        android:id="@+id/btn_setting2"
+        style="@style/ButtonStyle"
+        android:text="权限管理" />
 </LinearLayout>

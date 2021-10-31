@@ -25,19 +25,19 @@ public class ActivityToast extends CustomToast {
 
     @Override
     public WindowManager.LayoutParams getWindowManagerParams() {
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        lp.format = PixelFormat.TRANSLUCENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.windowAnimations = android.R.style.Animation_Toast;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParams.format = PixelFormat.TRANSLUCENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.windowAnimations = android.R.style.Animation_Toast;
         // TODO:
         //      2018/11/20 考虑是否需要引入windowToken
-        // lp.token=((Activity)getContext()).getWindow().getDecorView().getWindowToken();
-        lp.gravity = getGravity();
-        lp.x = getXOffset();
-        lp.y = getYOffset();
-        return lp;
+        // layoutParams.token=((Activity)getContext()).getWindow().getDecorView().getWindowToken();
+        layoutParams.gravity = getGravity();
+        layoutParams.x = getXOffset();
+        layoutParams.y = getYOffset();
+        return layoutParams;
     }
 
     @Override
