@@ -10,51 +10,31 @@
 
     <Button
         android:id="@+id/btn_package"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="查看app流量（所有app）"
-        android:textAllCaps="false" />
+        style="@style/ButtonStyle"
+        android:text="查看app流量（所有app）" />
 
     <Button
         android:id="@+id/btn_text"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="TextView显示"
-        android:textAllCaps="false" />
+        style="@style/ButtonStyle"
+        android:text="TextView显示" />
 
     <Button
         android:id="@+id/btn_antivirus"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="病毒扫描"
-        android:textAllCaps="false" />
+        style="@style/ButtonStyle"
+        android:text="病毒扫描" />
 
     <Button
         android:id="@+id/btn_scanner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="Scanner"
-        android:textAllCaps="false" />
+        style="@style/ButtonStyle"
+        android:text="Scanner" />
 
     <Button
         android:id="@+id/btn_toast"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="Toast"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/btn_toastx"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="XToast"
-        android:textAllCaps="false" />
+        style="@style/ButtonStyle"
+        android:text="Toast" />
 
     <Button
         android:id="@+id/btn_setting"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_header_height"
-        android:text="Settings"
-        android:textAllCaps="false" />
-
+        style="@style/ButtonStyle"
+        android:text="Settings" />
 </LinearLayout>

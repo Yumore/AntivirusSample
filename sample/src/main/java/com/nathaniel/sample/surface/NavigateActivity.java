@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -14,12 +17,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.hjq.toast.ToastUtils;
-import com.hjq.toast.demo.ToastActivity;
-import com.hjq.toast.demo.XToastActivity;
-import com.hjq.toast.dtoast.DToast;
+import com.hjq.toast.dtoast.CustomToastUtils;
 import com.nathaniel.baseui.AbstractActivity;
+import com.nathaniel.baseui.widget.CustomDialog;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.databinding.ActivityNavigateBinding;
+import com.nathaniel.sample.toast.ToastActivity;
 import com.nathaniel.sample.utility.EventConstants;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.entity.EventMessage;
@@ -54,7 +57,6 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
         viewBinding.btnScanner.setOnClickListener(this);
         viewBinding.btnAntivirus.setOnClickListener(this);
         viewBinding.btnToast.setOnClickListener(this);
-        viewBinding.btnToastx.setOnClickListener(this);
         viewBinding.btnSetting.setOnClickListener(this);
     }
 
@@ -97,32 +99,35 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
             case R.id.btn_toast:
                 startActivity(new Intent(getActivity(), ToastActivity.class));
                 break;
-            case R.id.btn_toastx:
-                startActivity(new Intent(getActivity(), XToastActivity.class));
-                break;
             case R.id.btn_setting:
                 Uri packageUri = Uri.parse(String.format("package:%s", getPackageName()));
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
                 startActivity(intent);
 
-                DToast.make(getActivity())
-                    .setView(View.inflate(getActivity(), R.layout.layout_toast_center, null))
+                CustomToastUtils.make(getActivity())
+                    .setView(View.inflate(getActivity(), R.layout.five_star_toast, null))
                     .setText(R.id.tv_content_custom, "======================msg=============================")
                     .setGravity(Gravity.CENTER, 0, 0)
                     .showLong();
-//                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                    View customView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.five_star_toast, null);
-//                    CustomDialog.getInstance(getSupportFragmentManager())
-//                        .setTitle("给个五星好评呗")
-//                        .setCustomView(customView, false)
-//                        .setPositiveButton("开心给小星星", view1 -> ToastUtils.show("谢谢大爷"))
-//                        .setNegativeButton("残忍拒绝", view1 -> ToastUtils.show("该死的白嫖党，臭不要脸的"))
-//                        .showDialog();
-//                }, 5000);
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 不起作用哦
+     */
+    public void showGuideDialog() {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            View customView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.five_star_toast, null);
+            CustomDialog.getInstance(getSupportFragmentManager())
+                .setTitle("给个五星好评呗")
+                .setCustomView(customView, false)
+                .setPositiveButton("开心给小星星", view1 -> ToastUtils.show("谢谢大爷"))
+                .setNegativeButton("残忍拒绝", view1 -> ToastUtils.show("该死的白嫖党，臭不要脸的"))
+                .showDialog();
+        }, 5000);
     }
 
     private void gotoScanner(Boolean granted) {

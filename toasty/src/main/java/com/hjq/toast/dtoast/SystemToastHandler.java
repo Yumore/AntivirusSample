@@ -1,28 +1,28 @@
 package com.hjq.toast.dtoast;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
 
 import java.util.LinkedList;
 
-/**
- * @Date: 2018/11/19
- * @Author: heweizong
- * @Description:
- */
-class SystemTN extends Handler {
+class SystemToastHandler extends Handler {
     final static int REMOVE = 2;
 
-    private final LinkedList<SystemToast> toastQueue;//列表中成员要求非空
+    /**
+     * 列表中成员要求非空
+     */
+    private final LinkedList<SystemToast> toastQueue;
 
-    private SystemTN() {
+    private SystemToastHandler() {
+        super(Looper.myLooper());
         toastQueue = new LinkedList<>();
     }
 
-    static SystemTN instance() {
-        return SingletonHolder.mTn;
+    static SystemToastHandler instance() {
+        return SingletonHolder.SYSTEM_TOAST_HANDLER;
     }
 
     /**
@@ -50,19 +50,18 @@ class SystemTN extends Handler {
         if (isShowing) {
             if (toastQueue.size() == 2) {
                 //获取当前正在展示的toast
-                SystemToast showing = toastQueue.peek();
-                //允许新加入的toast终止当前的展示
-                if (mToast.getPriority() >= showing.getPriority()) {
-                    //立即终止当前正在展示toast,并开始展示下一个
-                    sendRemoveMsg(showing);
-                } else {
-                    //do nothing ...
+                SystemToast systemToast = toastQueue.peek();
+                if (systemToast == null) {
                     return;
                 }
-            } else {
-                //do nothing ...
-                return;
-            }
+                //允许新加入的toast终止当前的展示
+                if (mToast.getPriority() >= systemToast.getPriority()) {
+                    //立即终止当前正在展示toast,并开始展示下一个
+                    sendRemoveMsg(systemToast);
+                }  //do nothing ...
+
+            }  //do nothing ...
+
         } else {
             showNextToast();
         }
@@ -78,7 +77,11 @@ class SystemTN extends Handler {
     void cancelAll() {
         removeMessages(REMOVE);
         if (!toastQueue.isEmpty()) {
-            toastQueue.peek().cancelInternal();
+            SystemToast systemToast = toastQueue.peek();
+            if (systemToast == null) {
+                return;
+            }
+            systemToast.cancelInternal();
         }
         toastQueue.clear();
     }
@@ -89,7 +92,9 @@ class SystemTN extends Handler {
      * 2.不同优先级时，如果后一个的优先级更高则会终止上一个，直接展示后一个。
      */
     private void showNextToast() {
-        if (toastQueue.isEmpty()) return;
+        if (toastQueue.isEmpty()) {
+            return;
+        }
         SystemToast toast = toastQueue.peek();
         if (null == toast) {
             toastQueue.poll();
@@ -131,17 +136,15 @@ class SystemTN extends Handler {
 
     @Override
     public void handleMessage(Message message) {
-        if (message == null) return;
-        switch (message.what) {
-            case REMOVE:
-                remove((SystemToast) message.obj);
-                break;
-            default:
-                break;
+        if (message == null) {
+            return;
+        }
+        if (message.what == REMOVE) {
+            remove((SystemToast) message.obj);
         }
     }
 
     private static class SingletonHolder {
-        private static final SystemTN mTn = new SystemTN();
+        private static final SystemToastHandler SYSTEM_TOAST_HANDLER = new SystemToastHandler();
     }
 }

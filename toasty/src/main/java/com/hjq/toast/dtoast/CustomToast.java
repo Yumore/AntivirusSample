@@ -15,56 +15,54 @@ import androidx.annotation.NonNull;
 import com.hjq.toast.R;
 
 
-/**
- * @Date: 2018/11/13
- * @Author: heweizong
- * @Description: 解决通知权限被关闭时系统Toast无法正常展示的问题.
- * 使用{@link DovaToast}出现{@link WindowManager.BadTokenException}时，再尝试使用{@link ActivityToast}
- */
-public class DovaToast implements IToast, Cloneable {
-    static long Count4BadTokenException = 0;//记录DovaToast连续抛出token null is not valid异常的次数
+public class CustomToast implements IToast, Cloneable {
+    /**
+     * 记录DovaToast连续抛出token null is not valid异常的次数
+     */
+    static long Count4BadTokenException = 0;
 
-    Context mContext;
-    boolean isShowing;//TN标记为正在展示
+    Context context;
+    boolean toastShowing;
     private View contentView;
-    private int priority;//优先级
-    private long timestamp;//时间戳
+    private int priority;
+    private long timestamp;
     private int animation = android.R.style.Animation_Toast;
     private int gravity = Gravity.BOTTOM | Gravity.CENTER;
     private int xOffset;
     private int yOffset;
     private int width = WindowManager.LayoutParams.WRAP_CONTENT;
     private int height = WindowManager.LayoutParams.WRAP_CONTENT;
-    private int duration = DToast.DURATION_SHORT;
+    private int duration = CustomToastUtils.DURATION_SHORT;
 
-    public DovaToast(@NonNull Context mContext) {
-        this.mContext = mContext;
+    public CustomToast(@NonNull Context context) {
+        this.context = context;
     }
 
     public static void cancelAll() {
-        DovaTN.instance().cancelAll();
+        CustomToastHandler.instance().cancelAll();
     }
 
     public static void cancelActivityToast(Activity mActivity) {
-        DovaTN.instance().cancelActivityToast(mActivity);
+        CustomToastHandler.instance().cancelActivityToast(mActivity);
     }
 
-    //当DovaToast连续出现token null is not valid异常时，不再推荐使用DovaToast
+    /**
+     * 当DovaToast连续出现token null is not valid异常时，不再推荐使用DovaToast
+     */
     public static boolean isBadChoice() {
         return Count4BadTokenException >= 5;
     }
 
-    //展示Toast
     @Override
     public void show() {
         //此时如果还未设置contentView则使用内置布局
         assertContentViewNotNull();
-        DovaTN.instance().add(this);
+        CustomToastHandler.instance().add(this);
     }
 
     @Override
     public void showLong() {
-        this.setDuration(DToast.DURATION_LONG).show();
+        this.setDuration(CustomToastUtils.DURATION_LONG).show();
     }
 
     /**
@@ -73,39 +71,40 @@ public class DovaToast implements IToast, Cloneable {
      */
     @Override
     public void cancel() {
-        DovaTN.instance().cancelAll();
+        CustomToastHandler.instance().cancelAll();
     }
 
-    protected WindowManager.LayoutParams getWMParams() {
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        lp.format = PixelFormat.TRANSLUCENT;
+    protected WindowManager.LayoutParams getWindowManagerParams() {
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParams.format = PixelFormat.TRANSLUCENT;
         //targetSdkVersion>=26且运行在8.0以上系统时，TYPE_TOAST可能会addView()失败，所以如果此条件下应用已获取到悬浮窗权限则使用TYPE_APPLICATION_OVERLAY
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Settings.canDrawOverlays(mContext)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Settings.canDrawOverlays(context)) {
             //为什么是使用TYPE_APPLICATION_OVERLAY？
             //因为8.0+系统，使用SYSTEM_ALERT_WINDOW 权限的应用无法再使用TYPE_PHONE、TYPE_SYSTEM_ALERT、TYPE_SYSTEM_OVERLAY等窗口类型来显示弹窗(permission denied for this window type)
-            lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
-            lp.type = WindowManager.LayoutParams.TYPE_TOAST;
+            layoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
         }
-        lp.height = this.height;
-        lp.width = this.width;
-        lp.windowAnimations = this.animation;
-        lp.gravity = this.gravity;
-        lp.x = this.xOffset;
-        lp.y = this.yOffset;
-        return lp;
+        layoutParams.height = this.height;
+        layoutParams.width = this.width;
+        layoutParams.windowAnimations = this.animation;
+        layoutParams.gravity = this.gravity;
+        layoutParams.x = this.xOffset;
+        layoutParams.y = this.yOffset;
+        layoutParams.dimAmount = 0.75f;
+        return layoutParams;
     }
 
-    protected WindowManager getWMManager() {
-        if (mContext == null) {
+    protected WindowManager getWindowManager() {
+        if (context == null) {
             return null;
         }
-        return (WindowManager) mContext.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        return (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
     }
 
     public Context getContext() {
-        return this.mContext;
+        return this.context;
     }
 
     @Override
@@ -114,9 +113,9 @@ public class DovaToast implements IToast, Cloneable {
     }
 
     @Override
-    public DovaToast setView(View mView) {
+    public CustomToast setView(View mView) {
         if (mView == null) {
-            DUtil.log("contentView cannot be null!");
+            RomUtils.log("contentView cannot be null!");
             return this;
         }
         this.contentView = mView;
@@ -129,7 +128,7 @@ public class DovaToast implements IToast, Cloneable {
 
     private View assertContentViewNotNull() {
         if (contentView == null) {
-            contentView = View.inflate(mContext, R.layout.layout_toast, null);
+            contentView = View.inflate(context, R.layout.layout_toast, null);
         }
         return contentView;
     }
@@ -139,19 +138,19 @@ public class DovaToast implements IToast, Cloneable {
     }
 
     @Override
-    public DovaToast setDuration(@DToast.Duration int duration) {
+    public CustomToast setDuration(@CustomToastUtils.Duration int duration) {
         this.duration = duration;
         return this;
     }
 
     @Override
-    public DovaToast setAnimation(int animation) {
+    public CustomToast setAnimation(int animation) {
         this.animation = animation;
         return this;
     }
 
     @Override
-    public DovaToast setGravity(int gravity, int xOffset, int yOffset) {
+    public CustomToast setGravity(int gravity, int xOffset, int yOffset) {
         this.gravity = gravity;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
@@ -163,7 +162,7 @@ public class DovaToast implements IToast, Cloneable {
     }
 
     @Override
-    public DovaToast setGravity(int gravity) {
+    public CustomToast setGravity(int gravity) {
         return setGravity(gravity, 0, 0);
     }
 
@@ -180,16 +179,16 @@ public class DovaToast implements IToast, Cloneable {
     }
 
     @Override
-    public DovaToast setPriority(int mPriority) {
+    public CustomToast setPriority(int mPriority) {
         this.priority = mPriority;
         return this;
     }
 
     @Override
     public IToast setText(int id, String text) {
-        TextView tv = assertContentViewNotNull().findViewById(id);
-        if (tv != null) {
-            tv.setText(text);
+        TextView textView = assertContentViewNotNull().findViewById(id);
+        if (textView != null) {
+            textView.setText(text);
         }
         return this;
     }
@@ -198,7 +197,7 @@ public class DovaToast implements IToast, Cloneable {
         return timestamp;
     }
 
-    DovaToast setTimestamp(long mTimestamp) {
+    CustomToast setTimestamp(long mTimestamp) {
         timestamp = mTimestamp;
         return this;
     }
@@ -208,28 +207,28 @@ public class DovaToast implements IToast, Cloneable {
      *
      * @return toast是否正在展示
      */
-    boolean isShowing() {
-        return isShowing && contentView != null && contentView.isShown();
+    boolean isToastShowing() {
+        return toastShowing && contentView != null && contentView.isShown();
     }
 
     @Override
-    public DovaToast clone() {
-        DovaToast mToast = null;
+    protected CustomToast clone() {
+        CustomToast customToast = null;
         try {
-            mToast = (DovaToast) super.clone();
-            mToast.mContext = this.mContext;
-            mToast.contentView = this.contentView;
-            mToast.duration = this.duration;
-            mToast.animation = this.animation;
-            mToast.gravity = this.gravity;
-            mToast.height = this.height;
-            mToast.width = this.width;
-            mToast.xOffset = this.xOffset;
-            mToast.yOffset = this.yOffset;
-            mToast.priority = this.priority;
-        } catch (CloneNotSupportedException mE) {
-            mE.printStackTrace();
+            customToast = (CustomToast) super.clone();
+            customToast.context = this.context;
+            customToast.contentView = this.contentView;
+            customToast.duration = this.duration;
+            customToast.animation = this.animation;
+            customToast.gravity = this.gravity;
+            customToast.height = this.height;
+            customToast.width = this.width;
+            customToast.xOffset = this.xOffset;
+            customToast.yOffset = this.yOffset;
+            customToast.priority = this.priority;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
-        return mToast;
+        return customToast;
     }
 }

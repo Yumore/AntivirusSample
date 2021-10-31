@@ -6,9 +6,7 @@ import androidx.annotation.IdRes;
 
 
 /**
- * @Date: 2018/11/20
- * @Author: heweizong
- * @Description:
+ * @author Nathaniel
  */
 public interface IToast {
     void show();
@@ -21,7 +19,7 @@ public interface IToast {
 
     IToast setView(View mView);
 
-    IToast setDuration(@DToast.Duration int duration);
+    IToast setDuration(@CustomToastUtils.Duration int duration);
 
     IToast setGravity(int gravity);
 

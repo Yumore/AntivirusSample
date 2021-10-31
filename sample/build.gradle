@@ -88,8 +88,10 @@ android {
 dependencies {
     implementation project(':baseui')
     implementation project(':starter')
-    implementation project(':testui')
-
+    implementation project(':toasty')
+    implementation project(':baseui')
+    implementation 'com.github.getActivity:XXPermissions:12.3'
+    implementation 'com.github.getActivity:TitleBar:9.2'
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation "com.github.promeg:tinypinyin:2.0.3"
     implementation "com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3"

@@ -12,17 +12,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
-/**
- * @Date: 2018/11/26
- * @Author: heweizong
- * @Description:
- */
-public class DUtil {
-    private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code"; //小米
+public class RomUtils {
+    private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
     protected static boolean enableLog = false;
-    private static int OS_MIUI = -1;//1为true 0为false
+    /**
+     * 1为true 0为false
+     */
+    private static int OS_MIUI = -1;
 
     public static void log(String info) {
         if (enableLog && !TextUtils.isEmpty(info)) {
@@ -43,7 +41,9 @@ public class DUtil {
      * 小米系统
      */
     private static boolean isMIUI() {
-        if (OS_MIUI != -1) return OS_MIUI == 1;
+        if (OS_MIUI != -1) {
+            return OS_MIUI == 1;
+        }
         boolean isMIUI = false;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
             try {
@@ -76,11 +76,7 @@ public class DUtil {
             Class<?> clz = Class.forName("android.os.SystemProperties");
             Method get = clz.getMethod("get", String.class, String.class);
             return (String) get.invoke(clz, key, defaultValue);
-        } catch (ClassNotFoundException e) {
-        } catch (NoSuchMethodException e) {
-        } catch (IllegalAccessException e) {
-        } catch (IllegalArgumentException e) {
-        } catch (InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ignored) {
         }
         return defaultValue;
     }

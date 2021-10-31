@@ -10,12 +10,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.SortedSet;
 
-/**
- * @Date: 2018/12/14
- * @Author: heweizong
- * @Description: 优先级队列
- */
-class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable {
+class CustomPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable {
 
     private static final long serialVersionUID = 156525540690621702L;
     private static final int DEFAULT_INITIAL_CAPACITY = 11;
@@ -55,7 +50,7 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * capacity (11) that orders its elements according to their
      * {@linkplain Comparable natural ordering}.
      */
-    public DPriorityQueue() {
+    public CustomPriorityQueue() {
         this(DEFAULT_INITIAL_CAPACITY, null);
     }
 
@@ -68,7 +63,7 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @throws IllegalArgumentException if {@code initialCapacity} is less
      *                                  than 1
      */
-    public DPriorityQueue(int initialCapacity) {
+    public CustomPriorityQueue(int initialCapacity) {
         this(initialCapacity, null);
     }
 
@@ -81,7 +76,7 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      *                   natural ordering} of the elements will be used.
      * @since 1.8
      */
-    public DPriorityQueue(Comparator<? super E> comparator) {
+    public CustomPriorityQueue(Comparator<? super E> comparator) {
         this(DEFAULT_INITIAL_CAPACITY, comparator);
     }
 
@@ -96,12 +91,13 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @throws IllegalArgumentException if {@code initialCapacity} is
      *                                  less than 1
      */
-    public DPriorityQueue(int initialCapacity,
-                          Comparator<? super E> comparator) {
+    public CustomPriorityQueue(int initialCapacity,
+                               Comparator<? super E> comparator) {
         // Note: This restriction of at least one is not actually needed,
         // but continues for 1.5 compatibility
-        if (initialCapacity < 1)
+        if (initialCapacity < 1) {
             throw new IllegalArgumentException();
+        }
         this.queue = new Object[initialCapacity];
         this.comparator = comparator;
     }
@@ -123,13 +119,13 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      *                              of its elements are null
      */
     @SuppressWarnings("unchecked")
-    public DPriorityQueue(Collection<? extends E> c) {
+    public CustomPriorityQueue(Collection<? extends E> c) {
         if (c instanceof SortedSet<?>) {
             SortedSet<? extends E> ss = (SortedSet<? extends E>) c;
             this.comparator = (Comparator<? super E>) ss.comparator();
             initElementsFromCollection(ss);
-        } else if (c instanceof DPriorityQueue<?>) {
-            DPriorityQueue<? extends E> pq = (DPriorityQueue<? extends E>) c;
+        } else if (c instanceof CustomPriorityQueue<?>) {
+            CustomPriorityQueue<? extends E> pq = (CustomPriorityQueue<? extends E>) c;
             this.comparator = (Comparator<? super E>) pq.comparator();
             initFromPriorityQueue(pq);
         } else {
@@ -153,7 +149,7 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      *                              of its elements are null
      */
     @SuppressWarnings("unchecked")
-    public DPriorityQueue(DPriorityQueue<? extends E> c) {
+    public CustomPriorityQueue(CustomPriorityQueue<? extends E> c) {
         this.comparator = (Comparator<? super E>) c.comparator();
         initFromPriorityQueue(c);
     }
@@ -172,14 +168,16 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      *                              of its elements are null
      */
     @SuppressWarnings("unchecked")
-    public DPriorityQueue(SortedSet<? extends E> c) {
+    public CustomPriorityQueue(SortedSet<? extends E> c) {
         this.comparator = (Comparator<? super E>) c.comparator();
         initElementsFromCollection(c);
     }
 
     private static int hugeCapacity(int minCapacity) {
         if (minCapacity < 0) // overflow
+        {
             throw new OutOfMemoryError();
+        }
         return (minCapacity > MAX_ARRAY_SIZE) ?
             Integer.MAX_VALUE :
             MAX_ARRAY_SIZE;
@@ -192,8 +190,8 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
         return null;
     }
 
-    private void initFromPriorityQueue(DPriorityQueue<? extends E> c) {
-        if (c.getClass() == DPriorityQueue.class) {
+    private void initFromPriorityQueue(CustomPriorityQueue<? extends E> c) {
+        if (c.getClass() == CustomPriorityQueue.class) {
             this.queue = c.toArray();
             this.size = c.size();
         } else {
@@ -204,13 +202,18 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
     private void initElementsFromCollection(Collection<? extends E> c) {
         Object[] a = c.toArray();
         // If c.toArray incorrectly doesn't return Object[], copy it.
-        if (a.getClass() != Object[].class)
+        if (a.getClass() != Object[].class) {
             a = Arrays.copyOf(a, a.length, Object[].class);
+        }
         int len = a.length;
-        if (len == 1 || this.comparator != null)
-            for (Object e : a)
-                if (e == null)
-                    throw new NullPointerException();
+        if (len == 1 || this.comparator != null) {
+            for (Object e : a) {
+                if (e != null) {
+                    continue;
+                }
+                throw new NullPointerException();
+            }
+        }
         this.queue = a;
         this.size = a.length;
     }
@@ -237,8 +240,9 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
             (oldCapacity + 2) :
             (oldCapacity >> 1));
         // overflow-conscious code
-        if (newCapacity - MAX_ARRAY_SIZE > 0)
+        if (newCapacity - MAX_ARRAY_SIZE > 0) {
             newCapacity = hugeCapacity(minCapacity);
+        }
         queue = Arrays.copyOf(queue, newCapacity);
     }
 
@@ -251,6 +255,7 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      *                              according to the priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
+    @Override
     public boolean add(E e) {
         return offer(e);
     }
@@ -264,21 +269,26 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      *                              according to the priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
+    @Override
     public boolean offer(E e) {
-        if (e == null)
+        if (e == null) {
             throw new NullPointerException();
+        }
         modCount++;
         int i = size;
-        if (i >= queue.length)
+        if (i >= queue.length) {
             grow(i + 1);
+        }
         size = i + 1;
-        if (i == 0)
+        if (i == 0) {
             queue[0] = e;
-        else
+        } else {
             siftUp(i, e);
+        }
         return true;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public E peek() {
         return (size == 0) ? null : (E) queue[0];
@@ -286,9 +296,11 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
 
     private int indexOf(Object o) {
         if (o != null) {
-            for (int i = 0; i < size; i++)
-                if (o.equals(queue[i]))
+            for (int i = 0; i < size; i++) {
+                if (o.equals(queue[i])) {
                     return i;
+                }
+            }
         }
         return -1;
     }
@@ -304,11 +316,12 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @param o element to be removed from this queue, if present
      * @return {@code true} if this queue changed as a result of the call
      */
+    @Override
     public boolean remove(Object o) {
         int i = indexOf(o);
-        if (i == -1)
+        if (i == -1) {
             return false;
-        else {
+        } else {
             removeAt(i);
             return true;
         }
@@ -339,6 +352,7 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @param o object to be checked for containment in this queue
      * @return {@code true} if this queue contains the specified element
      */
+    @Override
     public boolean contains(Object o) {
         return indexOf(o) >= 0;
     }
@@ -400,11 +414,14 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
     public <T> T[] toArray(T[] a) {
         final int size = this.size;
         if (a.length < size)
-            // Make a new array of a's runtime type, but my contents:
+        // Make a new array of a's runtime type, but my contents:
+        {
             return (T[]) Arrays.copyOf(queue, size, a.getClass());
+        }
         System.arraycopy(queue, 0, a, 0, size);
-        if (a.length > size)
+        if (a.length > size) {
             a[size] = null;
+        }
         return a;
     }
 
@@ -415,9 +432,10 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @return an iterator over the elements in this queue
      */
     public Iterator<E> iterator() {
-        return new Itr();
+        return new CustomIterator();
     }
 
+    @Override
     public int size() {
         return size;
     }
@@ -426,24 +444,29 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * Removes all of the elements from this priority queue.
      * The queue will be empty after this call returns.
      */
+    @Override
     public void clear() {
         modCount++;
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             queue[i] = null;
+        }
         size = 0;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public E poll() {
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
         int s = --size;
         modCount++;
         E result = (E) queue[0];
         E x = (E) queue[s];
         queue[s] = null;
-        if (s != 0)
+        if (s != 0) {
             siftDown(0, x);
+        }
         return result;
     }
 
@@ -465,15 +488,17 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
         modCount++;
         int s = --size;
         if (s == i) // removed last element
+        {
             queue[i] = null;
-        else {
+        } else {
             E moved = (E) queue[s];
             queue[s] = null;
             siftDown(i, moved);
             if (queue[i] == moved) {
                 siftUp(i, moved);
-                if (queue[i] != moved)
+                if (queue[i] != moved) {
                     return moved;
+                }
             }
         }
         return null;
@@ -492,10 +517,11 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @param x the item to insert
      */
     private void siftUp(int k, E x) {
-        if (comparator != null)
+        if (comparator != null) {
             siftUpUsingComparator(k, x);
-        else
+        } else {
             siftUpComparable(k, x);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -504,8 +530,9 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
         while (k > 0) {
             int parent = (k - 1) >>> 1;
             Object e = queue[parent];
-            if (key.compareTo((E) e) >= 0)
+            if (key.compareTo((E) e) >= 0) {
                 break;
+            }
             queue[k] = e;
             k = parent;
         }
@@ -517,8 +544,9 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
         while (k > 0) {
             int parent = (k - 1) >>> 1;
             Object e = queue[parent];
-            if (comparator.compare(x, (E) e) >= 0)
+            if (comparator.compare(x, (E) e) >= 0) {
                 break;
+            }
             queue[k] = e;
             k = parent;
         }
@@ -534,10 +562,11 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      * @param x the item to insert
      */
     private void siftDown(int k, E x) {
-        if (comparator != null)
+        if (comparator != null) {
             siftDownUsingComparator(k, x);
-        else
+        } else {
             siftDownComparable(k, x);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -549,10 +578,12 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
             Object c = queue[child];
             int right = child + 1;
             if (right < size &&
-                ((Comparable<? super E>) c).compareTo((E) queue[right]) > 0)
+                ((Comparable<? super E>) c).compareTo((E) queue[right]) > 0) {
                 c = queue[child = right];
-            if (key.compareTo((E) c) <= 0)
+            }
+            if (key.compareTo((E) c) <= 0) {
                 break;
+            }
             queue[k] = c;
             k = child;
         }
@@ -567,10 +598,12 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
             Object c = queue[child];
             int right = child + 1;
             if (right < size &&
-                comparator.compare((E) c, (E) queue[right]) > 0)
+                comparator.compare((E) c, (E) queue[right]) > 0) {
                 c = queue[child = right];
-            if (comparator.compare(x, (E) c) <= 0)
+            }
+            if (comparator.compare(x, (E) c) <= 0) {
                 break;
+            }
             queue[k] = c;
             k = child;
         }
@@ -583,8 +616,9 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
      */
     @SuppressWarnings("unchecked")
     private void heapify() {
-        for (int i = (size >>> 1) - 1; i >= 0; i--)
+        for (int i = (size >>> 1) - 1; i >= 0; i--) {
             siftDown(i, (E) queue[i]);
+        }
     }
 
     /**
@@ -618,8 +652,9 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
         s.writeInt(Math.max(2, size + 1));
 
         // Write out all elements in the "proper order".
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             s.writeObject(queue[i]);
+        }
     }
 
     /**
@@ -642,15 +677,16 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
         queue = new Object[size];
 
         // Read in all elements.
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             queue[i] = s.readObject();
+        }
 
         // Elements are guaranteed to be in "proper order", but the
         // spec has never explained what that might be.
         heapify();
     }
 
-    private final class Itr implements Iterator<E> {
+    private final class CustomIterator implements Iterator<E> {
         /**
          * Index (into queue array) of element to be returned by
          * subsequent call to next.
@@ -690,37 +726,45 @@ class DPriorityQueue<E> extends AbstractQueue<E> implements java.io.Serializable
          */
         private int expectedModCount = modCount;
 
+        @Override
         public boolean hasNext() {
             return cursor < size ||
                 (forgetMeNot != null && !forgetMeNot.isEmpty());
         }
 
+        @Override
         @SuppressWarnings("unchecked")
         public E next() {
-            if (expectedModCount != modCount)
+            if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
-            if (cursor < size)
+            }
+            if (cursor < size) {
                 return (E) queue[lastRet = cursor++];
+            }
             if (forgetMeNot != null) {
                 lastRet = -1;
                 lastRetElt = forgetMeNot.poll();
-                if (lastRetElt != null)
+                if (lastRetElt != null) {
                     return lastRetElt;
+                }
             }
             throw new NoSuchElementException();
         }
 
+        @Override
         public void remove() {
-            if (expectedModCount != modCount)
+            if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
+            }
             if (lastRet != -1) {
                 E moved = removeAt(lastRet);
                 lastRet = -1;
-                if (moved == null)
+                if (moved == null) {
                     cursor--;
-                else {
-                    if (forgetMeNot == null)
+                } else {
+                    if (forgetMeNot == null) {
                         forgetMeNot = new ArrayDeque<>();
+                    }
                     forgetMeNot.add(moved);
                 }
             } else if (lastRetElt != null) {

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/common_header_root_layout"
+        layout="@layout/common_header_blue" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:divider="@drawable/common_shape_divider_vertical"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show11"
+                android:text="简简单单显示 Toast" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show12"
+                android:text="在子线程中显示吐司" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show13"
+                android:text="切换吐司的样式为白色" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show14"
+                android:text="切换吐司的样式为黑色" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show15"
+                android:text="点我自定义 Toast 布局" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show16"
+                android:text="在后台状态下显示 Toast" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show17"
+                android:text="搭配 XToast 悬浮窗框架" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show21"
+                android:text="自定义 Toast 显示动画" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show22"
+                android:text="自定义 Toast 显示时长" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show23"
+                android:text="监听 Toast 生命周期" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show24"
+                android:text="Toast 响应点击事件" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show25"
+                android:text="显示在 View 下方" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show26"
+                android:text="可自由拖拽的 Toast" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show27"
+                android:text="全局可拖拽的 Toast" />
+
+            <Button
+                style="@style/ButtonStyle"
+                android:onClick="show28"
+                android:text="搭配 ToastUtils 吐司框架" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

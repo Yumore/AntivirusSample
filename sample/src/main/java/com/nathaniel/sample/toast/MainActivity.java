@@ -1,11 +1,14 @@
-package com.hjq.toast.demo;
+package com.nathaniel.sample.toast;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.nathaniel.sample.R;
 
 import java.util.Random;
 
@@ -17,10 +20,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Handler().postDelayed(new Runnable() {
+        new Handler(Looper.myLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isDestroyed() || isFinishing()) return;
+                if (isDestroyed() || isFinishing()) {
+                    return;
+                }
                 ToastUtil.show(MainActivity.this, "Hello MainActivity!");
             }
         }, 500);

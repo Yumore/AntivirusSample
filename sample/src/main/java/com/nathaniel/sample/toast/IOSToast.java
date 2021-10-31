@@ -1,8 +1,9 @@
-package com.hjq.toast.demo;
+package com.nathaniel.sample.toast;
 
 import android.app.Activity;
 
 import com.hjq.toast.XToast;
+import com.nathaniel.sample.R;
 
 /**
  * author : Android 轮子哥
@@ -19,7 +20,7 @@ public final class IOSToast {
             .setDuration(TIME)
             .setContentView(R.layout.toast_hint)
             .setAnimStyle(android.R.style.Animation_Translucent)
-            .setImageDrawable(android.R.id.icon, R.mipmap.ic_dialog_tip_finish)
+            .setImageDrawable(android.R.id.icon, R.drawable.ic_dialog_tip_finish)
             .setText(android.R.id.message, text)
             .show();
     }
@@ -29,7 +30,7 @@ public final class IOSToast {
             .setDuration(TIME)
             .setContentView(R.layout.toast_hint)
             .setAnimStyle(android.R.style.Animation_Activity)
-            .setImageDrawable(android.R.id.icon, R.mipmap.ic_dialog_tip_error)
+            .setImageDrawable(android.R.id.icon, R.drawable.ic_dialog_tip_error)
             .setText(android.R.id.message, text)
             .show();
     }
@@ -39,7 +40,7 @@ public final class IOSToast {
             .setDuration(TIME)
             .setContentView(R.layout.toast_hint)
             .setAnimStyle(android.R.style.Animation_Dialog)
-            .setImageDrawable(android.R.id.icon, R.mipmap.ic_dialog_tip_warning)
+            .setImageDrawable(android.R.id.icon, R.drawable.ic_dialog_tip_warning)
             .setText(android.R.id.message, text)
             .show();
     }

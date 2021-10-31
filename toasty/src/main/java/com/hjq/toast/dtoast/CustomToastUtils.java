@@ -10,34 +10,32 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * @Date: 2018/11/26
- * @Author: heweizong
- * @Description: 使用系统Toast的问题 {@link android.widget.Toast}：当通知权限被关闭时在华为等手机上Toast不显示。因此采取自定义Toast解决.
- * 优先使用系统Toast，如果通知权限被关闭，则使用DovaToast.
+ * @author Nathaniel
  */
-public class DToast {
+public class CustomToastUtils {
 
     public static final int DURATION_SHORT = 2000;
     public static final int DURATION_LONG = 3500;
 
     public static void enableLog(boolean enable) {
-        DUtil.enableLog = enable;
+        RomUtils.enableLog = enable;
     }
 
-    public static IToast make(Context mContext) {
-        if (mContext == null) {
+    public static IToast make(Context context) {
+        if (context == null) {
             return null;
         }
         //如果有通知权限，直接使用系统Toast
         //白名单中的机型没有通知权限时系统Toast也能正常展示
-        if (NotificationManagerCompat.from(mContext).areNotificationsEnabled() || SystemToast.isValid4HookINotificationManager() || DUtil.isWhiteList()) {
-            return new SystemToast(mContext);
-        } else {//否则使用自定义Toast
-            if (mContext instanceof Activity && DovaToast.isBadChoice()) {
+        if (NotificationManagerCompat.from(context).areNotificationsEnabled() || SystemToast.isValid4HookINotificationManager() || RomUtils.isWhiteList()) {
+            return new SystemToast(context);
+        } else {
+            //否则使用自定义Toast
+            if (context instanceof Activity && CustomToast.isBadChoice()) {
                 //检测到DovaToast连续多次抛出token null is not valid异常时，直接启用ActivityToast
-                return new ActivityToast(mContext);
+                return new ActivityToast(context);
             }
-            return new DovaToast(mContext);
+            return new CustomToast(context);
         }
     }
 
@@ -45,7 +43,7 @@ public class DToast {
      * 终止并清除所有弹窗
      */
     public static void cancel() {
-        DovaToast.cancelAll();
+        CustomToast.cancelAll();
         SystemToast.cancelAll();
     }
 
@@ -53,7 +51,7 @@ public class DToast {
      * 清除与{@param mActivity}关联的ActivityToast，避免窗口泄漏
      */
     public static void cancelActivityToast(Activity mActivity) {
-        DovaToast.cancelActivityToast(mActivity);
+        CustomToast.cancelActivityToast(mActivity);
     }
 
     @Retention(RetentionPolicy.SOURCE)
