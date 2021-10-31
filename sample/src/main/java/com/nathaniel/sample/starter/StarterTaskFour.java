@@ -2,6 +2,8 @@ package com.nathaniel.sample.starter;
 
 import android.app.usage.NetworkStats;
 import android.app.usage.NetworkStatsManager;
+import android.app.usage.StorageStats;
+import android.app.usage.StorageStatsManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
@@ -18,7 +20,11 @@ import android.net.TrafficStats;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.telephony.TelephonyManager;
+
+import androidx.annotation.RequiresApi;
 
 import com.nathaniel.sample.BuildConfig;
 import com.nathaniel.sample.module.AntivirusModule;
@@ -37,8 +43,10 @@ import com.wxy.appstartfaster.task.BaseStarterTask;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class StarterTaskFour extends BaseStarterTask {
 
@@ -230,4 +238,48 @@ public class StarterTaskFour extends BaseStarterTask {
     public boolean runOnMainThread() {
         return false;
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getAppSize(final Context context, String packageName) {
+        StorageStatsManager storageStatsManager = (StorageStatsManager) context.getSystemService(Context.STORAGE_STATS_SERVICE);
+        StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+        List<StorageVolume> storageVolumes = storageManager.getStorageVolumes();
+        for (StorageVolume item : storageVolumes) {
+            String uuidStr = item.getUuid();
+            UUID uuid;
+            if (uuidStr == null) {
+                uuid = StorageManager.UUID_DEFAULT;
+            } else {
+                uuid = UUID.fromString(uuidStr);
+            }
+            int uid = getUid(context, packageName);
+            //通过包名获取uid
+            StorageStats storageStats = null;
+            try {
+                storageStats = storageStatsManager.queryStatsForUid(uuid, uid);
+                //缓存大小
+                storageStats.getCacheBytes();
+                //数据大小
+                storageStats.getDataBytes();
+                //应用大小
+                storageStats.getAppBytes();
+                //应用的总大小
+                long size = storageStats.getCacheBytes() + storageStats.getDataBytes() + storageStats.getAppBytes();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public int getUid(Context context, String pakName) {
+        try {
+            return context.getPackageManager().getApplicationInfo(pakName, PackageManager.GET_META_DATA).uid;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+
 }
