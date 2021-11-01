@@ -1,0 +1,15 @@
+allprojects {
+    buildscript {
+		repositories {
+            maven { url 'https://maven.aliyun.com/repository/public/' }
+            maven { url 'https://maven.aliyun.com/repository/google/' }
+        }
+    }
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+    }
+
+    println "${it.name}: Aliyun maven mirror injected"
+}
