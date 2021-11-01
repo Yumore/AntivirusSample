@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.slack.keeper'
 apply from: "${rootDir}/common.gradle"
 
 Properties properties = new Properties()
@@ -59,19 +60,6 @@ android {
         threadCount 8
     }
 
-    packagingOptions {
-        pickFirst 'META-INF/'
-        /*
-         exclude 'project.properties'
-         exclude 'META-INF/LICENSE.txt'
-         exclude 'META-INF/LICENSE'
-         exclude 'META-INF/NOTICE.txt'
-         exclude 'META-INF/NOTICE'
-         exclude 'META-INF/DEPENDENCIES.txt'
-         exclude 'META-INF/DEPENDENCIES'
-         */
-    }
-
     signingConfigs {
         release {
             keyAlias properties.getProperty("config.keyAlias")
@@ -85,7 +73,6 @@ android {
         debug {
             debuggable true
             minifyEnabled false
-            useProguard false
             shrinkResources false
             crunchPngs false
             zipAlignEnabled false
@@ -99,7 +86,6 @@ android {
         release {
             debuggable false
             minifyEnabled true
-            useProguard true
             shrinkResources false
             crunchPngs false
             zipAlignEnabled false
@@ -110,7 +96,14 @@ android {
             buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
             buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
         }
+//        staging {
+//            initWith release
+//            debuggable true
+//            jniDebuggable true
+//        }
     }
+
+//    testBuildType = "staging"
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
@@ -125,14 +118,24 @@ android {
     }
 }
 
+//keeper {
+//    variantFilter {
+//        setIgnore(name != "staging")
+//    }
+//    emitDebugInformation = true
+//    automaticR8RepoManagement = false
+//    enableL8RuleSharing = true
+//}
+
 dependencies {
     implementation project(':baseui')
     implementation project(':starter')
     implementation project(':toasty')
     implementation project(':baseui')
+
     implementation 'com.github.getActivity:XXPermissions:12.3'
     implementation 'com.github.getActivity:TitleBar:9.2'
     implementation 'androidx.multidex:multidex:2.0.0'
-    implementation "com.github.promeg:tinypinyin:2.0.3"
-    implementation "com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3"
+
+//    keeperR8 "com.android.tools:r8:1.6.89"
 }

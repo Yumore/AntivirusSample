@@ -15,8 +15,8 @@ android {
         versionName "1.0"
     }
 
-    viewBinding {
-        enabled true
+    buildFeatures {
+        viewBinding true
     }
 
     lintOptions {
