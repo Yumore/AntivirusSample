@@ -28,7 +28,7 @@
 
 }
 -keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
-    public static java.lang.String TABLENAME;
+    public static final java.lang.String TABLENAME;
 }
 -keep class **$Properties{*;}
 -keepclassmembers class **$Properties {

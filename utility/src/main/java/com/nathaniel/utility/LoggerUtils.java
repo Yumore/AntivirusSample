@@ -58,7 +58,7 @@ public final class LoggerUtils {
     }
 
     private static void logged(@NonNull String tag, @NonNull Level level, @NonNull String message) {
-        if (!BuildConfig.debuggable) {
+        if (!BuildConfig.DEBUG) {
             return;
         }
         switch (level) {

@@ -2,6 +2,7 @@ package com.hjq.toast.dtoast;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.IntDef;
 import androidx.core.app.NotificationManagerCompat;
@@ -28,6 +29,7 @@ public class CustomToastUtils {
         //如果有通知权限，直接使用系统Toast
         //白名单中的机型没有通知权限时系统Toast也能正常展示
         if (NotificationManagerCompat.from(context).areNotificationsEnabled() || SystemToast.isValid4HookINotificationManager() || RomUtils.isWhiteList()) {
+            Log.w("CustomToastUtils-make-31-", "Toast不能正常显示");
             return new SystemToast(context);
         } else {
             //否则使用自定义Toast

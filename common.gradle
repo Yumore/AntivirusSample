@@ -47,37 +47,4 @@ android {
 //            outputFileName = "${rootProject.name}-${android.defaultConfig.versionName}.aar"
 //        }
 //    }
-
-    signingConfigs {
-        release {
-            keyAlias properties.getProperty("config.keyAlias")
-            keyPassword properties.getProperty("config.keyPassword")
-            storeFile file(properties.getProperty("config.storeFile"))
-            storePassword properties.getProperty("config.storePassword")
-        }
-    }
-
-    buildTypes {
-        debug {
-            debuggable true
-            signingConfig signingConfigs.release
-            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
-            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
-            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
-        }
-        release {
-            debuggable false
-            minifyEnabled true
-            useProguard true
-            shrinkResources false
-            crunchPngs false
-            zipAlignEnabled false
-            jniDebuggable false
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
-            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
-            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
-        }
-    }
 }

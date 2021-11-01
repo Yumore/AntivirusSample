@@ -1,5 +1,7 @@
 package com.nathaniel.sample.surface;
 
+import static com.nathaniel.utility.PermissionUtils.PERMISSION_SETTING_FOR_RESULT;
+
 import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -136,7 +138,7 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
                     startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    startActivity(getAppDetailSettingIntent());
+                    startActivity(getDetailSettingIntent());
                 }
                 break;
             case "meizu":
@@ -147,65 +149,78 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
                     startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    startActivity(getAppDetailSettingIntent());
+                    startActivity(getDetailSettingIntent());
                 }
                 break;
             case "xiaomi":
             case "redmi":
-                try { // MIUI 8
-                    intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                    intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                    intent.putExtra("extra_pkgname", getPackageName());
-                    startActivity(intent);
+                try { // MIUI 8 9
+                    Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                    localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                    localIntent.putExtra("extra_pkgname", getPackageName());
+                    startActivityForResult(localIntent, PERMISSION_SETTING_FOR_RESULT);
                 } catch (Exception e) {
                     try { // MIUI 5/6/7
-                        intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                        intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                        intent.putExtra("extra_pkgname", getPackageName());
-                        startActivity(intent);
+                        Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                        localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                        localIntent.putExtra("extra_pkgname", getPackageName());
+                        startActivityForResult(localIntent, PERMISSION_SETTING_FOR_RESULT);
                     } catch (Exception e1) { // 否则跳转到应用详情
-                        startActivity(getAppDetailSettingIntent());
+                        //startActivityForResult(getAppDetailSettingIntent(), PERMISSION_SETTING_FOR_RESULT);
+                        //这里有个问题，进入活动后需要再跳一级活动，就检测不到返回结果
+                        startActivity(getDetailSettingIntent());
                     }
                 }
                 break;
             case "sony":
-                intent = new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("packageName", getPackageName());
-                componentName = new ComponentName("com.sonymobile.cta", "com.sonymobile.cta.SomcCTAMainActivity");
-                intent.setComponent(componentName);
-                startActivity(intent);
+                try {
+                    intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("packageName", getPackageName());
+                    ComponentName comp = new ComponentName("com.sonymobile.cta", "com.sonymobile.cta.SomcCTAMainActivity");
+                    intent.setComponent(comp);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    startActivity(getDetailSettingIntent());
+                }
                 break;
             case "oppo":
-                intent = new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("packageName", getPackageName());
-                componentName = new ComponentName("com.color.safecenter", "com.color.safecenter.permission.PermissionManagerActivity");
-                intent.setComponent(componentName);
-                startActivity(intent);
+                try {
+                    intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("packageName", getPackageName());
+                    componentName = new ComponentName("com.color.safecenter", "com.color.safecenter.permission.PermissionManagerActivity");
+                    intent.setComponent(componentName);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    startActivity(getDetailSettingIntent());
+                }
                 break;
             case "letv":
-                intent = new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("packageName", getPackageName());
-                componentName = new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.PermissionAndApps");
-                intent.setComponent(componentName);
+                try {
+                    intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("packageName", getPackageName());
+                    componentName = new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.PermissionAndApps");
+                    intent.setComponent(componentName);
+                } catch (Exception e) {
+                    startActivity(getDetailSettingIntent());
+                }
                 break;
             case "qihu360":
-                intent = new Intent("android.intent.action.MAIN");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("packageName", getPackageName());
-                componentName = new ComponentName("com.qihoo360.mobilesafe", "com.qihoo360.mobilesafe.ui.index.AppEnterActivity");
-                intent.setComponent(componentName);
-                startActivity(intent);
+                try {
+                    intent = new Intent("android.intent.action.MAIN");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("packageName", getPackageName());
+                    componentName = new ComponentName("com.qihoo360.mobilesafe", "com.qihoo360.mobilesafe.ui.index.AppEnterActivity");
+                    intent.setComponent(componentName);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    startActivity(getDetailSettingIntent());
+                }
                 break;
             default:
-                intent = new Intent("android.intent.action.MAIN");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("packageName", getPackageName());
-                componentName = new ComponentName("com.android.settings", "com.android.settings.Settings$AccessLockSummaryActivity");
-                intent.setComponent(componentName);
-                startActivity(intent);
+                startActivity(getDetailSettingIntent());
                 break;
         }
 
@@ -216,7 +231,7 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
             .showLong();
     }
 
-    private Intent getAppDetailSettingIntent() {
+    private Intent getDetailSettingIntent() {
         final Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {

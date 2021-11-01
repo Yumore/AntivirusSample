@@ -22,21 +22,6 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
 
     public static final String TABLENAME = "PACKAGE_ENTITY";
 
-    private final StringListConverter permissionListConverter = new StringListConverter();
-    private final StringListConverter processListConverter = new StringListConverter();
-    private final StringListConverter receiverListConverter = new StringListConverter();
-    private final StringListConverter providerListConverter = new StringListConverter();
-    private final StringListConverter serviceListConverter = new StringListConverter();
-    private final StringListConverter activityListConverter = new StringListConverter();
-
-    public PackageEntityDao(DaoConfig config) {
-        super(config);
-    }
-
-    public PackageEntityDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /** Creates the underlying database table. */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists ? "IF NOT EXISTS " : "";
@@ -73,10 +58,19 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
             "\"SIZE_VALUBE\" INTEGER NOT NULL );"); // 29: sizeValube
     }
 
-    /** Drops the underlying database table. */
-    public static void dropTable(Database db, boolean ifExists) {
-        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"PACKAGE_ENTITY\"";
-        db.execSQL(sql);
+    private final StringListConverter permissionListConverter = new StringListConverter();
+    private final StringListConverter processListConverter = new StringListConverter();
+    private final StringListConverter receiverListConverter = new StringListConverter();
+    private final StringListConverter providerListConverter = new StringListConverter();
+    private final StringListConverter serviceListConverter = new StringListConverter();
+    private final StringListConverter activityListConverter = new StringListConverter();
+
+    public PackageEntityDao(DaoConfig config) {
+        super(config);
+    }
+
+    public PackageEntityDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
     }
 
     @Override
@@ -168,6 +162,14 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
         stmt.bindLong(28, entity.getDataSize());
         stmt.bindLong(29, entity.getCodeSize());
         stmt.bindLong(30, entity.getSizeValube() ? 1L : 0L);
+    }
+
+    /**
+     * Drops the underlying database table.
+     */
+    public static void dropTable(Database db, boolean ifExists) {
+        String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"PACKAGE_ENTITY\"";
+        db.execSQL(sql);
     }
 
     @Override
@@ -338,18 +340,18 @@ public class PackageEntityDao extends AbstractDao<PackageEntity, Long> {
     }
 
     @Override
+    protected final Long updateKeyAfterInsert(PackageEntity entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
+    }
+
+    @Override
     public Long getKey(PackageEntity entity) {
         if (entity != null) {
             return entity.getId();
         } else {
             return null;
         }
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(PackageEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
     }
 
     /**

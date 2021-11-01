@@ -19,8 +19,8 @@ public class ActivityToast extends CustomToast {
     /**
      * context非Activity时会抛出异常:Unable to add window -- token null is not valid; is your activity running?
      */
-    public ActivityToast(@NonNull Context mContext) {
-        super(mContext);
+    public ActivityToast(@NonNull Context context) {
+        super(context);
     }
 
     @Override
