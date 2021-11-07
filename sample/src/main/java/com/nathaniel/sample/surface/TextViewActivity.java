@@ -1,7 +1,6 @@
 package com.nathaniel.sample.surface;
 
-import com.nathaniel.baseui.AbstractActivity;
-import com.nathaniel.sample.R;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.sample.databinding.ActivityTextBinding;
 
 /**
@@ -11,7 +10,7 @@ import com.nathaniel.sample.databinding.ActivityTextBinding;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/5/18 - 21:32
  */
-public class TextViewActivity extends AbstractActivity<ActivityTextBinding> {
+public class TextViewActivity extends BaseActivity<ActivityTextBinding> {
 
     @Override
     public void loadData() {

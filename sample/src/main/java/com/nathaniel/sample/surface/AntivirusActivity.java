@@ -5,9 +5,9 @@ import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.nathaniel.baseui.AbstractActivity;
 import com.nathaniel.baseui.adapter.BaseRecyclerAdapter;
 import com.nathaniel.baseui.adapter.OnItemClickListener;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.baseui.utility.ItemDecoration;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.AntivirusAdapter;
@@ -33,7 +33,7 @@ import java.util.List;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/10/16 - 13:03
  */
-public class AntivirusActivity extends AbstractActivity<ActivityAntivirusBinding> implements OnItemClickListener, View.OnClickListener {
+public class AntivirusActivity extends BaseActivity<ActivityAntivirusBinding> implements OnItemClickListener, View.OnClickListener {
     private AntivirusAdapter antivirusAdapter;
     private List<PackageEntity> packageEntityList;
 

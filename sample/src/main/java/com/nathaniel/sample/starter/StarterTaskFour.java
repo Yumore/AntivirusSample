@@ -63,7 +63,7 @@ public class StarterTaskFour extends BaseStarterTask {
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;
             if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 1
                 || (applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1
-                || applicationInfo.packageName.equals(BuildConfig.APPLICATION_ID)) {
+                || applicationInfo.packageName.equals(BuildConfig.applicationId)) {
                 // TODO 忽略系统app和自己
                 continue;
             }

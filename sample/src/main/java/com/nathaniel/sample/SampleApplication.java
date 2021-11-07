@@ -5,7 +5,9 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.multidex.BuildConfig;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.nathaniel.baseui.BaseApplication;
 import com.nathaniel.sample.multidex.MultidexUtils;
 import com.nathaniel.sample.utility.ActivityCallback;
@@ -44,6 +46,12 @@ public class SampleApplication extends BaseApplication {
     @Override
     public void initialize(@NonNull Context context) {
         super.initialize(context);
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+        ARouter.init(application);
+
         AppUtils.getRunningTasks(getApplicationContext());
         SingletonUtils.getInstance(DaoManager.class).initialize(context);
 //        if (MultidexUtils.isMainProcess(context)) {

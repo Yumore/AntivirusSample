@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hjq.toast.ToastUtils;
-import com.nathaniel.baseui.AbstractActivity;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.ScannerAdapter;
 import com.nathaniel.sample.databinding.ActivityScannerBinding;
@@ -26,7 +26,7 @@ import java.util.List;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/7/30 - 09:56
  */
-public class ScannerActivity extends AbstractActivity<ActivityScannerBinding> implements View.OnClickListener {
+public class ScannerActivity extends BaseActivity<ActivityScannerBinding> implements View.OnClickListener {
     private ScannerAdapter scannerAdapter;
     private List<PathEntity> pathEntityList;
     private String rootPath;

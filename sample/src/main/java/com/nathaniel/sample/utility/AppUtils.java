@@ -40,6 +40,7 @@ import com.nathaniel.sample.BuildConfig;
 import com.nathaniel.sample.R;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
+import com.nathaniel.utility.PreferencesUtils;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.entity.PackageEntity;
 import com.nathaniel.utility.helper.PackageDaoHelper;
@@ -237,7 +238,7 @@ public class AppUtils {
         //获取电源管理器对象
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         //获取PowerManager.WakeLock对象,后面的参数|表示同时传入两个值,最后的是LogCat里用的Tag
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, BuildConfig.APPLICATION_ID + ":bright");
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, BuildConfig.applicationId + ":bright");
         //点亮屏幕
         wl.acquire();
         //释放

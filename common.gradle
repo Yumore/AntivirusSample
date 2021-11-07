@@ -1,3 +1,6 @@
+apply plugin: 'com.alibaba.arouter'
+apply from: "${rootDir}/config.gradle"
+
 Properties properties = new Properties()
 File keyStore = project.rootProject.file("config.properties")
 if (keyStore.exists()) {
@@ -5,46 +8,67 @@ if (keyStore.exists()) {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildFeatures {
         viewBinding true
     }
 
-    lintOptions {
-        abortOnError false
-        disable "NewApi"
-        checkReleaseBuilds false
-        disable 'MissingTranslation'
-        ignoreWarnings true
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
+            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
+            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.applicationId")}.fileprovider\""
+        }
+        release {
+            buildConfigField "boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
+            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
+            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.applicationId")}.fileprovider\""
+        }
     }
 
-    aaptOptions {
-        cruncherEnabled false
-    }
+}
 
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
+//afterEvaluate {
+//    // 排除 BuildConfig.class 和 R.class
+//    generateReleaseBuildConfig.enabled = false
+//    generateDebugBuildConfig.enabled = false
+//    generateReleaseResValues.enabled = false
+//    generateDebugResValues.enabled = false
+//}
 
-    packagingOptions {
-        // 剔除这个包下的所有文件（不会移除签名信息）
-        exclude 'META-INF/*******'
-    }
+//tasks.withType(Javadoc) {
+//    options.addStringOption('Xdoclint:none', '-quiet')
+//    options.addStringOption('encoding', 'UTF-8')
+//    options.addStringOption('charSet', 'UTF-8')
+//}
 
-//    android.libraryVariants.all { variant ->
-//        // aar 输出文件名配置
-//        variant.outputs.all { output ->
-//            outputFileName = "${rootProject.name}-${android.defaultConfig.versionName}.aar"
-//        }
-//    }
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}
+
+dependencies {
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 }

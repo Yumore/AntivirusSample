@@ -1,141 +1,14 @@
-apply plugin: 'com.android.application'
-//apply plugin: 'com.slack.keeper'
+apply plugin: 'com.android.library'
 apply from: "${rootDir}/common.gradle"
 
-Properties properties = new Properties()
-File configFile = project.rootProject.file("config.properties")
-if (configFile.exists() && configFile.canRead()) {
-    properties.load(configFile.newDataInputStream())
-} else {
-    throw new GradleException("Could not find config.properties or cannot readable!")
-}
-
-def increaseVersionCode() {
-    def configFile = project.rootProject.file("config.properties")
-    if (configFile.exists() && configFile.canRead()) {
-        Properties properties = new Properties()
-        properties.load(new FileInputStream(configFile))
-        def versionCode = properties.getProperty("config.versionCode") as Integer
-        def runTasks = gradle.startParameter.taskNames
-        def realTask = ":sample:assembleRelease"
-        if (realTask in runTasks) {
-            versionCode += 1
-            project.logger.error("realTask: ${realTask}, versionCode: ${versionCode}")
-            properties['config.versionCode'] = versionCode.toString()
-            properties.store(configFile.newWriter(), null)
-        }
-        return versionCode
-    } else {
-        throw new GradleException("Could not find config.properties or cannot readable!")
-    }
-}
-
-
-android {
-    defaultConfig {
-        applicationId "${properties.getProperty("config.applicationId")}"
-        versionCode increaseVersionCode() as Integer
-        versionName "${properties.getProperty("config.versionName")}"
-        multiDexEnabled true
-
-        ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-        }
-    }
-
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-            universalApk true
-        }
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-        jumboMode true
-        preDexLibraries true
-        maxProcessCount 4
-        threadCount 8
-    }
-
-    signingConfigs {
-        release {
-            keyAlias properties.getProperty("config.keyAlias")
-            keyPassword properties.getProperty("config.keyPassword")
-            storeFile file(properties.getProperty("config.storeFile"))
-            storePassword properties.getProperty("config.storePassword")
-        }
-    }
-
-    buildTypes {
-        debug {
-            debuggable true
-            minifyEnabled false
-            shrinkResources false
-            crunchPngs false
-            zipAlignEnabled false
-            jniDebuggable true
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
-            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
-            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
-        }
-        release {
-            debuggable false
-            minifyEnabled true
-            shrinkResources false
-            crunchPngs false
-            zipAlignEnabled false
-            jniDebuggable false
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "applicationId", "\"${properties.getProperty("config.applicationId")}\""
-            buildConfigField "Boolean", "debuggable", "${properties.getProperty("config.debuggable")}"
-            buildConfigField "String", "fileProviderName", "\"${properties.getProperty("config.fileProvider")}\""
-        }
-//        staging {
-//            initWith release
-//            debuggable true
-//            jniDebuggable true
-//        }
-    }
-
-//    testBuildType = "staging"
-
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def buildTime = new Date().format("yyyyMMddHHmm")
-            def abi = output.getFilter(com.android.build.OutputFile.ABI)
-            if (abi == null) abi = "all"
-            if (variant.name.toLowerCase().contains("release")) {
-                outputFileName = "${project.rootDir.name}-${buildTime}-${abi}-${defaultConfig.versionName}-${variant.buildType.name}.apk"
-                project.logger.error("outputFileName: ${outputFileName}")
-            }
-        }
-    }
-}
-
-//keeper {
-//    variantFilter {
-//        setIgnore(name != "staging")
-//    }
-//    emitDebugInformation = true
-//    automaticR8RepoManagement = false
-//    enableL8RuleSharing = true
-//}
 
 dependencies {
-    implementation project(':baseui')
     implementation project(':starter')
-    implementation project(':toasty')
-    implementation project(':baseui')
+    api project(':baseui')
 
     implementation 'com.github.getActivity:XXPermissions:12.3'
     implementation 'com.github.getActivity:TitleBar:9.2'
-    implementation 'androidx.multidex:multidex:2.0.0'
+    api 'androidx.multidex:multidex:2.0.0'
 
 //    keeperR8 "com.android.tools:r8:1.6.89"
 }

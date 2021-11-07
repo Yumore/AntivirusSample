@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <string name="traction_goto_app_tips">立即使用</string>
+    <string name="traction_jump_await_tips">跳过\n%d</string>
+</resources>

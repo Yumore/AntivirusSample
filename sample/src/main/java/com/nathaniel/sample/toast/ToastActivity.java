@@ -18,7 +18,7 @@ import com.hjq.toast.draggable.MovingDraggable;
 import com.hjq.toast.draggable.SpringDraggable;
 import com.hjq.toast.style.BlackToastStyle;
 import com.hjq.toast.style.WhiteToastStyle;
-import com.nathaniel.baseui.AbstractActivity;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.databinding.ActivityToastBinding;
 import com.nathaniel.utility.ThreadManager;
@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @author Nathaniel
  */
-public final class ToastActivity extends AbstractActivity<ActivityToastBinding> implements View.OnClickListener {
+public final class ToastActivity extends BaseActivity<ActivityToastBinding> implements View.OnClickListener {
     @Override
     protected ActivityToastBinding initViewBinding() {
         return ActivityToastBinding.inflate(getLayoutInflater());

@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.nathaniel.baseui.AbstractActivity;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.baseui.utility.ItemDecoration;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.PackageAdapter;
@@ -34,10 +34,10 @@ import com.nathaniel.sample.databinding.ActivityPackageBinding;
 import com.nathaniel.sample.module.AntivirusModule;
 import com.nathaniel.sample.utility.AppUtils;
 import com.nathaniel.sample.utility.DataUtils;
-import com.nathaniel.sample.utility.PreferencesUtils;
 import com.nathaniel.utility.AbstractTask;
 import com.nathaniel.utility.EmptyUtils;
 import com.nathaniel.utility.LoggerUtils;
+import com.nathaniel.utility.PreferencesUtils;
 import com.nathaniel.utility.SingletonUtils;
 import com.nathaniel.utility.ThreadManager;
 import com.nathaniel.utility.entity.PackageEntity;
@@ -55,7 +55,7 @@ import java.util.List;
  * @package com.nathaniel.sample
  * @datetime 4/29/21 - 7:33 PM
  */
-public class PackageActivity extends AbstractActivity<ActivityPackageBinding> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+public class PackageActivity extends BaseActivity<ActivityPackageBinding> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
     private static final int HANDLER_WHAT_REFRESH = 0x0101;
     private static final long DELAY_MILLIS = 1000L;
     private static final String TAG = PackageActivity.class.getSimpleName();
@@ -319,16 +319,11 @@ public class PackageActivity extends AbstractActivity<ActivityPackageBinding> im
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.common_header_back_iv:
-                finish();
-                break;
-            case R.id.common_header_option_tv:
-                Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
-                startActivity(intent);
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.common_header_back_iv) {
+            finish();
+        } else if (view.getId() == R.id.common_header_option_tv) {
+            Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
+            startActivity(intent);
         }
     }
 }

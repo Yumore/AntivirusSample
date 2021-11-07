@@ -4,7 +4,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.nathaniel.baseui.AbstractActivity;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.DetailAdapter;
 import com.nathaniel.sample.databinding.ActivityApplicationBinding;
@@ -23,7 +23,7 @@ import java.util.List;
  * @package com.nathaniel.sample.surface
  * @datetime 2021/10/17 - 8:25
  */
-public class ApplicationActivity extends AbstractActivity<ActivityApplicationBinding> implements View.OnClickListener {
+public class ApplicationActivity extends BaseActivity<ActivityApplicationBinding> implements View.OnClickListener {
     private PackageEntity packageEntity;
     private DetailAdapter detailAdapter;
 

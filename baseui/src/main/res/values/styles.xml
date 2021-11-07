@@ -42,4 +42,17 @@
         <item name="android:textSize">@dimen/common_text_size_middle</item>
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="WindowTheme" parent="@android:style/Theme.Translucent">
+        <item name="android:windowEnterAnimation">@anim/slide_right_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_right_out</item>
+        <!--马上要进入到的Activity的动画,页面B-->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <!--马上要推到后台或者finish的Activity的动画,页面A-->
+        <item name="android:activityOpenExitAnimation">@anim/slide_right_silent</item>
+        <!--退出即将回到的Activity的动画,页面A-->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_right_silent</item>
+        <!--当前即将finish退出的Activity的动画,页面B-->
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
 </resources>

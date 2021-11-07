@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="traction_goto_app_tips">Start Now</string>
+    <string name="traction_jump_await_tips">Skip\n%d</string>
+</resources>

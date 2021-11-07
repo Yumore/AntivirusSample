@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.hjq.toast.ToastUtils;
 import com.hjq.toast.dtoast.CustomToastUtils;
-import com.nathaniel.baseui.AbstractActivity;
+import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.baseui.widget.CustomDialog;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.databinding.ActivityNavigateBinding;
@@ -41,7 +41,7 @@ import java.util.Locale;
 /**
  * @author nathaniel
  */
-public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> implements View.OnClickListener {
+public class NavigateActivity extends BaseActivity<ActivityNavigateBinding> implements View.OnClickListener {
     private static final int REQUEST_CODE_STORAGE = 0x1001;
     private static final String TAG = NavigateActivity.class.getSimpleName();
 
@@ -69,64 +69,54 @@ public class NavigateActivity extends AbstractActivity<ActivityNavigateBinding> 
     @Override
     public void onClick(View view) {
         RxPermissions permissions = new RxPermissions(getActivity());
-        switch (view.getId()) {
-            case R.id.btn_package:
-                permissions.setLogging(true);
-                permissions.request(Manifest.permission.READ_PHONE_STATE)
-                    .subscribe(granted -> {
-                        if (granted) {
-                            startActivity(new Intent(getActivity(), PackageActivity.class));
-                        } else {
-                            Toast.makeText(getActivity(), "没有权限将无法获取单个app的流量信息", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                break;
-            case R.id.btn_text:
-                startActivity(new Intent(getActivity(), TextViewActivity.class));
-                break;
-            case R.id.btn_scanner:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if (Environment.isExternalStorageManager()) {
-                        startActivity(new Intent(getActivity(), ScannerActivity.class));
+        if (view.getId() == R.id.btn_package) {
+            permissions.setLogging(true);
+            permissions.request(Manifest.permission.READ_PHONE_STATE)
+                .subscribe(granted -> {
+                    if (granted) {
+                        startActivity(new Intent(getActivity(), PackageActivity.class));
                     } else {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivityForResult(intent, REQUEST_CODE_STORAGE);
+                        Toast.makeText(getActivity(), "没有权限将无法获取单个app的流量信息", Toast.LENGTH_SHORT).show();
                     }
+                });
+        } else if (view.getId() == R.id.btn_text) {
+            startActivity(new Intent(getActivity(), TextViewActivity.class));
+        } else if (view.getId() == R.id.btn_scanner) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    startActivity(new Intent(getActivity(), ScannerActivity.class));
                 } else {
-                    permissions.setLogging(true);
-                    permissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .subscribe(this::gotoScanner);
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    startActivityForResult(intent, REQUEST_CODE_STORAGE);
                 }
-                break;
-            case R.id.btn_antivirus:
-                startActivity(new Intent(getActivity(), AntivirusActivity.class));
-                break;
-            case R.id.btn_toast:
-                startActivity(new Intent(getActivity(), ToastActivity.class));
-                break;
-            case R.id.btn_setting:
-                Uri packageUri = Uri.parse(String.format("package:%s", getPackageName()));
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
-                startActivity(intent);
+            } else {
+                permissions.setLogging(true);
+                permissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .subscribe(this::gotoScanner);
+            }
+        } else if (view.getId() == R.id.btn_antivirus) {
+            startActivity(new Intent(getActivity(), AntivirusActivity.class));
+        } else if (view.getId() == R.id.btn_toast) {
+            startActivity(new Intent(getActivity(), ToastActivity.class));
+        } else if (view.getId() == R.id.btn_setting) {
+            Uri packageUri = Uri.parse(String.format("package:%s", getPackageName()));
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
+            startActivity(intent);
 
-                CustomToastUtils.make(getActivity())
-                    .setView(View.inflate(getActivity(), R.layout.five_star_toast, null))
-                    .setText(R.id.tv_content_custom, "======================msg=============================")
-                    .setGravity(Gravity.CENTER, 0, 0)
-                    .showLong();
-                break;
-            case R.id.btn_setting2:
-                gotoRomSettings();
-                break;
-            default:
-                break;
+            CustomToastUtils.make(getActivity())
+                .setView(View.inflate(getActivity(), R.layout.five_star_toast, null))
+                .setText(R.id.tv_content_custom, "======================msg=============================")
+                .setGravity(Gravity.CENTER, 0, 0)
+                .showLong();
+        } else if (view.getId() == R.id.btn_setting2) {
+            gotoRomSettings();
         }
     }
 
     private void gotoRomSettings() {
-        Intent intent = new Intent();
-        ComponentName componentName = null;
+        Intent intent;
+        ComponentName componentName;
         switch (Build.MANUFACTURER.toLowerCase(Locale.ROOT)) {
             case "huawei":
                 try {

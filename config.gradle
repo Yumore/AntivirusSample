@@ -1,0 +1,40 @@
+android {
+    compileSdkVersion 31
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+    }
+
+    lintOptions {
+        abortOnError false
+        disable "NewApi"
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+        ignoreWarnings true
+    }
+
+    aaptOptions {
+        cruncherEnabled false
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+//    android.libraryVariants.all { variant ->
+//        // aar 输出文件名配置
+//        variant.outputs.all { output ->
+//            outputFileName = "${project.name}-${android.defaultConfig.versionName}.aar"
+//        }
+//    }
+
+//    packagingOptions {
+//        // 剔除这个包下的所有文件（不会移除签名信息）
+//        exclude 'META-INF/*******'
+//    }
+}
