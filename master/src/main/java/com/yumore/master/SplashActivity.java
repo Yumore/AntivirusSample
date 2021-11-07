@@ -10,10 +10,12 @@ import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.nathaniel.baseui.surface.BaseActivity;
 import com.nathaniel.sample.surface.NavigateActivity;
 import com.nathaniel.utility.LoggerUtils;
 import com.nathaniel.utility.PreferencesUtils;
+import com.nathaniel.utility.RouterConstants;
 import com.yumore.master.databinding.ActivitySplashBinding;
 
 
@@ -22,7 +24,6 @@ import com.yumore.master.databinding.ActivitySplashBinding;
  */
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     private static final int DELAY_MILLS = 2000;
-    private Class<?> clazz;
 
     @Override
     protected ActivitySplashBinding initViewBinding() {
@@ -46,18 +47,18 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+            WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+            layoutParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            getWindow().setAttributes(layoutParams);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
 
     @Override
     public void loadData() {
-        LoggerUtils.logger(LoggerUtils.TAG, "WelcomeActivity-loadData-31-->",
+        LoggerUtils.logger("WelcomeActivity-loadData-31-->",
             PreferencesUtils.getInstance(getApplicationContext()).getIntroduceEnable(),
             PreferencesUtils.getInstance(getApplicationContext()).getTractionEnable());
-
-//        clazz = PreferencesUtils.getInstance(getApplicationContext()).getIntroduceEnable() ?
-//            PreferencesUtils.getInstance(getApplicationContext()).getTractionEnable() ?
-//                NavigateActivity.class : TractionActivity.class : IntroduceActivity.class;
     }
 
     @Override
@@ -72,19 +73,15 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
     @Override
     public void bindView() {
-        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        getWindow().setAttributes(layoutParams);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this, NavigateActivity.class));
+            if (PreferencesUtils.getInstance(getApplicationContext()).getIntroduceEnable()) {
+                ARouter.getInstance().build(RouterConstants.INTRODUCE_HOME).navigation();
+            } else if (PreferencesUtils.getInstance(getApplicationContext()).getTractionEnable()) {
+                ARouter.getInstance().build(RouterConstants.TRACTION_HOME).navigation();
+            } else {
+                startActivity(new Intent(SplashActivity.this, NavigateActivity.class));
+            }
             finish();
-        }, 3_000);
-
-//        new Handler(getMainLooper()).postDelayed(() -> {
-//            Intent intent = new Intent(getApplicationContext(), clazz);
-//            startActivity(intent);
-//            finish();
-//        }, DELAY_MILLS);
+        }, DELAY_MILLS);
     }
 }
