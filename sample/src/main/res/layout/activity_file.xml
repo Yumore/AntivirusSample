@@ -21,10 +21,9 @@
                 android:text="扫描信息" />
 
             <Button
-                android:id="@+id/scanBtn"
+                android:id="@+id/start_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="startOneScan"
                 android:text="one Scan File 扫描文件 1"
                 android:textAllCaps="false" />
 
@@ -36,28 +35,25 @@
                 android:text="扫描2信息" />
 
             <Button
+                android:id="@+id/start_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="startTwoScan"
                 android:text="two Scan File 扫描文件 2"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/scan_together"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="scanTogether"
                 android:text="one two Scan together 1 , 2 一起扫描"
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/stopBtn"
+                android:id="@+id/stop_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="stopScan"
                 android:text="Stop   Scan 停止扫描"
                 android:textAllCaps="false" />
-
-
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

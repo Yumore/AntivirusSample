@@ -3,6 +3,7 @@ package com.yumore.traction;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,8 +11,6 @@ import androidx.annotation.NonNull;
 import com.nathaniel.baseui.callback.OnFragmentToActivity;
 import com.nathaniel.baseui.surface.BaseFragment;
 import com.yumore.traction.databinding.FragmentTractionBinding;
-
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Nathaniel
@@ -31,48 +30,48 @@ public class TractionFragment extends BaseFragment<FragmentTractionBinding> impl
     }
 
     @Override
+    protected FragmentTractionBinding initViewBinding(LayoutInflater layoutInflater, ViewGroup viewGroup, boolean attachToParent) {
+        return FragmentTractionBinding.inflate(layoutInflater, viewGroup, false);
+    }
+
+    @Override
     public void loadData() {
         if (getArguments() == null) {
             return;
         }
         int videoRes = getArguments().getInt("res");
         currentPage = getArguments().getInt("page");
-        getBinding().videoView.setVideoPath("android.resource://" + getContext().getPackageName() + "/" + videoRes);
-    }
-
-    @Override
-    protected void lazyLoad() {
-
+        viewBinding.videoView.setVideoPath("android.resource://" + getContext().getPackageName() + "/" + videoRes);
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        getBinding().videoView.requestFocus();
-        getBinding().videoView.seekTo(0);
-        getBinding().videoView.start();
-        getBinding().videoView.setOnCompletionListener(this);
+        viewBinding.videoView.requestFocus();
+        viewBinding.videoView.seekTo(0);
+        viewBinding.videoView.start();
+        viewBinding.videoView.setOnCompletionListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (paused) {
-            getBinding().videoView.seekTo(currentPage);
-            getBinding().videoView.resume();
+            viewBinding.videoView.seekTo(currentPage);
+            viewBinding.videoView.resume();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        currentPage = getBinding().videoView.getCurrentPosition();
+        currentPage = viewBinding.videoView.getCurrentPosition();
         paused = true;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getBinding().videoView.stopPlayback();
+        viewBinding.videoView.stopPlayback();
     }
 
     @Override
@@ -82,14 +81,8 @@ public class TractionFragment extends BaseFragment<FragmentTractionBinding> impl
         }
     }
 
-    @NonNull
-    @Override
-    protected FragmentTractionBinding getViewBinding(@Nullable ViewGroup viewGroup) {
-        return FragmentTractionBinding.inflate(getLayoutInflater());
-    }
-
     @Override
     public void bindView() {
-        getBinding().videoView.setOnPreparedListener(this);
+        viewBinding.videoView.setOnPreparedListener(this);
     }
 }

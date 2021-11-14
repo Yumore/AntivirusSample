@@ -1,23 +1,17 @@
 package com.yumore.introduce;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
+import com.nathaniel.baseui.surface.BaseFragment;
 import com.yumore.introduce.databinding.FragmentIntroduceBinding;
 
 
 /**
  * @author nathaniel
  */
-public class IntroduceFragment extends Fragment {
+public class IntroduceFragment extends BaseFragment<FragmentIntroduceBinding> {
     private final int imageResource;
-    private FragmentIntroduceBinding introduceBinding;
 
     private IntroduceFragment(int imageResource) {
         this.imageResource = imageResource;
@@ -29,14 +23,17 @@ public class IntroduceFragment extends Fragment {
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected FragmentIntroduceBinding initViewBinding(LayoutInflater layoutInflater, ViewGroup viewGroup, boolean attachToParent) {
+        return FragmentIntroduceBinding.inflate(layoutInflater, viewGroup, isAttachToRoot());
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        introduceBinding = FragmentIntroduceBinding.inflate(inflater);
-        introduceBinding.tractionImageIv.setImageResource(imageResource);
-        return introduceBinding.getRoot();
+    public void loadData() {
+
+    }
+
+    @Override
+    public void bindView() {
+        viewBinding.tractionImageIv.setImageResource(imageResource);
     }
 }

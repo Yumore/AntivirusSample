@@ -73,6 +73,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".surface.FileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="vi.filepicker"

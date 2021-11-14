@@ -42,4 +42,9 @@
         android:id="@+id/btn_setting2"
         style="@style/ButtonStyle"
         android:text="权限管理" />
+
+    <Button
+        android:id="@+id/kotlin_coroutines"
+        style="@style/ButtonStyle"
+        android:text="Kotlin携程" />
 </LinearLayout>

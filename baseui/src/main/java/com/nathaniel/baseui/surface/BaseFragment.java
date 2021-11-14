@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewbinding.ViewBinding;
 
 import com.gyf.immersionbar.BarHide;
@@ -37,13 +36,11 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment impl
     protected VB viewBinding;
     private AlertDialog alertDialog;
     private Context context;
-    private FragmentActivity fragmentActivity;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
-        fragmentActivity = (FragmentActivity) context;
         requireFragmentManager().registerFragmentLifecycleCallbacks(new FragmentCallback(), true);
     }
 
@@ -54,14 +51,31 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment impl
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewBinding = initViewBinding(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup container, Bundle savedInstanceState) {
+        viewBinding = initViewBinding(layoutInflater, container, isAttachToRoot());
         loadData();
-        bindView();
         return viewBinding.getRoot();
     }
 
-    protected abstract VB initViewBinding(LayoutInflater inflater, ViewGroup viewGroup, boolean attachToRoot);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bindView();
+    }
+
+    protected boolean isAttachToRoot() {
+        return false;
+    }
+
+    /**
+     * 初始化
+     *
+     * @param layoutInflater LayoutInflater
+     * @param viewGroup      ViewGroup
+     * @param attachToParent attach to parent
+     * @return VB extends ViewBinding
+     */
+    protected abstract VB initViewBinding(LayoutInflater layoutInflater, ViewGroup viewGroup, boolean attachToParent);
 
     @Override
     public boolean immersionEnable() {
@@ -177,10 +191,20 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment impl
 
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (!EmptyUtils.isEmpty(viewBinding)) {
             viewBinding = null;
         }
+    }
+
+    @NonNull
+    @Override
+    public Context getContext() {
+        Context ctx = super.getContext();
+        if (EmptyUtils.isEmpty(ctx)) {
+            ctx = context;
+        }
+        return ctx;
     }
 }

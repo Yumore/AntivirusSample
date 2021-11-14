@@ -64,6 +64,7 @@ public class NavigateActivity extends BaseActivity<ActivityNavigateBinding> impl
         viewBinding.btnToast.setOnClickListener(this);
         viewBinding.btnSetting.setOnClickListener(this);
         viewBinding.btnSetting2.setOnClickListener(this);
+        viewBinding.kotlinCoroutines.setOnClickListener(this);
     }
 
     @Override
@@ -111,6 +112,8 @@ public class NavigateActivity extends BaseActivity<ActivityNavigateBinding> impl
                 .showLong();
         } else if (view.getId() == R.id.btn_setting2) {
             gotoRomSettings();
+        } else if (view.getId() == R.id.kotlin_coroutines) {
+            startActivity(new Intent(getActivity(), FileActivity.class));
         }
     }
 

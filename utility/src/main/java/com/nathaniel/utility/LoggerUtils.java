@@ -12,10 +12,18 @@ import com.google.gson.Gson;
  */
 public final class LoggerUtils {
     public static final String TAG = LoggerUtils.class.getSimpleName();
+    private static final Gson GSON = new Gson();
 
     public static <T> void logger(T t) {
-        final Gson gson = new Gson();
-        logger(gson.toJson(t));
+        logger(Level.DEBUG, t);
+    }
+
+    public static <T> void logger(Level level, T t) {
+        if (t instanceof CharSequence) {
+            logger(level, t);
+        } else {
+            logger(level, GSON.toJson(t));
+        }
     }
 
     @SafeVarargs
@@ -34,9 +42,7 @@ public final class LoggerUtils {
         logger(stringBuilder.toString());
     }
 
-    private static void logger(String message) {
-        final Level level = Level.DEBUG;
-        final String tag = LoggerUtils.TAG;
+    private static void logger(Level level, String message) {
         if (EmptyUtils.isEmpty(message)) {
             message = "logger message is empty in " + LoggerUtils.class.getSimpleName();
         }
@@ -47,11 +53,11 @@ public final class LoggerUtils {
         int passage = (message.length() + maxLength) / maxLength;
         for (int index = 0; index < passage; index++) {
             if (length > ending) {
-                logged(tag, level, message.substring(started, ending));
+                logged(LoggerUtils.TAG, level, message.substring(started, ending));
                 started = ending;
                 ending = ending + maxLength;
             } else {
-                logged(tag, level, message.substring(started, length));
+                logged(LoggerUtils.TAG, level, message.substring(started, length));
                 break;
             }
         }
