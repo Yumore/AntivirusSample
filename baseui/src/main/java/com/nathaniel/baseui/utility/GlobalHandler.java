@@ -37,9 +37,22 @@ public final class GlobalHandler extends Handler {
         this.handlerCallback = handlerCallback;
     }
 
+    public void postDelayedMessage(int messageId, long delayTime) {
+        getInstance().postDelayed(() -> {
+            getInstance().sendEmptyMessage(messageId);
+        }, delayTime);
+    }
+
+    public void postDelayedMessage(Message message, long delayTime) {
+        getInstance().postDelayed(() -> {
+            getInstance().sendMessage(message);
+        }, delayTime);
+    }
+
     @Override
     public void handleMessage(@NonNull Message message) {
         super.handleMessage(message);
+        LoggerUtils.logger("GlobalHandler-handleMessage-55", message);
         if (EmptyUtils.isEmpty(handlerCallback)) {
             LoggerUtils.logger(LoggerUtils.Level.ERROR, "请传入`HandlerCallback`对象");
         } else {

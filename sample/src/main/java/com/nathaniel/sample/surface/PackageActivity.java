@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.TrafficStats;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
 import android.provider.Settings;
@@ -26,7 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.nathaniel.baseui.callback.HandlerCallback;
 import com.nathaniel.baseui.surface.BaseActivity;
+import com.nathaniel.baseui.utility.GlobalHandler;
 import com.nathaniel.baseui.utility.ItemDecoration;
 import com.nathaniel.sample.R;
 import com.nathaniel.sample.adapter.PackageAdapter;
@@ -55,17 +56,13 @@ import java.util.List;
  * @package com.nathaniel.sample
  * @datetime 4/29/21 - 7:33 PM
  */
-public class PackageActivity extends BaseActivity<ActivityPackageBinding> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+public class PackageActivity extends BaseActivity<ActivityPackageBinding> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener, HandlerCallback {
     private static final int HANDLER_WHAT_REFRESH = 0x0101;
     private static final long DELAY_MILLIS = 1000L;
     private static final String TAG = PackageActivity.class.getSimpleName();
     private final String regex = "yyyy-MM-dd HH:mm:ss";
     @SuppressLint("SimpleDateFormat")
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(regex);
-    /**
-     * 刷新页面信息的handler
-     */
-    private Handler handler;
     private PackageAdapter packageAdapter;
     private List<PackageEntity> packageEntityList, originalPackageEntityList;
     private View emptyLayout;
@@ -75,20 +72,7 @@ public class PackageActivity extends BaseActivity<ActivityPackageBinding> implem
     public void loadData() {
         packageEntityList = new ArrayList<>();
         originalPackageEntityList = new ArrayList<>();
-        handler = new Handler(getMainLooper()) {
-            @SuppressLint("DefaultLocale")
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                if (msg.what == HANDLER_WHAT_REFRESH) {
-                    bindData2Summary();
-                    new Handler(getMainLooper()).postDelayed(() -> {
-                        handler.sendEmptyMessage(HANDLER_WHAT_REFRESH);
-                    }, DELAY_MILLIS);
-                } else {
-                    super.handleMessage(msg);
-                }
-            }
-        };
+        GlobalHandler.getInstance().setHandlerCallback(this);
         packageAdapter = new PackageAdapter(R.layout.item_package_recycler_list, packageEntityList);
         emptyLayout = getLayoutInflater().inflate(R.layout.common_empty_layout, null);
     }
@@ -183,7 +167,7 @@ public class PackageActivity extends BaseActivity<ActivityPackageBinding> implem
 
     private void scannerPackage() {
         LoggerUtils.logger(TAG, "READ_PRIVILEGED_PHONE_STATE 已經拿到");
-        handler.sendEmptyMessage(HANDLER_WHAT_REFRESH);
+        GlobalHandler.getInstance().sendEmptyMessage(HANDLER_WHAT_REFRESH);
         ThreadManager.getInstance().executor(new AbstractTask<List<PackageEntity>>() {
             @Override
             public void prepareRunnable() {
@@ -205,6 +189,9 @@ public class PackageActivity extends BaseActivity<ActivityPackageBinding> implem
             @Override
             protected List<PackageEntity> doRunnableCode() {
                 List<PackageEntity> packageEntities = SingletonUtils.getSingleton(AntivirusModule.class).getPackageEntities();
+                if (EmptyUtils.isEmpty(packageEntities)) {
+                    packageEntities = new ArrayList<>();
+                }
                 for (PackageEntity packageEntity : packageEntities) {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                         // TODO 需要统计重启机器的
@@ -213,7 +200,6 @@ public class PackageActivity extends BaseActivity<ActivityPackageBinding> implem
                         packageEntity.setMobileTotal(packageEntity.getMobileRx() + packageEntity.getMobileTx());
                     } else {
                         NetworkStatsManager networkStatsManager = (NetworkStatsManager) getActivity().getSystemService(Context.NETWORK_STATS_SERVICE);
-//                        获取subscriberId
                         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                         String subscriberId;
                         try {
@@ -310,10 +296,7 @@ public class PackageActivity extends BaseActivity<ActivityPackageBinding> implem
 
     @Override
     protected void onDestroy() {
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-            handler = null;
-        }
+        GlobalHandler.getInstance().removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -324,6 +307,14 @@ public class PackageActivity extends BaseActivity<ActivityPackageBinding> implem
         } else if (view.getId() == R.id.common_header_option_tv) {
             Intent intent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void handleMessage(@NonNull Message message) {
+        if (message.what == HANDLER_WHAT_REFRESH) {
+            bindData2Summary();
+            GlobalHandler.getInstance().postDelayedMessage(HANDLER_WHAT_REFRESH, DELAY_MILLIS);
         }
     }
 }
