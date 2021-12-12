@@ -52,7 +52,6 @@ public final class GlobalHandler extends Handler {
     @Override
     public void handleMessage(@NonNull Message message) {
         super.handleMessage(message);
-        LoggerUtils.logger("GlobalHandler-handleMessage-55", message);
         if (EmptyUtils.isEmpty(handlerCallback)) {
             LoggerUtils.logger(LoggerUtils.Level.ERROR, "请传入`HandlerCallback`对象");
         } else {

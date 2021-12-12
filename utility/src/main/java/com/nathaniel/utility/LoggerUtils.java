@@ -24,7 +24,11 @@ public final class LoggerUtils {
             stringBuilder.append("logger message is empty in ").append(TAG);
         } else {
             for (int i = 0; i < ts.length; i++) {
-                stringBuilder.append(new Gson().toJson(ts[i]));
+                if (ts[i] instanceof CharSequence) {
+                    stringBuilder.append(ts[i]);
+                } else {
+                    stringBuilder.append(new Gson().toJson(ts[i]));
+                }
                 if (i < ts.length - 1) {
                     stringBuilder.append(" - ");
                 }

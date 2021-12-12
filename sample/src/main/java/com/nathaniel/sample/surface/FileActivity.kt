@@ -74,7 +74,8 @@ class FileActivity : BaseActivity<ActivityFileBinding>(), View.OnClickListener {
                     i = 0
                     //20次回调一次，减少页面刷新频次
                     GlobalScope.launch(Dispatchers.Main) {
-                        viewBinding.scanInfoTv.text = file.absolutePath//展示过程 Show the process
+                        //展示过程 Show the process
+                        viewBinding.scanInfoTv.text = file.absolutePath
                     }
                 } else {
                     i++
